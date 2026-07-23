@@ -88,6 +88,19 @@ if (!existsSync(workflowPath)) {
   if (!workflow.includes('MAKE_API_KEY: ${{ secrets.MAKE_API_KEY }}')) errors.push('.github/workflows/deploy-development.yml: Make token must come from the repository secret');
 }
 
+const deployPath = join(root, 'scripts/deploy.mjs');
+if (!existsSync(deployPath)) {
+  errors.push('scripts/deploy.mjs: required deployment script is missing');
+} else {
+  const deploy = readFileSync(deployPath, 'utf8');
+  if (!deploy.includes("'sdk-modules',\n    'set-public'")) {
+    errors.push('scripts/deploy.mjs: every reviewed module must be made visible for private scenario testing');
+  }
+  if (deploy.includes("'sdk-modules', 'set-private'")) {
+    errors.push('scripts/deploy.mjs: reviewed modules must not be hidden');
+  }
+}
+
 const dependabotPath = join(root, '.github/dependabot.yml');
 if (!existsSync(dependabotPath)) {
   errors.push('.github/dependabot.yml: weekly GitHub Actions updates are missing');

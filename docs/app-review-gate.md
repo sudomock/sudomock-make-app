@@ -54,6 +54,7 @@ Primary rules:
 
 ## Private testing
 
+- [ ] All reviewed modules are visible in the scenario builder while the app itself remains private.
 - [ ] A private scenario uses every module at least once and finishes without errors.
 - [ ] Search modules are last on separate routes and their logs demonstrate pagination.
 - [ ] A separate scenario demonstrates a safe, expected API error.
