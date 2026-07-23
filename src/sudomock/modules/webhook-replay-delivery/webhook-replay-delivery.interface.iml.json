@@ -1,0 +1,12 @@
+[
+  {
+    "name": "status",
+    "label": "Status",
+    "type": "text"
+  },
+  {
+    "name": "delivery_id",
+    "label": "Delivery ID",
+    "type": "uuid"
+  }
+]

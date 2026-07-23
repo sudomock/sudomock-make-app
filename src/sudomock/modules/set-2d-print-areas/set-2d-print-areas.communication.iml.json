@@ -1,0 +1,10 @@
+{
+  "url": "/sudoai/2d-mockups/{{parameters.mockup_uuid}}/print-areas",
+  "method": "PUT",
+  "body": {
+    "print_areas": "{{parameters.print_areas}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "url": "https://api.sudomock.com/api/v1/me",
+  "method": "GET",
+  "headers": {
+    "X-API-KEY": "{{parameters.apiKey}}"
+  },
+  "response": {
+    "valid": "{{statusCode === 200 && body.success}}",
+    "metadata": {
+      "type": "email",
+      "value": "{{body.data.account.email}}"
+    },
+    "error": {
+      "message": "[{{statusCode}}] {{ifempty(body.detail, body.message)}}"
+    }
+  },
+  "log": {
+    "sanitize": [
+      "request.headers.`X-API-KEY`"
+    ]
+  }
+}

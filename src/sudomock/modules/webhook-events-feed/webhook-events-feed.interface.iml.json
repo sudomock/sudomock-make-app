@@ -1,0 +1,52 @@
+[
+  {
+    "name": "id",
+    "label": "ID",
+    "type": "uuid"
+  },
+  {
+    "name": "endpoint_id",
+    "label": "Endpoint ID",
+    "type": "uuid"
+  },
+  {
+    "name": "job_id",
+    "label": "Job ID",
+    "type": "uuid"
+  },
+  {
+    "name": "event_type",
+    "label": "Event type",
+    "type": "text"
+  },
+  {
+    "name": "status",
+    "label": "Status",
+    "type": "text"
+  },
+  {
+    "name": "http_status",
+    "label": "HTTP status",
+    "type": "integer"
+  },
+  {
+    "name": "attempt",
+    "label": "Attempt",
+    "type": "integer"
+  },
+  {
+    "name": "last_error",
+    "label": "Last error",
+    "type": "text"
+  },
+  {
+    "name": "created_at",
+    "label": "Created at",
+    "type": "date"
+  },
+  {
+    "name": "updated_at",
+    "label": "Updated at",
+    "type": "date"
+  }
+]

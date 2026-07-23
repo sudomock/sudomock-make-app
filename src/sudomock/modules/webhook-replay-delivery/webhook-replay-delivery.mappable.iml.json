@@ -1,0 +1,14 @@
+[
+  {
+    "name": "webhook_id",
+    "label": "Webhook endpoint ID",
+    "type": "uuid",
+    "required": true
+  },
+  {
+    "name": "delivery_id",
+    "label": "Delivery ID",
+    "type": "uuid",
+    "required": true
+  }
+]

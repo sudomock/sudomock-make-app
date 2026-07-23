@@ -1,0 +1,368 @@
+[
+  {
+    "name": "data",
+    "label": "Data",
+    "type": "collection",
+    "spec": [
+      {
+        "name": "uuid",
+        "label": "UUID",
+        "type": "uuid"
+      },
+      {
+        "name": "name",
+        "label": "Name",
+        "type": "text"
+      },
+      {
+        "name": "thumbnail",
+        "label": "Thumbnail",
+        "type": "url"
+      },
+      {
+        "name": "width",
+        "label": "Width",
+        "type": "integer"
+      },
+      {
+        "name": "height",
+        "label": "Height",
+        "type": "integer"
+      },
+      {
+        "name": "smart_objects",
+        "label": "Smart objects",
+        "type": "array",
+        "spec": [
+          {
+            "name": "uuid",
+            "label": "UUID",
+            "type": "uuid"
+          },
+          {
+            "name": "name",
+            "label": "Name",
+            "type": "text"
+          },
+          {
+            "name": "size",
+            "label": "Size",
+            "type": "collection",
+            "spec": [
+              {
+                "name": "width",
+                "label": "Width",
+                "type": "integer"
+              },
+              {
+                "name": "height",
+                "label": "Height",
+                "type": "integer"
+              }
+            ]
+          },
+          {
+            "name": "position",
+            "label": "Position",
+            "type": "collection",
+            "spec": [
+              {
+                "name": "x",
+                "label": "X",
+                "type": "integer"
+              },
+              {
+                "name": "y",
+                "label": "Y",
+                "type": "integer"
+              },
+              {
+                "name": "width",
+                "label": "Width",
+                "type": "integer"
+              },
+              {
+                "name": "height",
+                "label": "Height",
+                "type": "integer"
+              }
+            ]
+          },
+          {
+            "name": "print_area_presets",
+            "label": "Print area presets",
+            "type": "array",
+            "spec": [
+              {
+                "name": "uuid",
+                "label": "UUID",
+                "type": "uuid"
+              },
+              {
+                "name": "name",
+                "label": "Name",
+                "type": "text"
+              },
+              {
+                "name": "thumbnails",
+                "label": "Thumbnails",
+                "type": "array",
+                "spec": [
+                  {
+                    "name": "width",
+                    "label": "Width",
+                    "type": "integer"
+                  },
+                  {
+                    "name": "url",
+                    "label": "URL",
+                    "type": "url"
+                  }
+                ]
+              },
+              {
+                "name": "size",
+                "label": "Size",
+                "type": "collection",
+                "spec": [
+                  {
+                    "name": "width",
+                    "label": "Width",
+                    "type": "integer"
+                  },
+                  {
+                    "name": "height",
+                    "label": "Height",
+                    "type": "integer"
+                  }
+                ]
+              },
+              {
+                "name": "position",
+                "label": "Position",
+                "type": "collection",
+                "spec": [
+                  {
+                    "name": "x",
+                    "label": "X",
+                    "type": "integer"
+                  },
+                  {
+                    "name": "y",
+                    "label": "Y",
+                    "type": "integer"
+                  },
+                  {
+                    "name": "width",
+                    "label": "Width",
+                    "type": "integer"
+                  },
+                  {
+                    "name": "height",
+                    "label": "Height",
+                    "type": "integer"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "layer_name",
+            "label": "Layer name",
+            "type": "text"
+          },
+          {
+            "name": "quad",
+            "label": "Quad",
+            "type": "array",
+            "spec": {
+              "type": "array",
+              "spec": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "name": "blend_mode",
+            "label": "Blend mode",
+            "type": "text"
+          },
+          {
+            "name": "instance_count",
+            "label": "Instance count",
+            "type": "integer"
+          }
+        ]
+      },
+      {
+        "name": "text_layers",
+        "label": "Text layers",
+        "type": "array",
+        "spec": [
+          {
+            "name": "uuid",
+            "label": "UUID",
+            "type": "uuid"
+          },
+          {
+            "name": "name",
+            "label": "Name",
+            "type": "text"
+          },
+          {
+            "name": "text_content",
+            "label": "Text content",
+            "type": "text"
+          },
+          {
+            "name": "font_postscript_name",
+            "label": "Font PostScript name",
+            "type": "text"
+          },
+          {
+            "name": "font_size",
+            "label": "Font size",
+            "type": "number"
+          },
+          {
+            "name": "color",
+            "label": "Color",
+            "type": "text"
+          },
+          {
+            "name": "font_available",
+            "label": "Font available",
+            "type": "boolean"
+          },
+          {
+            "name": "is_editable",
+            "label": "Is editable",
+            "type": "boolean"
+          },
+          {
+            "name": "segment_count",
+            "label": "Segment count",
+            "type": "integer"
+          },
+          {
+            "name": "segments",
+            "label": "Segments",
+            "type": "array",
+            "spec": [
+              {
+                "name": "index",
+                "label": "Index",
+                "type": "integer"
+              },
+              {
+                "name": "text",
+                "label": "Text",
+                "type": "text"
+              },
+              {
+                "name": "font_postscript_name",
+                "label": "Font PostScript name",
+                "type": "text"
+              },
+              {
+                "name": "font_size",
+                "label": "Font size",
+                "type": "number"
+              },
+              {
+                "name": "color",
+                "label": "Color",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "name": "visible",
+            "label": "Visible",
+            "type": "boolean"
+          },
+          {
+            "name": "has_stroke_effect",
+            "label": "Has stroke effect",
+            "type": "boolean"
+          },
+          {
+            "name": "stroke_count",
+            "label": "Stroke count",
+            "type": "integer"
+          },
+          {
+            "name": "has_color_overlay",
+            "label": "Has color overlay",
+            "type": "boolean"
+          },
+          {
+            "name": "has_clipped_artwork",
+            "label": "Has clipped artwork",
+            "type": "boolean"
+          },
+          {
+            "name": "suggested_edit_together",
+            "label": "Suggested edit together",
+            "type": "array",
+            "spec": {
+              "type": "uuid"
+            }
+          }
+        ]
+      },
+      {
+        "name": "collections",
+        "label": "Collections",
+        "type": "array",
+        "spec": {
+          "type": "any"
+        }
+      },
+      {
+        "name": "thumbnails",
+        "label": "Thumbnails",
+        "type": "array",
+        "spec": [
+          {
+            "name": "width",
+            "label": "Width",
+            "type": "integer"
+          },
+          {
+            "name": "url",
+            "label": "URL",
+            "type": "url"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "success",
+    "label": "Success",
+    "type": "boolean"
+  },
+  {
+    "name": "message",
+    "label": "Message",
+    "type": "text"
+  },
+  {
+    "name": "warnings",
+    "label": "Warnings",
+    "type": "array",
+    "spec": [
+      {
+        "name": "code",
+        "label": "Code",
+        "type": "text"
+      },
+      {
+        "name": "message",
+        "label": "Message",
+        "type": "text"
+      }
+    ]
+  }
+]

@@ -1,0 +1,57 @@
+[
+  {
+    "name": "uuid",
+    "label": "UUID",
+    "type": "uuid"
+  },
+  {
+    "name": "family",
+    "label": "Family",
+    "type": "text"
+  },
+  {
+    "name": "subfamily",
+    "label": "Subfamily",
+    "type": "text"
+  },
+  {
+    "name": "postscript_name",
+    "label": "PostScript name",
+    "type": "text"
+  },
+  {
+    "name": "category",
+    "label": "Category",
+    "type": "text"
+  },
+  {
+    "name": "license",
+    "label": "License",
+    "type": "text"
+  },
+  {
+    "name": "is_premium",
+    "label": "Is premium",
+    "type": "boolean"
+  },
+  {
+    "name": "is_system",
+    "label": "Is system",
+    "type": "boolean"
+  },
+  {
+    "name": "preview_url",
+    "label": "Preview URL",
+    "type": "url"
+  },
+  {
+    "name": "file_url",
+    "label": "File URL",
+    "type": "url"
+  },
+  {
+    "name": "created_at",
+    "label": "Created at",
+    "type": "date"
+  }
+]

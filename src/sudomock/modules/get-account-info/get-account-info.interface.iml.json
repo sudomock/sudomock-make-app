@@ -1,0 +1,137 @@
+[
+  {
+    "name": "data",
+    "label": "Data",
+    "type": "collection",
+    "spec": [
+      {
+        "name": "account",
+        "label": "Account",
+        "type": "collection",
+        "spec": [
+          {
+            "name": "uuid",
+            "label": "UUID",
+            "type": "uuid"
+          },
+          {
+            "name": "email",
+            "label": "Email",
+            "type": "email"
+          },
+          {
+            "name": "name",
+            "label": "Name",
+            "type": "text"
+          },
+          {
+            "name": "created_at",
+            "label": "Created at",
+            "type": "date"
+          }
+        ]
+      },
+      {
+        "name": "subscription",
+        "label": "Subscription",
+        "type": "collection",
+        "spec": [
+          {
+            "name": "plan",
+            "label": "Plan",
+            "type": "text"
+          },
+          {
+            "name": "tier",
+            "label": "Tier",
+            "type": "text"
+          },
+          {
+            "name": "status",
+            "label": "Status",
+            "type": "text"
+          },
+          {
+            "name": "current_period_end",
+            "label": "Current period end",
+            "type": "date"
+          },
+          {
+            "name": "cancel_at_period_end",
+            "label": "Cancel at period end",
+            "type": "boolean"
+          },
+          {
+            "name": "billing_channel",
+            "label": "Billing channel",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "name": "usage",
+        "label": "Usage",
+        "type": "collection",
+        "spec": [
+          {
+            "name": "credits_used_this_month",
+            "label": "Credits used this month",
+            "type": "integer"
+          },
+          {
+            "name": "credits_limit",
+            "label": "Credits limit",
+            "type": "integer"
+          },
+          {
+            "name": "credits_remaining",
+            "label": "Credits remaining",
+            "type": "integer"
+          },
+          {
+            "name": "billing_period_start",
+            "label": "Billing period start",
+            "type": "date"
+          },
+          {
+            "name": "billing_period_end",
+            "label": "Billing period end",
+            "type": "date"
+          }
+        ]
+      },
+      {
+        "name": "api_key",
+        "label": "API key",
+        "type": "collection",
+        "spec": [
+          {
+            "name": "name",
+            "label": "Name",
+            "type": "text"
+          },
+          {
+            "name": "created_at",
+            "label": "Created at",
+            "type": "date"
+          },
+          {
+            "name": "last_used_at",
+            "label": "Last used at",
+            "type": "date"
+          },
+          {
+            "name": "total_requests",
+            "label": "Total requests",
+            "type": "integer"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "success",
+    "label": "Success",
+    "type": "boolean"
+  }
+]

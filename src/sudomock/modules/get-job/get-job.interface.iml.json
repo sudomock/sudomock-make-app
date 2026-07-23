@@ -1,0 +1,84 @@
+[
+  {
+    "name": "job_id",
+    "label": "Job ID",
+    "type": "uuid"
+  },
+  {
+    "name": "kind",
+    "label": "Kind",
+    "type": "text"
+  },
+  {
+    "name": "status",
+    "label": "Status",
+    "type": "text"
+  },
+  {
+    "name": "model",
+    "label": "Model",
+    "type": "text"
+  },
+  {
+    "name": "result_url",
+    "label": "Result URL",
+    "type": "url"
+  },
+  {
+    "name": "mockup_uuid",
+    "label": "Mockup UUID",
+    "type": "uuid"
+  },
+  {
+    "name": "error",
+    "label": "Error",
+    "type": "any"
+  },
+  {
+    "name": "credits_charged",
+    "label": "Credits charged",
+    "type": "integer"
+  },
+  {
+    "name": "payg",
+    "label": "Pay as you go",
+    "type": "collection",
+    "spec": [
+      {
+        "name": "credits",
+        "label": "Credits",
+        "type": "integer"
+      },
+      {
+        "name": "unit_price",
+        "label": "Unit price",
+        "type": "number"
+      },
+      {
+        "name": "cost",
+        "label": "Cost",
+        "type": "number"
+      }
+    ]
+  },
+  {
+    "name": "created_at",
+    "label": "Created at",
+    "type": "date"
+  },
+  {
+    "name": "updated_at",
+    "label": "Updated at",
+    "type": "date"
+  },
+  {
+    "name": "resultMockupUuid",
+    "label": "Result mockup UUID",
+    "type": "uuid"
+  },
+  {
+    "name": "resultUrl",
+    "label": "Result URL",
+    "type": "url"
+  }
+]

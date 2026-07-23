@@ -1,0 +1,12 @@
+{
+  "url": "/sudoai/2d-mockups/{{parameters.mockup_uuid}}/render",
+  "method": "POST",
+  "body": {
+    "print_areas": "{{parameters.print_areas}}",
+    "export_options": "{{parameters.export_options}}",
+    "is_async": "{{if(parameters.is_async, true, undefined)}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

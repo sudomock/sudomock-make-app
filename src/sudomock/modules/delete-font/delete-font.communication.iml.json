@@ -1,0 +1,7 @@
+{
+  "url": "/fonts/{{parameters.font_uuid}}",
+  "method": "DELETE",
+  "response": {
+    "output": "{{body}}"
+  }
+}

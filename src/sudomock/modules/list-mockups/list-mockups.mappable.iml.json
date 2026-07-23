@@ -1,0 +1,67 @@
+[
+  {
+    "name": "additional_options",
+    "label": "Additional options",
+    "type": "collection",
+    "spec": [
+      {
+        "name": "name",
+        "label": "Name",
+        "type": "text"
+      },
+      {
+        "name": "created_after",
+        "label": "Created after",
+        "type": "date"
+      },
+      {
+        "name": "created_before",
+        "label": "Created before",
+        "type": "date"
+      },
+      {
+        "name": "sort",
+        "label": "Sort by",
+        "type": "select",
+        "options": [
+          {
+            "label": "Created at",
+            "value": "created_at"
+          },
+          {
+            "label": "Updated at",
+            "value": "updated_at"
+          },
+          {
+            "label": "Name",
+            "value": "name"
+          }
+        ],
+        "default": "created_at"
+      },
+      {
+        "name": "order",
+        "label": "Order",
+        "type": "select",
+        "options": [
+          {
+            "label": "Descending",
+            "value": "desc"
+          },
+          {
+            "label": "Ascending",
+            "value": "asc"
+          }
+        ],
+        "default": "desc"
+      }
+    ]
+  },
+  {
+    "name": "limit",
+    "label": "Limit",
+    "type": "uinteger",
+    "help": "Maximum number of results to return and work with during one execution cycle.",
+    "default": 10
+  }
+]

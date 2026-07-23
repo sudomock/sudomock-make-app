@@ -1,0 +1,8 @@
+[
+  {
+    "name": "mockup_uuid",
+    "label": "2D mockup UUID",
+    "type": "uuid",
+    "required": true
+  }
+]

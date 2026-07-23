@@ -1,0 +1,14 @@
+{
+  "url": "/sudoai/2d-mockups",
+  "method": "POST",
+  "body": {
+    "source_url": "{{if(parameters.source_type == 'url', parameters.source_url, undefined)}}",
+    "source_base64": "{{if(parameters.source_type == 'base64', parameters.source_base64, undefined)}}",
+    "name": "{{parameters.name}}",
+    "is_async": "{{if(parameters.is_async, true, undefined)}}",
+    "print_areas": "{{parameters.print_areas}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}
