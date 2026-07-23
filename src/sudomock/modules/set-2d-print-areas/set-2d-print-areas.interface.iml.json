@@ -1,0 +1,52 @@
+[
+  {
+    "name": "data",
+    "label": "Data",
+    "type": "collection",
+    "spec": [
+      {
+        "name": "mockup_id",
+        "label": "2D mockup ID",
+        "type": "uuid"
+      },
+      {
+        "name": "print_areas",
+        "label": "Print areas",
+        "type": "array",
+        "spec": [
+          {
+            "name": "print_area_id",
+            "label": "Print area ID",
+            "type": "uuid"
+          },
+          {
+            "name": "points",
+            "label": "Points",
+            "type": "array",
+            "spec": {
+              "type": "array",
+              "spec": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "name": "name",
+            "label": "Name",
+            "type": "text"
+          },
+          {
+            "name": "sort_order",
+            "label": "Sort order",
+            "type": "integer"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "success",
+    "label": "Success",
+    "type": "boolean"
+  }
+]

@@ -1,0 +1,49 @@
+[
+  {
+    "name": "data",
+    "label": "Data",
+    "type": "collection",
+    "spec": [
+      {
+        "name": "mockup_uuid",
+        "label": "Mockup UUID",
+        "type": "uuid"
+      },
+      {
+        "name": "items",
+        "label": "Items",
+        "type": "array",
+        "spec": [
+          {
+            "name": "smart_object_uuid",
+            "label": "Smart object UUID",
+            "type": "uuid"
+          },
+          {
+            "name": "artwork_url",
+            "label": "Artwork URL",
+            "type": "url"
+          }
+        ]
+      },
+      {
+        "name": "artwork_urls",
+        "label": "Artwork URLs",
+        "type": "array",
+        "spec": {
+          "type": "url"
+        }
+      },
+      {
+        "name": "preview_url",
+        "label": "Preview URL",
+        "type": "url"
+      }
+    ]
+  },
+  {
+    "name": "success",
+    "label": "Success",
+    "type": "boolean"
+  }
+]

@@ -1,0 +1,102 @@
+[
+  {
+    "name": "webhook_id",
+    "label": "Webhook endpoint ID",
+    "type": "uuid",
+    "required": true
+  },
+  {
+    "name": "update_event_types",
+    "label": "Update event types",
+    "type": "boolean",
+    "default": false,
+    "help": "Enable to replace the subscribed event types. Leave the selection empty to subscribe to all supported event types."
+  },
+  {
+    "name": "event_types",
+    "label": "Event types",
+    "type": "select",
+    "options": [
+      {
+        "label": "Render succeeded",
+        "value": "render.succeeded"
+      },
+      {
+        "label": "Render failed",
+        "value": "render.failed"
+      },
+      {
+        "label": "Upload succeeded",
+        "value": "upload.succeeded"
+      },
+      {
+        "label": "Video succeeded",
+        "value": "video.succeeded"
+      },
+      {
+        "label": "Video failed",
+        "value": "video.failed"
+      },
+      {
+        "label": "2D mockup ready",
+        "value": "2d_mockup.ready"
+      },
+      {
+        "label": "2D mockup rejected",
+        "value": "2d_mockup.rejected"
+      },
+      {
+        "label": "2D mockup failed",
+        "value": "2d_mockup.failed"
+      },
+      {
+        "label": "2D render succeeded",
+        "value": "2d_render.succeeded"
+      },
+      {
+        "label": "2D render failed",
+        "value": "2d_render.failed"
+      },
+      {
+        "label": "Webhook test",
+        "value": "webhook.test"
+      }
+    ],
+    "multiple": true,
+    "visible": "{{parameters.update_event_types}}",
+    "help": "Select events to subscribe to, or leave empty to subscribe to all supported event types."
+  },
+  {
+    "name": "update_fields",
+    "label": "Fields to update",
+    "type": "collection",
+    "spec": [
+      {
+        "name": "url",
+        "label": "Endpoint URL",
+        "type": "url"
+      },
+      {
+        "name": "description",
+        "label": "Description",
+        "type": "text"
+      },
+      {
+        "name": "enabled",
+        "label": "Enabled",
+        "type": "select",
+        "options": [
+          {
+            "label": "Enabled",
+            "value": true
+          },
+          {
+            "label": "Disabled",
+            "value": false
+          }
+        ],
+        "help": "Leave empty to keep the current state."
+      }
+    ]
+  }
+]

@@ -1,0 +1,57 @@
+[
+  {
+    "url": "/renders/video",
+    "method": "POST",
+    "body": {
+      "mockup_uuid": "{{if(parameters.input_mode == 'render', parameters.mockup_uuid, undefined)}}",
+      "smart_objects": "{{if(parameters.input_mode == 'render', parameters.smart_objects, undefined)}}",
+      "export_options": "{{parameters.export_options}}",
+      "image_url": "{{if(parameters.input_mode == 'image', parameters.image_url, undefined)}}",
+      "webhook": "{{parameters.webhook}}",
+      "video": "{{parameters.video}}"
+    },
+    "response": {
+      "temp": {
+        "accepted": "{{body}}",
+        "jobId": "{{body.job_id}}",
+        "startedAt": "{{now}}"
+      }
+    }
+  },
+  {
+    "url": "/jobs/{{temp.jobId}}",
+    "method": "GET",
+    "condition": "{{parameters.wait_for_completion && temp.jobId}}",
+    "repeat": {
+      "condition": "{{temp.status != 'succeeded' && temp.status != 'failed' && temp.status != 'cancelled' && now < addSeconds(temp.startedAt, parameters.poll_timeout)}}",
+      "delay": 3000,
+      "limit": 101
+    },
+    "response": {
+      "temp": {
+        "finalJob": "{{body}}",
+        "status": "{{body.status}}"
+      }
+    }
+  },
+  {
+    "condition": "{{parameters.wait_for_completion && temp.jobId}}",
+    "response": {
+      "valid": {
+        "condition": "{{temp.status == 'succeeded' || temp.status == 'failed' || temp.status == 'cancelled' || now < addSeconds(temp.startedAt, parameters.poll_timeout)}}",
+        "message": "Polling timed out before the job reached a terminal status.",
+        "type": "DataError"
+      },
+      "output": {
+        "{{...}}": "{{temp.finalJob}}",
+        "resultUrl": "{{if(temp.finalJob.result_url, temp.finalJob.result_url, undefined)}}"
+      }
+    }
+  },
+  {
+    "condition": "{{!parameters.wait_for_completion || !temp.jobId}}",
+    "response": {
+      "output": "{{temp.accepted}}"
+    }
+  }
+]

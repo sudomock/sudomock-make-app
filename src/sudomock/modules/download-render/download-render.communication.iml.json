@@ -1,0 +1,13 @@
+{
+  "url": "{{parameters.url}}",
+  "method": "GET",
+  "headers": "{{pick(parameters, '__no_header__')}}",
+  "followRedirect": true,
+  "response": {
+    "type": "binary",
+    "output": {
+      "name": "{{ifempty(decodeURL(first(split(last(split(parameters.url, '/')), '?'))), 'render')}}",
+      "data": "{{body}}"
+    }
+  }
+}

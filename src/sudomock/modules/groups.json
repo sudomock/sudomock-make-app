@@ -1,0 +1,67 @@
+[
+  {
+    "label": "Photo to mockup (2D)",
+    "modules": [
+      "create2DMockup",
+      "get2DMockup",
+      "list2DMockups",
+      "set2DPrintAreas",
+      "render2DMockup",
+      "delete2DMockup"
+    ]
+  },
+  {
+    "label": "Mockups and renders",
+    "modules": [
+      "uploadPsd",
+      "render",
+      "downloadRender",
+      "getMockup",
+      "listMockups",
+      "updateMockup",
+      "deleteMockup"
+    ]
+  },
+  {
+    "label": "Jobs and video",
+    "modules": [
+      "renderVideo",
+      "getJob",
+      "listJobs"
+    ]
+  },
+  {
+    "label": "Fonts and artwork",
+    "modules": [
+      "listFonts",
+      "getFont",
+      "uploadFont",
+      "deleteFont",
+      "storeArtworks",
+      "deleteArtworks"
+    ]
+  },
+  {
+    "label": "Webhooks",
+    "modules": [
+      "webhookCreate",
+      "webhookGet",
+      "webhookList",
+      "webhookUpdate",
+      "webhookDelete",
+      "webhookEventsFeed",
+      "webhookListDeliveries",
+      "webhookReplayDelivery",
+      "webhookReplayFailed",
+      "webhookRotateSecret",
+      "webhookTest"
+    ]
+  },
+  {
+    "label": "Other",
+    "modules": [
+      "getAccountInfo",
+      "makeApiCall"
+    ]
+  }
+]

@@ -1,0 +1,29 @@
+name: Deploy SudoMock Make Development
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: make-development
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - run: node scripts/check.mjs
+        env:
+          MAKE_API_KEY: ${{ secrets.MAKE_API_KEY }}
+      - run: node scripts/deploy.mjs --origin Development
+        env:
+          MAKE_API_KEY: ${{ secrets.MAKE_API_KEY }}

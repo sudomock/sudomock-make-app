@@ -1,0 +1,8 @@
+{
+  "url": "/webhook-endpoints/{{parameters.webhook_id}}/deliveries/replay-failed",
+  "method": "POST",
+  "body": {},
+  "response": {
+    "output": "{{body}}"
+  }
+}

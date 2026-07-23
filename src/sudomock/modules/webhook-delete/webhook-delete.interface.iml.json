@@ -1,0 +1,22 @@
+[
+  {
+    "name": "success",
+    "label": "Success",
+    "type": "boolean"
+  },
+  {
+    "name": "message",
+    "label": "Message",
+    "type": "text"
+  },
+  {
+    "name": "webhookId",
+    "label": "Webhook ID",
+    "type": "uuid"
+  },
+  {
+    "name": "statusCode",
+    "label": "Status code",
+    "type": "integer"
+  }
+]

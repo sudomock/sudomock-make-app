@@ -1,0 +1,24 @@
+{
+  "url": "/mockups",
+  "method": "GET",
+  "qs": {
+    "limit": 100,
+    "offset": 0,
+    "name": "{{parameters.additional_options.name}}",
+    "created_after": "{{parameters.additional_options.created_after}}",
+    "created_before": "{{parameters.additional_options.created_before}}",
+    "sort": "{{parameters.additional_options.sort}}",
+    "order": "{{parameters.additional_options.order}}"
+  },
+  "response": {
+    "iterate": "{{body.data.mockups}}",
+    "limit": "{{parameters.limit}}",
+    "output": "{{item}}"
+  },
+  "pagination": {
+    "qs": {
+      "offset": "{{(pagination.page - 1) * 100}}"
+    },
+    "condition": "{{length(body.data.mockups) == 100}}"
+  }
+}

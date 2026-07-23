@@ -1,0 +1,16 @@
+[
+  {
+    "name": "url",
+    "label": "Font URL",
+    "type": "url",
+    "required": true
+  },
+  {
+    "name": "license_confirmed",
+    "label": "License confirmed",
+    "type": "boolean",
+    "required": true,
+    "default": false,
+    "help": "Confirm that you have the right to use and embed this font."
+  }
+]

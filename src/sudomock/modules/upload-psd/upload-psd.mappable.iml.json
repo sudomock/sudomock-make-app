@@ -1,0 +1,19 @@
+[
+  {
+    "name": "psd_file_url",
+    "label": "PSD file URL",
+    "type": "url",
+    "required": true
+  },
+  {
+    "name": "psd_name",
+    "label": "PSD name",
+    "type": "text"
+  },
+  {
+    "name": "is_async",
+    "label": "Process asynchronously",
+    "type": "boolean",
+    "default": false
+  }
+]

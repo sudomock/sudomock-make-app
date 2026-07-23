@@ -1,0 +1,92 @@
+[
+  {
+    "name": "data",
+    "label": "Data",
+    "type": "collection",
+    "spec": [
+      {
+        "name": "mockup_id",
+        "label": "2D mockup ID",
+        "type": "uuid"
+      },
+      {
+        "name": "name",
+        "label": "Name",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "label": "Status",
+        "type": "text"
+      },
+      {
+        "name": "thumbnail_url",
+        "label": "Thumbnail URL",
+        "type": "url"
+      },
+      {
+        "name": "source_width",
+        "label": "Source width",
+        "type": "integer"
+      },
+      {
+        "name": "source_height",
+        "label": "Source height",
+        "type": "integer"
+      },
+      {
+        "name": "quads",
+        "label": "Quads",
+        "type": "array",
+        "spec": [
+          {
+            "name": "print_area_id",
+            "label": "Print area ID",
+            "type": "uuid"
+          },
+          {
+            "name": "points",
+            "label": "Points",
+            "type": "array",
+            "spec": {
+              "type": "array",
+              "spec": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "name": "name",
+            "label": "Name",
+            "type": "text"
+          },
+          {
+            "name": "sort_order",
+            "label": "Sort order",
+            "type": "integer"
+          }
+        ]
+      },
+      {
+        "name": "version",
+        "label": "Version",
+        "type": "integer"
+      },
+      {
+        "name": "created_at",
+        "label": "Created at",
+        "type": "date"
+      },
+      {
+        "name": "updated_at",
+        "label": "Updated at",
+        "type": "date"
+      }
+    ]
+  },
+  {
+    "name": "success",
+    "label": "Success",
+    "type": "boolean"
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "response": {
+      "valid": {
+        "condition": "{{parameters.license_confirmed}}",
+        "message": "Confirm that you have the right to use and embed this font.",
+        "type": "DataError"
+      }
+    }
+  },
+  {
+    "url": "/fonts",
+    "method": "POST",
+    "body": {
+      "url": "{{parameters.url}}",
+      "license_confirmed": true
+    },
+    "response": {
+      "output": "{{body}}"
+    }
+  }
+]

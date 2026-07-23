@@ -1,0 +1,22 @@
+{
+  "url": "/fonts",
+  "method": "GET",
+  "qs": {
+    "page": 1,
+    "per_page": 100,
+    "category": "{{parameters.filters.category}}",
+    "search": "{{parameters.filters.search}}",
+    "scope": "{{parameters.filters.scope}}"
+  },
+  "response": {
+    "iterate": "{{body.data}}",
+    "limit": "{{parameters.limit}}",
+    "output": "{{item}}"
+  },
+  "pagination": {
+    "qs": {
+      "page": "{{pagination.page}}"
+    },
+    "condition": "{{length(body.data) == 100 && body.pagination.page * body.pagination.per_page < body.pagination.total}}"
+  }
+}

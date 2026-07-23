@@ -1,0 +1,41 @@
+[
+  {
+    "name": "mockup_uuid",
+    "label": "Mockup",
+    "type": "select",
+    "required": true,
+    "mode": "edit",
+    "options": "rpc://listMockups",
+    "help": "Choose a mockup or map its UUID."
+  },
+  {
+    "name": "items",
+    "label": "Artwork items",
+    "type": "array",
+    "spec": [
+      {
+        "name": "smart_object_uuid",
+        "label": "Smart object UUID",
+        "type": "uuid",
+        "required": true
+      },
+      {
+        "name": "base64",
+        "label": "Base64",
+        "type": "text",
+        "required": true,
+        "multiline": true
+      }
+    ],
+    "validate": {
+      "maxItems": 10
+    },
+    "help": "Add up to 10 artwork items, or provide a preview URL."
+  },
+  {
+    "name": "preview_url",
+    "label": "Preview URL",
+    "type": "url",
+    "help": "Add a preview URL when no artwork items are supplied."
+  }
+]
