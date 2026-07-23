@@ -1,0 +1,12 @@
+{
+  "url": "/mockups/{{parameters.mockup_uuid}}",
+  "method": "GET",
+  "response": {
+    "iterate": "{{body.data.smart_objects}}",
+    "limit": 300,
+    "output": {
+      "label": "{{ifempty(item.name, item.uuid)}}",
+      "value": "{{item.uuid}}"
+    }
+  }
+}

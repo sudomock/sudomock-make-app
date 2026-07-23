@@ -1,0 +1,60 @@
+[
+  {
+    "name": "source_type",
+    "label": "Source type",
+    "type": "select",
+    "options": [
+      {
+        "label": "URL",
+        "value": "url"
+      },
+      {
+        "label": "Base64",
+        "value": "base64"
+      }
+    ],
+    "required": true,
+    "default": "url"
+  },
+  {
+    "name": "source_url",
+    "label": "Source URL",
+    "type": "url",
+    "required": true,
+    "visible": "{{parameters.source_type == 'url'}}"
+  },
+  {
+    "name": "source_base64",
+    "label": "Source Base64",
+    "type": "text",
+    "required": true,
+    "multiline": true,
+    "visible": "{{parameters.source_type == 'base64'}}"
+  },
+  {
+    "name": "name",
+    "label": "Name",
+    "type": "text"
+  },
+  {
+    "name": "is_async",
+    "label": "Process asynchronously",
+    "type": "boolean",
+    "default": false
+  },
+  {
+    "name": "print_areas",
+    "label": "Print areas",
+    "type": "array",
+    "spec": [
+      {
+        "name": "points",
+        "label": "Points",
+        "type": "any",
+        "required": true,
+        "help": "Map an array of four [x, y] coordinate pairs in clockwise order."
+      }
+    ],
+    "help": "Optional quadrilateral print areas. Each item must contain exactly four coordinate pairs."
+  }
+]

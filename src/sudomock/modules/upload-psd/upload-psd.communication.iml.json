@@ -1,0 +1,12 @@
+{
+  "url": "/psd/upload",
+  "method": "POST",
+  "body": {
+    "psd_file_url": "{{parameters.psd_file_url}}",
+    "psd_name": "{{parameters.psd_name}}",
+    "is_async": "{{if(parameters.is_async, true, undefined)}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

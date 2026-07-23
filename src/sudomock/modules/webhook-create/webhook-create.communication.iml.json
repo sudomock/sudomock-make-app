@@ -1,0 +1,12 @@
+{
+  "url": "/webhook-endpoints",
+  "method": "POST",
+  "body": {
+    "url": "{{parameters.url}}",
+    "description": "{{parameters.description}}",
+    "event_types": "{{if(length(parameters.event_types) > 0, parameters.event_types, undefined)}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

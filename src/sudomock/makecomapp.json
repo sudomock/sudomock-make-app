@@ -1,0 +1,673 @@
+{
+  "fileVersion": 1,
+  "generalCodeFiles": {
+    "base": "general/base.iml.json",
+    "common": null,
+    "readme": "README.md",
+    "groups": "modules/groups.json"
+  },
+  "components": {
+    "connection": {
+      "sudomockApiKey": {
+        "label": "SudoMock API key",
+        "connectionType": "basic",
+        "codeFiles": {
+          "communication": "connections/sudomock-api-key/sudomock-api-key.communication.iml.json",
+          "params": "connections/sudomock-api-key/sudomock-api-key.params.iml.json",
+          "common": null
+        }
+      }
+    },
+    "module": {
+      "create2DMockup": {
+        "label": "Create a mockup from a photo",
+        "description": "Creates a reusable 2D mockup from a product photo. No PSD required.",
+        "moduleType": "action",
+        "actionCrud": "create",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/create-2d-mockup/create-2d-mockup.communication.iml.json",
+          "mappableParams": "modules/create-2d-mockup/create-2d-mockup.mappable.iml.json",
+          "interface": "modules/create-2d-mockup/create-2d-mockup.interface.iml.json"
+        }
+      },
+      "get2DMockup": {
+        "label": "Get a 2D mockup",
+        "description": "Retrieves a 2D mockup by UUID.",
+        "moduleType": "action",
+        "actionCrud": "read",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/get-2d-mockup/get-2d-mockup.communication.iml.json",
+          "mappableParams": "modules/get-2d-mockup/get-2d-mockup.mappable.iml.json",
+          "interface": "modules/get-2d-mockup/get-2d-mockup.interface.iml.json"
+        }
+      },
+      "list2DMockups": {
+        "label": "List 2D mockups",
+        "description": "Returns up to the specified number of 2D mockups.",
+        "moduleType": "search",
+        "actionCrud": "read",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/list-2d-mockups/list-2d-mockups.communication.iml.json",
+          "mappableParams": "modules/list-2d-mockups/list-2d-mockups.mappable.iml.json",
+          "interface": "modules/list-2d-mockups/list-2d-mockups.interface.iml.json"
+        }
+      },
+      "set2DPrintAreas": {
+        "label": "Set 2D mockup print areas",
+        "description": "Replaces the print areas on a 2D mockup.",
+        "moduleType": "action",
+        "actionCrud": "update",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/set-2d-print-areas/set-2d-print-areas.communication.iml.json",
+          "mappableParams": "modules/set-2d-print-areas/set-2d-print-areas.mappable.iml.json",
+          "interface": "modules/set-2d-print-areas/set-2d-print-areas.interface.iml.json"
+        }
+      },
+      "render2DMockup": {
+        "label": "Render a 2D mockup",
+        "description": "Creates a render from a 2D mockup.",
+        "moduleType": "action",
+        "actionCrud": "create",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/render-2d-mockup/render-2d-mockup.communication.iml.json",
+          "mappableParams": "modules/render-2d-mockup/render-2d-mockup.mappable.iml.json",
+          "interface": "modules/render-2d-mockup/render-2d-mockup.interface.iml.json"
+        }
+      },
+      "delete2DMockup": {
+        "label": "Delete a 2D mockup",
+        "description": "Deletes a 2D mockup.",
+        "moduleType": "action",
+        "actionCrud": "delete",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/delete-2d-mockup/delete-2d-mockup.communication.iml.json",
+          "mappableParams": "modules/delete-2d-mockup/delete-2d-mockup.mappable.iml.json",
+          "interface": "modules/delete-2d-mockup/delete-2d-mockup.interface.iml.json"
+        }
+      },
+      "deleteArtworks": {
+        "label": "Delete stored artwork",
+        "description": "Deletes stored artwork files by mockup or URL.",
+        "moduleType": "action",
+        "actionCrud": "delete",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/delete-artworks/delete-artworks.communication.iml.json",
+          "mappableParams": "modules/delete-artworks/delete-artworks.mappable.iml.json",
+          "interface": "modules/delete-artworks/delete-artworks.interface.iml.json"
+        }
+      },
+      "storeArtworks": {
+        "label": "Store artwork",
+        "description": "Stores artwork files for a mockup.",
+        "moduleType": "action",
+        "actionCrud": "create",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/store-artworks/store-artworks.communication.iml.json",
+          "mappableParams": "modules/store-artworks/store-artworks.mappable.iml.json",
+          "interface": "modules/store-artworks/store-artworks.interface.iml.json"
+        }
+      },
+      "deleteMockup": {
+        "label": "Delete a mockup",
+        "description": "Deletes a mockup template.",
+        "moduleType": "action",
+        "actionCrud": "delete",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/delete-mockup/delete-mockup.communication.iml.json",
+          "mappableParams": "modules/delete-mockup/delete-mockup.mappable.iml.json",
+          "interface": "modules/delete-mockup/delete-mockup.interface.iml.json"
+        }
+      },
+      "deleteFont": {
+        "label": "Delete a custom font",
+        "description": "Deletes a custom font.",
+        "moduleType": "action",
+        "actionCrud": "delete",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/delete-font/delete-font.communication.iml.json",
+          "mappableParams": "modules/delete-font/delete-font.mappable.iml.json",
+          "interface": "modules/delete-font/delete-font.interface.iml.json"
+        }
+      },
+      "getFont": {
+        "label": "Get a font",
+        "description": "Retrieves a font by UUID.",
+        "moduleType": "action",
+        "actionCrud": "read",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/get-font/get-font.communication.iml.json",
+          "mappableParams": "modules/get-font/get-font.mappable.iml.json",
+          "interface": "modules/get-font/get-font.interface.iml.json"
+        }
+      },
+      "listFonts": {
+        "label": "List fonts",
+        "description": "Returns up to the specified number of available fonts.",
+        "moduleType": "search",
+        "actionCrud": "read",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/list-fonts/list-fonts.communication.iml.json",
+          "mappableParams": "modules/list-fonts/list-fonts.mappable.iml.json",
+          "interface": "modules/list-fonts/list-fonts.interface.iml.json"
+        }
+      },
+      "uploadFont": {
+        "label": "Upload a custom font",
+        "description": "Uploads a licensed custom font from a URL.",
+        "moduleType": "action",
+        "actionCrud": "create",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/upload-font/upload-font.communication.iml.json",
+          "mappableParams": "modules/upload-font/upload-font.mappable.iml.json",
+          "interface": "modules/upload-font/upload-font.interface.iml.json"
+        }
+      },
+      "getAccountInfo": {
+        "label": "Get account information",
+        "description": "Retrieves account, subscription, usage, and API key information.",
+        "moduleType": "action",
+        "actionCrud": "read",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/get-account-info/get-account-info.communication.iml.json",
+          "interface": "modules/get-account-info/get-account-info.interface.iml.json"
+        }
+      },
+      "getMockup": {
+        "label": "Get mockup details",
+        "description": "Retrieves a mockup and its editable layers.",
+        "moduleType": "action",
+        "actionCrud": "read",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/get-mockup/get-mockup.communication.iml.json",
+          "mappableParams": "modules/get-mockup/get-mockup.mappable.iml.json",
+          "interface": "modules/get-mockup/get-mockup.interface.iml.json"
+        }
+      },
+      "listMockups": {
+        "label": "List mockups",
+        "description": "Returns up to the specified number of mockup templates.",
+        "moduleType": "search",
+        "actionCrud": "read",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/list-mockups/list-mockups.communication.iml.json",
+          "mappableParams": "modules/list-mockups/list-mockups.mappable.iml.json",
+          "interface": "modules/list-mockups/list-mockups.interface.iml.json"
+        }
+      },
+      "getJob": {
+        "label": "Get a job",
+        "description": "Retrieves a job and can wait for a terminal result.",
+        "moduleType": "action",
+        "actionCrud": "read",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/get-job/get-job.communication.iml.json",
+          "mappableParams": "modules/get-job/get-job.mappable.iml.json",
+          "interface": "modules/get-job/get-job.interface.iml.json"
+        }
+      },
+      "listJobs": {
+        "label": "List jobs",
+        "description": "Returns up to the specified number of jobs.",
+        "moduleType": "search",
+        "actionCrud": "read",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/list-jobs/list-jobs.communication.iml.json",
+          "mappableParams": "modules/list-jobs/list-jobs.mappable.iml.json",
+          "interface": "modules/list-jobs/list-jobs.interface.iml.json"
+        }
+      },
+      "render": {
+        "label": "Render a mockup",
+        "description": "Creates a render from a mockup template.",
+        "moduleType": "action",
+        "actionCrud": "create",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/render/render.communication.iml.json",
+          "mappableParams": "modules/render/render.mappable.iml.json",
+          "interface": "modules/render/render.interface.iml.json"
+        }
+      },
+      "renderVideo": {
+        "label": "Render a video",
+        "description": "Starts a video render and can wait for completion.",
+        "moduleType": "action",
+        "actionCrud": "create",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/render-video/render-video.communication.iml.json",
+          "mappableParams": "modules/render-video/render-video.mappable.iml.json",
+          "interface": "modules/render-video/render-video.interface.iml.json"
+        }
+      },
+      "updateMockup": {
+        "label": "Update mockup name",
+        "description": "Updates the name of a mockup template.",
+        "moduleType": "action",
+        "actionCrud": "update",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/update-mockup/update-mockup.communication.iml.json",
+          "mappableParams": "modules/update-mockup/update-mockup.mappable.iml.json",
+          "interface": "modules/update-mockup/update-mockup.interface.iml.json"
+        }
+      },
+      "uploadPsd": {
+        "label": "Upload a PSD template",
+        "description": "Uploads a PSD template from a URL.",
+        "moduleType": "action",
+        "actionCrud": "create",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/upload-psd/upload-psd.communication.iml.json",
+          "mappableParams": "modules/upload-psd/upload-psd.mappable.iml.json",
+          "interface": "modules/upload-psd/upload-psd.interface.iml.json"
+        }
+      },
+      "webhookCreate": {
+        "label": "Create a webhook endpoint",
+        "description": "Creates a webhook endpoint and returns its signing secret.",
+        "moduleType": "action",
+        "actionCrud": "create",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/webhook-create/webhook-create.communication.iml.json",
+          "mappableParams": "modules/webhook-create/webhook-create.mappable.iml.json",
+          "interface": "modules/webhook-create/webhook-create.interface.iml.json"
+        }
+      },
+      "webhookDelete": {
+        "label": "Delete a webhook endpoint",
+        "description": "Deletes a webhook endpoint.",
+        "moduleType": "action",
+        "actionCrud": "delete",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/webhook-delete/webhook-delete.communication.iml.json",
+          "mappableParams": "modules/webhook-delete/webhook-delete.mappable.iml.json",
+          "interface": "modules/webhook-delete/webhook-delete.interface.iml.json"
+        }
+      },
+      "webhookEventsFeed": {
+        "label": "Get the webhook events feed",
+        "description": "Returns up to the specified number of webhook deliveries across endpoints.",
+        "moduleType": "search",
+        "actionCrud": "read",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/webhook-events-feed/webhook-events-feed.communication.iml.json",
+          "mappableParams": "modules/webhook-events-feed/webhook-events-feed.mappable.iml.json",
+          "interface": "modules/webhook-events-feed/webhook-events-feed.interface.iml.json"
+        }
+      },
+      "webhookGet": {
+        "label": "Get a webhook endpoint",
+        "description": "Retrieves a webhook endpoint by ID.",
+        "moduleType": "action",
+        "actionCrud": "read",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/webhook-get/webhook-get.communication.iml.json",
+          "mappableParams": "modules/webhook-get/webhook-get.mappable.iml.json",
+          "interface": "modules/webhook-get/webhook-get.interface.iml.json"
+        }
+      },
+      "webhookListDeliveries": {
+        "label": "List webhook deliveries",
+        "description": "Returns up to the specified number of deliveries for a webhook endpoint.",
+        "moduleType": "search",
+        "actionCrud": "read",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/webhook-list-deliveries/webhook-list-deliveries.communication.iml.json",
+          "mappableParams": "modules/webhook-list-deliveries/webhook-list-deliveries.mappable.iml.json",
+          "interface": "modules/webhook-list-deliveries/webhook-list-deliveries.interface.iml.json"
+        }
+      },
+      "webhookList": {
+        "label": "List webhook endpoints",
+        "description": "Returns up to the specified number of webhook endpoints.",
+        "moduleType": "search",
+        "actionCrud": "read",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/webhook-list/webhook-list.communication.iml.json",
+          "mappableParams": "modules/webhook-list/webhook-list.mappable.iml.json",
+          "interface": "modules/webhook-list/webhook-list.interface.iml.json"
+        }
+      },
+      "webhookReplayDelivery": {
+        "label": "Replay a webhook delivery",
+        "description": "Queues a webhook delivery for replay.",
+        "moduleType": "action",
+        "actionCrud": "create",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/webhook-replay-delivery/webhook-replay-delivery.communication.iml.json",
+          "mappableParams": "modules/webhook-replay-delivery/webhook-replay-delivery.mappable.iml.json",
+          "interface": "modules/webhook-replay-delivery/webhook-replay-delivery.interface.iml.json"
+        }
+      },
+      "webhookReplayFailed": {
+        "label": "Replay failed webhook deliveries",
+        "description": "Queues failed webhook deliveries for replay.",
+        "moduleType": "action",
+        "actionCrud": "create",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/webhook-replay-failed/webhook-replay-failed.communication.iml.json",
+          "mappableParams": "modules/webhook-replay-failed/webhook-replay-failed.mappable.iml.json",
+          "interface": "modules/webhook-replay-failed/webhook-replay-failed.interface.iml.json"
+        }
+      },
+      "webhookRotateSecret": {
+        "label": "Rotate a webhook secret",
+        "description": "Rotates and returns a webhook endpoint signing secret.",
+        "moduleType": "action",
+        "actionCrud": "update",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/webhook-rotate-secret/webhook-rotate-secret.communication.iml.json",
+          "mappableParams": "modules/webhook-rotate-secret/webhook-rotate-secret.mappable.iml.json",
+          "interface": "modules/webhook-rotate-secret/webhook-rotate-secret.interface.iml.json"
+        }
+      },
+      "webhookTest": {
+        "label": "Send a webhook test",
+        "description": "Queues a test delivery for a webhook endpoint.",
+        "moduleType": "action",
+        "actionCrud": "create",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/webhook-test/webhook-test.communication.iml.json",
+          "mappableParams": "modules/webhook-test/webhook-test.mappable.iml.json",
+          "interface": "modules/webhook-test/webhook-test.interface.iml.json"
+        }
+      },
+      "webhookUpdate": {
+        "label": "Update a webhook endpoint",
+        "description": "Updates a webhook endpoint.",
+        "moduleType": "action",
+        "actionCrud": "update",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/webhook-update/webhook-update.communication.iml.json",
+          "mappableParams": "modules/webhook-update/webhook-update.mappable.iml.json",
+          "interface": "modules/webhook-update/webhook-update.interface.iml.json"
+        }
+      },
+      "downloadRender": {
+        "label": "Download a render",
+        "description": "Downloads a render URL as a file.",
+        "moduleType": "action",
+        "actionCrud": "read",
+        "connection": null,
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/download-render/download-render.communication.iml.json",
+          "mappableParams": "modules/download-render/download-render.mappable.iml.json",
+          "interface": "modules/download-render/download-render.interface.iml.json"
+        }
+      },
+      "makeApiCall": {
+        "label": "Make an API Call",
+        "description": "Performs an arbitrary authorized API call.",
+        "moduleType": "universal",
+        "actionCrud": null,
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/make-api-call/make-api-call.communication.iml.json",
+          "mappableParams": "modules/make-api-call/make-api-call.mappable.iml.json",
+          "interface": "modules/make-api-call/make-api-call.interface.iml.json"
+        }
+      }
+    },
+    "function": {},
+    "rpc": {
+      "listMockups": {
+        "label": "List mockups",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "rpcs/list-mockups/list-mockups.communication.iml.json",
+          "params": "rpcs/list-mockups/list-mockups.params.iml.json"
+        }
+      },
+      "listSmartObjects": {
+        "label": "List smart objects",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "rpcs/list-smart-objects/list-smart-objects.communication.iml.json",
+          "params": "rpcs/list-smart-objects/list-smart-objects.params.iml.json"
+        }
+      }
+    },
+    "webhook": {},
+    "endpoint": {}
+  },
+  "origins": [
+    {
+      "label": "Development",
+      "baseUrl": "https://eu1.make.com/api",
+      "appId": "sudomock-rhef0p",
+      "appVersion": 1,
+      "idMapping": {
+        "connection": [
+          {
+            "local": "sudomockApiKey",
+            "remote": "sudomock-rhef0p"
+          }
+        ],
+        "module": [
+          {
+            "local": "create2DMockup",
+            "remote": "create2DMockup"
+          },
+          {
+            "local": "get2DMockup",
+            "remote": "get2DMockup"
+          },
+          {
+            "local": "list2DMockups",
+            "remote": "list2DMockups"
+          },
+          {
+            "local": "set2DPrintAreas",
+            "remote": "set2DPrintAreas"
+          },
+          {
+            "local": "render2DMockup",
+            "remote": "render2DMockup"
+          },
+          {
+            "local": "delete2DMockup",
+            "remote": "delete2DMockup"
+          },
+          {
+            "local": "deleteArtworks",
+            "remote": "deleteArtworks"
+          },
+          {
+            "local": "storeArtworks",
+            "remote": "storeArtworks"
+          },
+          {
+            "local": "deleteMockup",
+            "remote": "deleteMockup"
+          },
+          {
+            "local": "deleteFont",
+            "remote": "deleteFont"
+          },
+          {
+            "local": "getFont",
+            "remote": "getFont"
+          },
+          {
+            "local": "listFonts",
+            "remote": "listFonts"
+          },
+          {
+            "local": "uploadFont",
+            "remote": "uploadFont"
+          },
+          {
+            "local": "getAccountInfo",
+            "remote": "getAccountInfo"
+          },
+          {
+            "local": "getMockup",
+            "remote": "getMockup"
+          },
+          {
+            "local": "listMockups",
+            "remote": "listMockups"
+          },
+          {
+            "local": "getJob",
+            "remote": "getJob"
+          },
+          {
+            "local": "listJobs",
+            "remote": "listJobs"
+          },
+          {
+            "local": "render",
+            "remote": "render"
+          },
+          {
+            "local": "renderVideo",
+            "remote": "renderVideo"
+          },
+          {
+            "local": "updateMockup",
+            "remote": "updateMockup"
+          },
+          {
+            "local": "uploadPsd",
+            "remote": "uploadPsd"
+          },
+          {
+            "local": "webhookCreate",
+            "remote": "webhookCreate"
+          },
+          {
+            "local": "webhookDelete",
+            "remote": "webhookDelete"
+          },
+          {
+            "local": "webhookEventsFeed",
+            "remote": "webhookEventsFeed"
+          },
+          {
+            "local": "webhookGet",
+            "remote": "webhookGet"
+          },
+          {
+            "local": "webhookListDeliveries",
+            "remote": "webhookListDeliveries"
+          },
+          {
+            "local": "webhookList",
+            "remote": "webhookList"
+          },
+          {
+            "local": "webhookReplayDelivery",
+            "remote": "webhookReplayDelivery"
+          },
+          {
+            "local": "webhookReplayFailed",
+            "remote": "webhookReplayFailed"
+          },
+          {
+            "local": "webhookRotateSecret",
+            "remote": "webhookRotateSecret"
+          },
+          {
+            "local": "webhookTest",
+            "remote": "webhookTest"
+          },
+          {
+            "local": "webhookUpdate",
+            "remote": "webhookUpdate"
+          },
+          {
+            "local": "downloadRender",
+            "remote": "downloadRender"
+          },
+          {
+            "local": "makeApiCall",
+            "remote": "makeApiCall"
+          }
+        ],
+        "function": [],
+        "rpc": [
+          {
+            "local": "listMockups",
+            "remote": "listMockups"
+          },
+          {
+            "local": "listSmartObjects",
+            "remote": "listSmartObjects"
+          }
+        ],
+        "webhook": [],
+        "endpoint": []
+      },
+      "apikeyFile": "../../.secrets/apikey"
+    }
+  ]
+}

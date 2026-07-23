@@ -1,0 +1,9 @@
+[
+  {
+    "name": "url",
+    "label": "Render URL",
+    "type": "url",
+    "required": true,
+    "help": "Full URL returned by a render or completed render job."
+  }
+]

@@ -1,0 +1,226 @@
+[
+  {
+    "name": "input_mode",
+    "label": "Input mode",
+    "type": "select",
+    "options": [
+      {
+        "label": "Render",
+        "value": "render"
+      },
+      {
+        "label": "Image",
+        "value": "image"
+      }
+    ],
+    "required": true,
+    "default": "render"
+  },
+  {
+    "name": "mockup_uuid",
+    "label": "Mockup",
+    "type": "select",
+    "required": true,
+    "mode": "edit",
+    "options": "rpc://listMockups",
+    "help": "Choose a mockup or map its UUID.",
+    "visible": "{{parameters.input_mode == 'render'}}"
+  },
+  {
+    "name": "smart_objects",
+    "label": "Smart objects",
+    "type": "array",
+    "spec": [
+      {
+        "name": "uuid",
+        "label": "Smart object",
+        "type": "select",
+        "required": true,
+        "mode": "edit",
+        "options": "rpc://listSmartObjects?mockup_uuid={{parameters.mockup_uuid}}"
+      },
+      {
+        "name": "asset",
+        "label": "Asset",
+        "type": "collection",
+        "spec": [
+          {
+            "name": "url",
+            "label": "Asset URL",
+            "type": "url",
+            "required": true
+          },
+          {
+            "name": "fit",
+            "label": "Fit",
+            "type": "select",
+            "options": [
+              {
+                "label": "Fill",
+                "value": "fill"
+              },
+              {
+                "label": "Contain",
+                "value": "contain"
+              },
+              {
+                "label": "Cover",
+                "value": "cover"
+              }
+            ],
+            "default": "fill"
+          }
+        ],
+        "required": true
+      }
+    ],
+    "visible": "{{parameters.input_mode == 'render'}}",
+    "required": true,
+    "validate": {
+      "minItems": 1
+    }
+  },
+  {
+    "name": "export_options",
+    "label": "Export options",
+    "type": "collection",
+    "spec": [
+      {
+        "name": "image_format",
+        "label": "Image format",
+        "type": "select",
+        "options": [
+          {
+            "label": "WebP",
+            "value": "webp"
+          },
+          {
+            "label": "PNG",
+            "value": "png"
+          },
+          {
+            "label": "JPG",
+            "value": "jpg"
+          }
+        ],
+        "default": "webp"
+      },
+      {
+        "name": "image_size",
+        "label": "Image size",
+        "type": "integer",
+        "default": 2048,
+        "validate": {
+          "min": 100,
+          "max": 10000
+        }
+      },
+      {
+        "name": "quality",
+        "label": "Quality",
+        "type": "integer",
+        "default": 90,
+        "validate": {
+          "min": 1,
+          "max": 100
+        }
+      },
+      {
+        "name": "dpi",
+        "label": "DPI",
+        "type": "integer",
+        "validate": {
+          "min": 72,
+          "max": 2400
+        }
+      }
+    ],
+    "visible": "{{parameters.input_mode == 'render'}}",
+    "advanced": true
+  },
+  {
+    "name": "image_url",
+    "label": "Image URL",
+    "type": "url",
+    "required": true,
+    "visible": "{{parameters.input_mode == 'image'}}"
+  },
+  {
+    "name": "webhook",
+    "label": "Webhook",
+    "type": "collection",
+    "spec": [
+      {
+        "name": "url",
+        "label": "URL",
+        "type": "url",
+        "required": true,
+        "help": "One-off completion callback URL."
+      }
+    ]
+  },
+  {
+    "name": "video",
+    "label": "Video options",
+    "type": "collection",
+    "spec": [
+      {
+        "name": "duration_seconds",
+        "label": "Duration",
+        "type": "integer",
+        "default": 5,
+        "validate": {
+          "min": 1,
+          "max": 15
+        },
+        "help": "Duration in seconds."
+      },
+      {
+        "name": "audio",
+        "label": "Audio",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "motion",
+        "label": "Motion",
+        "type": "select",
+        "options": [
+          {
+            "label": "Ambient",
+            "value": "ambient"
+          },
+          {
+            "label": "Showcase",
+            "value": "showcase"
+          }
+        ],
+        "default": "ambient"
+      },
+      {
+        "name": "advanced_model",
+        "label": "Advanced model",
+        "type": "text"
+      }
+    ],
+    "advanced": true
+  },
+  {
+    "name": "wait_for_completion",
+    "label": "Wait for completion",
+    "type": "boolean",
+    "default": false
+  },
+  {
+    "name": "poll_timeout",
+    "label": "Polling timeout",
+    "type": "integer",
+    "default": 300,
+    "validate": {
+      "min": 5,
+      "max": 300
+    },
+    "visible": "{{parameters.wait_for_completion}}",
+    "help": "Maximum wait in seconds."
+  }
+]

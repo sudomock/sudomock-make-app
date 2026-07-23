@@ -1,0 +1,10 @@
+{
+  "url": "/mockups/{{parameters.mockup_uuid}}",
+  "method": "PATCH",
+  "body": {
+    "name": "{{parameters.name}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

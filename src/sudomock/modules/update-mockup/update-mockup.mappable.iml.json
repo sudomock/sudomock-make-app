@@ -1,0 +1,17 @@
+[
+  {
+    "name": "mockup_uuid",
+    "label": "Mockup",
+    "type": "select",
+    "required": true,
+    "mode": "edit",
+    "options": "rpc://listMockups",
+    "help": "Choose a mockup or map its UUID."
+  },
+  {
+    "name": "name",
+    "label": "Name",
+    "type": "text",
+    "required": true
+  }
+]

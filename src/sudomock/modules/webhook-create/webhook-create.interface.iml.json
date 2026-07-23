@@ -1,0 +1,45 @@
+[
+  {
+    "name": "id",
+    "label": "ID",
+    "type": "uuid"
+  },
+  {
+    "name": "url",
+    "label": "URL",
+    "type": "url"
+  },
+  {
+    "name": "secret",
+    "label": "Secret",
+    "type": "text"
+  },
+  {
+    "name": "description",
+    "label": "Description",
+    "type": "text"
+  },
+  {
+    "name": "event_types",
+    "label": "Event types",
+    "type": "array",
+    "spec": {
+      "type": "text"
+    }
+  },
+  {
+    "name": "enabled",
+    "label": "Enabled",
+    "type": "boolean"
+  },
+  {
+    "name": "created_at",
+    "label": "Created at",
+    "type": "date"
+  },
+  {
+    "name": "updated_at",
+    "label": "Updated at",
+    "type": "date"
+  }
+]

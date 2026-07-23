@@ -1,0 +1,10 @@
+[
+  {
+    "name": "apiKey",
+    "type": "password",
+    "label": "API key",
+    "help": "You can obtain your API key on the [API Keys](https://sudomock.com/dashboard/api-keys) page in your SudoMock account.",
+    "required": true,
+    "editable": true
+  }
+]

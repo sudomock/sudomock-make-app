@@ -1,0 +1,61 @@
+[
+  {
+    "name": "data",
+    "label": "Data",
+    "type": "collection",
+    "spec": [
+      {
+        "name": "print_files",
+        "label": "Print files",
+        "type": "array",
+        "spec": [
+          {
+            "name": "export_path",
+            "label": "Export path",
+            "type": "url"
+          },
+          {
+            "name": "duration_ms",
+            "label": "Duration milliseconds",
+            "type": "integer"
+          },
+          {
+            "name": "export_format",
+            "label": "Export format",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "name": "render_uuid",
+        "label": "Render UUID",
+        "type": "uuid"
+      }
+    ]
+  },
+  {
+    "name": "success",
+    "label": "Success",
+    "type": "boolean"
+  },
+  {
+    "name": "job_id",
+    "label": "Job ID",
+    "type": "uuid"
+  },
+  {
+    "name": "kind",
+    "label": "Kind",
+    "type": "text"
+  },
+  {
+    "name": "status",
+    "label": "Status",
+    "type": "text"
+  },
+  {
+    "name": "status_url",
+    "label": "Status URL",
+    "type": "url"
+  }
+]

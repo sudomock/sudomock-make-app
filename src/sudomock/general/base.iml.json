@@ -1,0 +1,23 @@
+{
+  "baseUrl": "https://api.sudomock.com/api/v1",
+  "timeout": 300000,
+  "headers": {
+    "X-API-KEY": "{{connection.apiKey}}"
+  },
+  "response": {
+    "error": {
+      "message": "[{{statusCode}}] {{ifempty(body.detail, body.message)}}",
+      "429": {
+        "type": "RateLimitError",
+        "message": "[429] {{ifempty(body.detail, body.message)}}"
+      }
+    }
+  },
+  "log": {
+    "sanitize": [
+      "request.headers.`X-API-KEY`",
+      "request.headers.authorization",
+      "response.body.secret"
+    ]
+  }
+}

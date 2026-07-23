@@ -1,0 +1,9 @@
+{
+  "url": "/webhook-endpoints",
+  "method": "GET",
+  "response": {
+    "iterate": "{{body}}",
+    "limit": "{{parameters.limit}}",
+    "output": "{{item}}"
+  }
+}

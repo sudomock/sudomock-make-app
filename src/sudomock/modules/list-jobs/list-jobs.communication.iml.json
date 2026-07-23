@@ -1,0 +1,21 @@
+{
+  "url": "/jobs",
+  "method": "GET",
+  "qs": {
+    "kind": "{{parameters.filters.kind}}",
+    "mockup_uuid": "{{parameters.filters.mockup_uuid}}",
+    "limit": 50,
+    "cursor": "{{parameters.filters.cursor}}"
+  },
+  "response": {
+    "iterate": "{{body.jobs}}",
+    "limit": "{{parameters.limit}}",
+    "output": "{{item}}"
+  },
+  "pagination": {
+    "qs": {
+      "cursor": "{{body.next_cursor}}"
+    },
+    "condition": "{{body.next_cursor != null}}"
+  }
+}

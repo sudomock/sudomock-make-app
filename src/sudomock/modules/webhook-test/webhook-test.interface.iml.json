@@ -1,0 +1,17 @@
+[
+  {
+    "name": "status",
+    "label": "Status",
+    "type": "text"
+  },
+  {
+    "name": "event_type",
+    "label": "Event type",
+    "type": "text"
+  },
+  {
+    "name": "job_id",
+    "label": "Job ID",
+    "type": "uuid"
+  }
+]

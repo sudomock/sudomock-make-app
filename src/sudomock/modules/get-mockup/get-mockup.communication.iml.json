@@ -1,0 +1,7 @@
+{
+  "url": "/mockups/{{parameters.mockup_uuid}}",
+  "method": "GET",
+  "response": {
+    "output": "{{body}}"
+  }
+}

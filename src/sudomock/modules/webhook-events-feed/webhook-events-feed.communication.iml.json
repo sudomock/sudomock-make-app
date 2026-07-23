@@ -1,0 +1,21 @@
+{
+  "url": "/webhook-endpoints/events",
+  "method": "GET",
+  "qs": {
+    "status": "{{parameters.filters.status}}",
+    "event_type": "{{parameters.filters.event_type}}",
+    "cursor": "{{parameters.filters.cursor}}",
+    "limit": 200
+  },
+  "response": {
+    "iterate": "{{body}}",
+    "limit": "{{parameters.limit}}",
+    "output": "{{item}}"
+  },
+  "pagination": {
+    "qs": {
+      "cursor": "{{ifempty(headers.`x-webhook-next-cursor`, headers.`X-Webhook-Next-Cursor`)}}"
+    },
+    "condition": "{{ifempty(headers.`x-webhook-next-cursor`, headers.`X-Webhook-Next-Cursor`)}}"
+  }
+}

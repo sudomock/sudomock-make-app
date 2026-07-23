@@ -1,0 +1,19 @@
+{
+  "url": "/sudoai/2d-mockups",
+  "method": "GET",
+  "qs": {
+    "limit": 100,
+    "offset": 0
+  },
+  "response": {
+    "iterate": "{{body.data}}",
+    "limit": "{{parameters.limit}}",
+    "output": "{{item}}"
+  },
+  "pagination": {
+    "qs": {
+      "offset": "{{(pagination.page - 1) * 100}}"
+    },
+    "condition": "{{length(body.data) == 100}}"
+  }
+}

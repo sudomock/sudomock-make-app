@@ -1,0 +1,13 @@
+{
+  "url": "/webhook-endpoints/{{parameters.webhook_id}}",
+  "method": "PATCH",
+  "body": {
+    "url": "{{parameters.update_fields.url}}",
+    "description": "{{parameters.update_fields.description}}",
+    "enabled": "{{parameters.update_fields.enabled}}",
+    "event_types": "{{if(parameters.update_event_types, ifempty(parameters.event_types, toArray(pick(parameters, '__no_array_item__'))), undefined)}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

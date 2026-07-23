@@ -1,0 +1,66 @@
+[
+  {
+    "name": "url",
+    "label": "Endpoint URL",
+    "type": "url",
+    "required": true
+  },
+  {
+    "name": "description",
+    "label": "Description",
+    "type": "text"
+  },
+  {
+    "name": "event_types",
+    "label": "Event types",
+    "type": "select",
+    "options": [
+      {
+        "label": "Render succeeded",
+        "value": "render.succeeded"
+      },
+      {
+        "label": "Render failed",
+        "value": "render.failed"
+      },
+      {
+        "label": "Upload succeeded",
+        "value": "upload.succeeded"
+      },
+      {
+        "label": "Video succeeded",
+        "value": "video.succeeded"
+      },
+      {
+        "label": "Video failed",
+        "value": "video.failed"
+      },
+      {
+        "label": "2D mockup ready",
+        "value": "2d_mockup.ready"
+      },
+      {
+        "label": "2D mockup rejected",
+        "value": "2d_mockup.rejected"
+      },
+      {
+        "label": "2D mockup failed",
+        "value": "2d_mockup.failed"
+      },
+      {
+        "label": "2D render succeeded",
+        "value": "2d_render.succeeded"
+      },
+      {
+        "label": "2D render failed",
+        "value": "2d_render.failed"
+      },
+      {
+        "label": "Webhook test",
+        "value": "webhook.test"
+      }
+    ],
+    "multiple": true,
+    "help": "Leave empty to subscribe to all supported event types."
+  }
+]

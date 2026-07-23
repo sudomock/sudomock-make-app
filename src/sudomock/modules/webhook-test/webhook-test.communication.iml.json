@@ -1,0 +1,8 @@
+{
+  "url": "/webhook-endpoints/{{parameters.webhook_id}}/test",
+  "method": "POST",
+  "body": {},
+  "response": {
+    "output": "{{body}}"
+  }
+}

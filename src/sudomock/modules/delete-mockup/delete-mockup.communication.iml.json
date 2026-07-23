@@ -1,0 +1,12 @@
+{
+  "url": "/mockups/{{parameters.mockup_uuid}}",
+  "method": "DELETE",
+  "response": {
+    "output": {
+      "success": true,
+      "message": "Mockup deleted successfully",
+      "mockupUuid": "{{parameters.mockup_uuid}}",
+      "statusCode": 204
+    }
+  }
+}

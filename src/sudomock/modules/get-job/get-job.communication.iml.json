@@ -1,0 +1,38 @@
+[
+  {
+    "response": {
+      "temp": {
+        "startedAt": "{{now}}"
+      }
+    }
+  },
+  {
+    "url": "/jobs/{{parameters.job_id}}",
+    "method": "GET",
+    "repeat": {
+      "condition": "{{parameters.wait_for_completion && temp.status != 'succeeded' && temp.status != 'failed' && temp.status != 'cancelled' && now < addSeconds(temp.startedAt, parameters.poll_timeout)}}",
+      "delay": 3000,
+      "limit": 101
+    },
+    "response": {
+      "temp": {
+        "finalJob": "{{body}}",
+        "status": "{{body.status}}"
+      }
+    }
+  },
+  {
+    "response": {
+      "valid": {
+        "condition": "{{!parameters.wait_for_completion || temp.status == 'succeeded' || temp.status == 'failed' || temp.status == 'cancelled' || now < addSeconds(temp.startedAt, parameters.poll_timeout)}}",
+        "message": "Polling timed out before the job reached a terminal status.",
+        "type": "DataError"
+      },
+      "output": {
+        "{{...}}": "{{temp.finalJob}}",
+        "resultMockupUuid": "{{if(temp.finalJob.kind == 'upload' && temp.finalJob.mockup_uuid, temp.finalJob.mockup_uuid, undefined)}}",
+        "resultUrl": "{{if(temp.finalJob.kind != 'upload' && temp.finalJob.result_url, temp.finalJob.result_url, undefined)}}"
+      }
+    }
+  }
+]

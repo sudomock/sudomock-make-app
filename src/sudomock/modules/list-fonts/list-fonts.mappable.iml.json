@@ -1,0 +1,46 @@
+[
+  {
+    "name": "filters",
+    "label": "Filters",
+    "type": "collection",
+    "spec": [
+      {
+        "name": "category",
+        "label": "Category",
+        "type": "text"
+      },
+      {
+        "name": "search",
+        "label": "Search",
+        "type": "text"
+      },
+      {
+        "name": "scope",
+        "label": "Scope",
+        "type": "select",
+        "options": [
+          {
+            "label": "All",
+            "value": "all"
+          },
+          {
+            "label": "System",
+            "value": "system"
+          },
+          {
+            "label": "Custom",
+            "value": "custom"
+          }
+        ],
+        "default": "all"
+      }
+    ]
+  },
+  {
+    "name": "limit",
+    "label": "Limit",
+    "type": "uinteger",
+    "help": "Maximum number of results to return and work with during one execution cycle.",
+    "default": 10
+  }
+]

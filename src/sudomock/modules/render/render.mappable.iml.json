@@ -1,0 +1,459 @@
+[
+  {
+    "name": "mockup_uuid",
+    "label": "Mockup",
+    "type": "select",
+    "required": true,
+    "mode": "edit",
+    "options": "rpc://listMockups",
+    "help": "Choose a mockup or map its UUID."
+  },
+  {
+    "name": "smart_objects",
+    "label": "Smart objects",
+    "type": "array",
+    "spec": [
+      {
+        "name": "uuid",
+        "label": "Smart object",
+        "type": "select",
+        "required": true,
+        "mode": "edit",
+        "options": "rpc://listSmartObjects?mockup_uuid={{parameters.mockup_uuid}}",
+        "help": "Choose a smart object or map its UUID."
+      },
+      {
+        "name": "asset",
+        "label": "Asset",
+        "type": "collection",
+        "spec": [
+          {
+            "name": "url",
+            "label": "Asset URL",
+            "type": "url",
+            "help": "Provide an artwork URL or Base64 value. Base64 takes priority when both are supplied."
+          },
+          {
+            "name": "fit",
+            "label": "Fit",
+            "type": "select",
+            "options": [
+              {
+                "label": "Fill",
+                "value": "fill"
+              },
+              {
+                "label": "Contain",
+                "value": "contain"
+              },
+              {
+                "label": "Cover",
+                "value": "cover"
+              }
+            ],
+            "default": "fill"
+          },
+          {
+            "name": "rotate",
+            "label": "Rotation",
+            "type": "number",
+            "validate": {
+              "min": -360,
+              "max": 360
+            }
+          },
+          {
+            "name": "flip_horizontal",
+            "label": "Flip horizontally",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "flip_vertical",
+            "label": "Flip vertically",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "base64",
+            "label": "Base64",
+            "type": "text",
+            "multiline": true,
+            "advanced": true
+          },
+          {
+            "name": "content_type",
+            "label": "Content type",
+            "type": "select",
+            "options": [
+              {
+                "label": "PNG",
+                "value": "image/png"
+              },
+              {
+                "label": "JPEG",
+                "value": "image/jpeg"
+              },
+              {
+                "label": "WebP",
+                "value": "image/webp"
+              },
+              {
+                "label": "GIF",
+                "value": "image/gif"
+              }
+            ],
+            "advanced": true
+          },
+          {
+            "name": "size",
+            "label": "Size",
+            "type": "collection",
+            "spec": [
+              {
+                "name": "width",
+                "label": "Width",
+                "type": "integer",
+                "validate": {
+                  "min": 1
+                }
+              },
+              {
+                "name": "height",
+                "label": "Height",
+                "type": "integer",
+                "validate": {
+                  "min": 1
+                }
+              }
+            ],
+            "advanced": true
+          },
+          {
+            "name": "position",
+            "label": "Position",
+            "type": "collection",
+            "spec": [
+              {
+                "name": "top",
+                "label": "Top",
+                "type": "number"
+              },
+              {
+                "name": "left",
+                "label": "Left",
+                "type": "number"
+              }
+            ],
+            "advanced": true
+          }
+        ],
+        "help": "Optional image asset. Provide a URL or Base64 value when using it."
+      },
+      {
+        "name": "color",
+        "label": "Color overlay",
+        "type": "collection",
+        "spec": [
+          {
+            "name": "hex",
+            "label": "Hex color",
+            "type": "color",
+            "required": true,
+            "help": "Hex color such as #FF6600."
+          },
+          {
+            "name": "blending_mode",
+            "label": "Blending mode",
+            "type": "select",
+            "options": [
+              {
+                "label": "Normal",
+                "value": "normal"
+              },
+              {
+                "label": "Multiply",
+                "value": "multiply"
+              },
+              {
+                "label": "Screen",
+                "value": "screen"
+              },
+              {
+                "label": "Overlay",
+                "value": "overlay"
+              },
+              {
+                "label": "Darken",
+                "value": "darken"
+              },
+              {
+                "label": "Lighten",
+                "value": "lighten"
+              },
+              {
+                "label": "Color dodge",
+                "value": "color-dodge"
+              },
+              {
+                "label": "Color burn",
+                "value": "color-burn"
+              },
+              {
+                "label": "Hard light",
+                "value": "hard-light"
+              },
+              {
+                "label": "Soft light",
+                "value": "soft-light"
+              }
+            ],
+            "default": "normal"
+          }
+        ],
+        "advanced": true
+      },
+      {
+        "name": "adjustment_layers",
+        "label": "Adjustment layers",
+        "type": "collection",
+        "spec": [
+          {
+            "name": "brightness",
+            "label": "Brightness",
+            "type": "number",
+            "validate": {
+              "min": -150,
+              "max": 150
+            }
+          },
+          {
+            "name": "contrast",
+            "label": "Contrast",
+            "type": "number",
+            "validate": {
+              "min": -100,
+              "max": 100
+            }
+          },
+          {
+            "name": "opacity",
+            "label": "Opacity",
+            "type": "number",
+            "validate": {
+              "min": 0,
+              "max": 100
+            }
+          },
+          {
+            "name": "saturation",
+            "label": "Saturation",
+            "type": "number",
+            "validate": {
+              "min": -100,
+              "max": 100
+            }
+          },
+          {
+            "name": "vibrance",
+            "label": "Vibrance",
+            "type": "number",
+            "validate": {
+              "min": -100,
+              "max": 100
+            }
+          },
+          {
+            "name": "blur",
+            "label": "Blur",
+            "type": "number",
+            "validate": {
+              "min": 0,
+              "max": 100
+            }
+          }
+        ],
+        "advanced": true
+      }
+    ],
+    "help": "Add at least one smart object or provide text layer overrides."
+  },
+  {
+    "name": "text_layers",
+    "label": "Text layers",
+    "type": "array",
+    "spec": [
+      {
+        "name": "uuid",
+        "label": "Text layer UUID",
+        "type": "uuid",
+        "required": true
+      },
+      {
+        "name": "text",
+        "label": "Text",
+        "type": "text",
+        "validate": {
+          "min": 1,
+          "max": 500
+        },
+        "help": "Replacement text for a single-style layer. Use either text or segments."
+      },
+      {
+        "name": "segments",
+        "label": "Segments",
+        "type": "array",
+        "spec": [
+          {
+            "name": "index",
+            "label": "Segment index",
+            "type": "integer",
+            "required": true,
+            "validate": {
+              "min": 0,
+              "max": 31
+            }
+          },
+          {
+            "name": "text",
+            "label": "Text",
+            "type": "text",
+            "required": true,
+            "validate": {
+              "min": 1,
+              "max": 200
+            }
+          }
+        ],
+        "validate": {
+          "minItems": 1,
+          "maxItems": 32
+        },
+        "help": "Styled-segment overrides for a multi-style layer. Use either segments or text."
+      },
+      {
+        "name": "font",
+        "label": "Font",
+        "type": "text",
+        "validate": {
+          "max": 255
+        },
+        "help": "Font UUID or PostScript name for a single-style layer."
+      },
+      {
+        "name": "font_size",
+        "label": "Font size",
+        "type": "number",
+        "validate": {
+          "min": 0.000001,
+          "max": 2000
+        },
+        "help": "Font size greater than 0 and up to 2000 pixels."
+      },
+      {
+        "name": "color",
+        "label": "Color",
+        "type": "color",
+        "help": "Text color for a single-style layer."
+      },
+      {
+        "name": "stroke_color",
+        "label": "Stroke color",
+        "type": "any",
+        "help": "Map one hex color or an array of up to eight hex colors or null values."
+      },
+      {
+        "name": "fit",
+        "label": "Fit",
+        "type": "select",
+        "options": [
+          {
+            "label": "Shrink",
+            "value": "shrink"
+          },
+          {
+            "label": "Clip",
+            "value": "clip"
+          },
+          {
+            "label": "Overflow",
+            "value": "overflow"
+          }
+        ],
+        "default": "overflow"
+      }
+    ],
+    "validate": {
+      "maxItems": 50
+    },
+    "help": "Add text layer overrides. Each item must use either text or segments."
+  },
+  {
+    "name": "export_options",
+    "label": "Export options",
+    "type": "collection",
+    "spec": [
+      {
+        "name": "image_format",
+        "label": "Image format",
+        "type": "select",
+        "options": [
+          {
+            "label": "WebP",
+            "value": "webp"
+          },
+          {
+            "label": "PNG",
+            "value": "png"
+          },
+          {
+            "label": "JPG",
+            "value": "jpg"
+          }
+        ],
+        "default": "webp"
+      },
+      {
+        "name": "image_size",
+        "label": "Image size",
+        "type": "integer",
+        "default": 2048,
+        "validate": {
+          "min": 100,
+          "max": 10000
+        }
+      },
+      {
+        "name": "quality",
+        "label": "Quality",
+        "type": "integer",
+        "default": 90,
+        "validate": {
+          "min": 1,
+          "max": 100
+        }
+      },
+      {
+        "name": "dpi",
+        "label": "DPI",
+        "type": "integer",
+        "validate": {
+          "min": 72,
+          "max": 2400
+        }
+      },
+      {
+        "name": "export_label",
+        "label": "Export label",
+        "type": "text"
+      }
+    ],
+    "advanced": true
+  },
+  {
+    "name": "is_async",
+    "label": "Process asynchronously",
+    "type": "boolean",
+    "default": false
+  }
+]

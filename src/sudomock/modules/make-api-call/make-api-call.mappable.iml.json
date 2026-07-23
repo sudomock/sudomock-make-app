@@ -1,0 +1,88 @@
+[
+  {
+    "name": "url",
+    "label": "URL",
+    "type": "text",
+    "required": true,
+    "help": "Enter a path relative to https://api.sudomock.com, for example /api/v1/me.",
+    "validate": {
+      "pattern": "^/"
+    }
+  },
+  {
+    "name": "method",
+    "label": "Method",
+    "type": "select",
+    "options": [
+      {
+        "label": "GET",
+        "value": "GET"
+      },
+      {
+        "label": "POST",
+        "value": "POST"
+      },
+      {
+        "label": "PUT",
+        "value": "PUT"
+      },
+      {
+        "label": "PATCH",
+        "value": "PATCH"
+      },
+      {
+        "label": "DELETE",
+        "value": "DELETE"
+      }
+    ],
+    "required": true,
+    "default": "GET"
+  },
+  {
+    "name": "headers",
+    "label": "Headers",
+    "type": "array",
+    "spec": [
+      {
+        "name": "key",
+        "label": "Key",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "value",
+        "label": "Value",
+        "type": "text"
+      }
+    ],
+    "default": [
+      {
+        "key": "Content-Type",
+        "value": "application/json"
+      }
+    ]
+  },
+  {
+    "name": "qs",
+    "label": "Query string",
+    "type": "array",
+    "spec": [
+      {
+        "name": "key",
+        "label": "Key",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "value",
+        "label": "Value",
+        "type": "text"
+      }
+    ]
+  },
+  {
+    "name": "body",
+    "label": "Body",
+    "type": "any"
+  }
+]

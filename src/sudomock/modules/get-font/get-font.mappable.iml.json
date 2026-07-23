@@ -1,0 +1,8 @@
+[
+  {
+    "name": "font_uuid",
+    "label": "Font UUID",
+    "type": "uuid",
+    "required": true
+  }
+]

@@ -1,0 +1,24 @@
+{
+  "url": "/mockups",
+  "method": "GET",
+  "qs": {
+    "limit": 100,
+    "offset": 0,
+    "sort": "name",
+    "order": "asc"
+  },
+  "response": {
+    "iterate": "{{body.data.mockups}}",
+    "limit": 300,
+    "output": {
+      "label": "{{ifempty(item.name, item.uuid)}}",
+      "value": "{{item.uuid}}"
+    }
+  },
+  "pagination": {
+    "qs": {
+      "offset": "{{(pagination.page - 1) * 100}}"
+    },
+    "condition": "{{pagination.page <= 3 && length(body.data.mockups) == 100}}"
+  }
+}

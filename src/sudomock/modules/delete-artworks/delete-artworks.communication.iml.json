@@ -1,0 +1,11 @@
+{
+  "url": "/artworks/delete",
+  "method": "POST",
+  "body": {
+    "urls": "{{if(parameters.delete_by == 'urls', parameters.urls, undefined)}}",
+    "mockup_uuid": "{{if(parameters.delete_by == 'mockup', parameters.mockup_uuid, undefined)}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}

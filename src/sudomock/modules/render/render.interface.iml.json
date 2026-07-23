@@ -1,0 +1,184 @@
+[
+  {
+    "name": "data",
+    "label": "Data",
+    "type": "collection",
+    "spec": [
+      {
+        "name": "print_files",
+        "label": "Print files",
+        "type": "array",
+        "spec": [
+          {
+            "name": "export_path",
+            "label": "Export path",
+            "type": "url"
+          },
+          {
+            "name": "smart_object_uuid",
+            "label": "Smart object UUID",
+            "type": "uuid"
+          },
+          {
+            "name": "render_uuid",
+            "label": "Render UUID",
+            "type": "uuid"
+          }
+        ]
+      },
+      {
+        "name": "render_uuid",
+        "label": "Render UUID",
+        "type": "uuid"
+      },
+      {
+        "name": "text_layers",
+        "label": "Text layers",
+        "type": "array",
+        "spec": [
+          {
+            "name": "uuid",
+            "label": "UUID",
+            "type": "uuid"
+          },
+          {
+            "name": "name",
+            "label": "Name",
+            "type": "text"
+          },
+          {
+            "name": "requested_font",
+            "label": "Requested font",
+            "type": "text"
+          },
+          {
+            "name": "resolved_font",
+            "label": "Resolved font",
+            "type": "collection",
+            "spec": [
+              {
+                "name": "family",
+                "label": "Family",
+                "type": "text"
+              },
+              {
+                "name": "postscript_name",
+                "label": "PostScript name",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "name": "match_source",
+            "label": "Match source",
+            "type": "text"
+          },
+          {
+            "name": "glyph_coverage_ok",
+            "label": "Glyph coverage OK",
+            "type": "boolean"
+          },
+          {
+            "name": "segments",
+            "label": "Segments",
+            "type": "array",
+            "spec": [
+              {
+                "name": "index",
+                "label": "Index",
+                "type": "integer"
+              },
+              {
+                "name": "requested_font",
+                "label": "Requested font",
+                "type": "text"
+              },
+              {
+                "name": "resolved_font",
+                "label": "Resolved font",
+                "type": "collection",
+                "spec": [
+                  {
+                    "name": "family",
+                    "label": "Family",
+                    "type": "text"
+                  },
+                  {
+                    "name": "postscript_name",
+                    "label": "PostScript name",
+                    "type": "text"
+                  }
+                ]
+              },
+              {
+                "name": "match_source",
+                "label": "Match source",
+                "type": "text"
+              },
+              {
+                "name": "glyph_coverage_ok",
+                "label": "Glyph coverage OK",
+                "type": "boolean"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "success",
+    "label": "Success",
+    "type": "boolean"
+  },
+  {
+    "name": "warnings",
+    "label": "Warnings",
+    "type": "array",
+    "spec": [
+      {
+        "name": "code",
+        "label": "Code",
+        "type": "text"
+      },
+      {
+        "name": "message",
+        "label": "Message",
+        "type": "text"
+      }
+    ]
+  },
+  {
+    "name": "renderedImageUrl",
+    "label": "Rendered image URL",
+    "type": "url"
+  },
+  {
+    "name": "allRenderedUrls",
+    "label": "All rendered URLs",
+    "type": "array",
+    "spec": {
+      "type": "url"
+    }
+  },
+  {
+    "name": "job_id",
+    "label": "Job ID",
+    "type": "uuid"
+  },
+  {
+    "name": "kind",
+    "label": "Kind",
+    "type": "text"
+  },
+  {
+    "name": "status",
+    "label": "Status",
+    "type": "text"
+  },
+  {
+    "name": "status_url",
+    "label": "Status URL",
+    "type": "url"
+  }
+]

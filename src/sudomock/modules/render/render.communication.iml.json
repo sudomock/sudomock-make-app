@@ -1,0 +1,30 @@
+[
+  {
+    "response": {
+      "valid": {
+        "condition": "{{length(parameters.smart_objects) > 0 || length(parameters.text_layers) > 0}}",
+        "message": "Add at least one smart object or text layer override.",
+        "type": "DataError"
+      }
+    }
+  },
+  {
+    "url": "/renders",
+    "method": "POST",
+    "body": {
+      "mockup_uuid": "{{parameters.mockup_uuid}}",
+      "smart_objects": "{{parameters.smart_objects}}",
+      "text_layers": "{{parameters.text_layers}}",
+      "export_options": "{{if(parameters.export_options, omit(parameters.export_options, 'export_label'), undefined)}}",
+      "export_label": "{{parameters.export_options.export_label}}",
+      "is_async": "{{if(parameters.is_async, true, undefined)}}"
+    },
+    "response": {
+      "output": {
+        "{{...}}": "{{body}}",
+        "renderedImageUrl": "{{if(length(body.data.print_files) > 0, first(map(body.data.print_files, 'export_path')), undefined)}}",
+        "allRenderedUrls": "{{if(length(body.data.print_files) > 0, map(body.data.print_files, 'export_path'), undefined)}}"
+      }
+    }
+  }
+]

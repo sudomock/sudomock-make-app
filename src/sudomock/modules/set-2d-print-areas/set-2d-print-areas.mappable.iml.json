@@ -1,0 +1,28 @@
+[
+  {
+    "name": "mockup_uuid",
+    "label": "2D mockup UUID",
+    "type": "uuid",
+    "required": true
+  },
+  {
+    "name": "print_areas",
+    "label": "Print areas",
+    "type": "array",
+    "spec": [
+      {
+        "name": "points",
+        "label": "Points",
+        "type": "any",
+        "required": true,
+        "help": "Map an array of four [x, y] coordinate pairs in clockwise order."
+      }
+    ],
+    "help": "One or more quadrilateral print areas. Each item must contain exactly four coordinate pairs.",
+    "required": true,
+    "validate": {
+      "minItems": 1,
+      "maxItems": 8
+    }
+  }
+]

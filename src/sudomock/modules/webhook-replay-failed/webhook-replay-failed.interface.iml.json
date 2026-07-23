@@ -1,0 +1,12 @@
+[
+  {
+    "name": "status",
+    "label": "Status",
+    "type": "text"
+  },
+  {
+    "name": "count",
+    "label": "Count",
+    "type": "integer"
+  }
+]

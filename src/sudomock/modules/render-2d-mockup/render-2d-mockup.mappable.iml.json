@@ -1,0 +1,327 @@
+[
+  {
+    "name": "mockup_uuid",
+    "label": "2D mockup UUID",
+    "type": "uuid",
+    "required": true
+  },
+  {
+    "name": "print_areas",
+    "label": "Print areas",
+    "type": "array",
+    "spec": [
+      {
+        "name": "uuid",
+        "label": "Print area UUID",
+        "type": "uuid",
+        "required": true
+      },
+      {
+        "name": "artwork_url",
+        "label": "Artwork URL",
+        "type": "url",
+        "help": "Provide an artwork URL or Base64 value."
+      },
+      {
+        "name": "base64",
+        "label": "Base64",
+        "type": "text",
+        "multiline": true,
+        "help": "Provide Base64 or an artwork URL. Base64 takes priority."
+      },
+      {
+        "name": "color",
+        "label": "Color",
+        "type": "color",
+        "help": "Optional hex color."
+      },
+      {
+        "name": "adjustments",
+        "label": "Adjustments",
+        "type": "collection",
+        "spec": [
+          {
+            "name": "brightness",
+            "label": "Brightness",
+            "type": "number",
+            "default": 0,
+            "validate": {
+              "min": -150,
+              "max": 150
+            }
+          },
+          {
+            "name": "contrast",
+            "label": "Contrast",
+            "type": "number",
+            "default": 0,
+            "validate": {
+              "min": -100,
+              "max": 100
+            }
+          },
+          {
+            "name": "opacity",
+            "label": "Opacity",
+            "type": "number",
+            "default": 100,
+            "validate": {
+              "min": 0,
+              "max": 100
+            }
+          },
+          {
+            "name": "saturation",
+            "label": "Saturation",
+            "type": "number",
+            "default": 0,
+            "validate": {
+              "min": -100,
+              "max": 100
+            }
+          },
+          {
+            "name": "vibrance",
+            "label": "Vibrance",
+            "type": "number",
+            "default": 0,
+            "validate": {
+              "min": -100,
+              "max": 100
+            }
+          },
+          {
+            "name": "blur",
+            "label": "Blur",
+            "type": "number",
+            "default": 0,
+            "validate": {
+              "min": 0,
+              "max": 100
+            }
+          },
+          {
+            "name": "blend_mode",
+            "label": "Blend mode",
+            "type": "select",
+            "options": [
+              {
+                "label": "Multiply",
+                "value": "multiply"
+              },
+              {
+                "label": "Normal",
+                "value": "normal"
+              }
+            ],
+            "default": "multiply"
+          },
+          {
+            "name": "warp_strength",
+            "label": "Warp strength",
+            "type": "number",
+            "default": 1.5,
+            "validate": {
+              "min": 0,
+              "max": 2
+            }
+          },
+          {
+            "name": "edge_expand",
+            "label": "Edge expand",
+            "type": "number",
+            "default": 0,
+            "validate": {
+              "min": 0,
+              "max": 50
+            }
+          },
+          {
+            "name": "texture_strength",
+            "label": "Texture strength",
+            "type": "number",
+            "default": 0,
+            "validate": {
+              "min": 0,
+              "max": 100
+            }
+          }
+        ]
+      },
+      {
+        "name": "placement",
+        "label": "Placement",
+        "type": "collection",
+        "spec": [
+          {
+            "name": "position",
+            "label": "Position",
+            "type": "select",
+            "options": [
+              {
+                "label": "Top left",
+                "value": "top-left"
+              },
+              {
+                "label": "Top center",
+                "value": "top-center"
+              },
+              {
+                "label": "Top right",
+                "value": "top-right"
+              },
+              {
+                "label": "Center left",
+                "value": "center-left"
+              },
+              {
+                "label": "Center",
+                "value": "center"
+              },
+              {
+                "label": "Center right",
+                "value": "center-right"
+              },
+              {
+                "label": "Bottom left",
+                "value": "bottom-left"
+              },
+              {
+                "label": "Bottom center",
+                "value": "bottom-center"
+              },
+              {
+                "label": "Bottom right",
+                "value": "bottom-right"
+              }
+            ],
+            "default": "center"
+          },
+          {
+            "name": "coverage",
+            "label": "Coverage",
+            "type": "number",
+            "default": 70,
+            "validate": {
+              "min": 10,
+              "max": 100
+            }
+          },
+          {
+            "name": "fit",
+            "label": "Fit",
+            "type": "select",
+            "options": [
+              {
+                "label": "Fill",
+                "value": "fill"
+              },
+              {
+                "label": "Contain",
+                "value": "contain"
+              },
+              {
+                "label": "Cover",
+                "value": "cover"
+              }
+            ],
+            "default": "contain"
+          },
+          {
+            "name": "scale",
+            "label": "Scale",
+            "type": "number",
+            "default": 1
+          },
+          {
+            "name": "rotation",
+            "label": "Rotation",
+            "type": "number",
+            "default": 0
+          },
+          {
+            "name": "offset_x",
+            "label": "Horizontal offset",
+            "type": "number",
+            "default": 0
+          },
+          {
+            "name": "offset_y",
+            "label": "Vertical offset",
+            "type": "number",
+            "default": 0
+          }
+        ]
+      }
+    ],
+    "required": true,
+    "validate": {
+      "minItems": 1,
+      "maxItems": 8
+    }
+  },
+  {
+    "name": "export_options",
+    "label": "Export options",
+    "type": "collection",
+    "spec": [
+      {
+        "name": "image_format",
+        "label": "Image format",
+        "type": "select",
+        "options": [
+          {
+            "label": "PNG",
+            "value": "png"
+          },
+          {
+            "label": "JPG",
+            "value": "jpg"
+          },
+          {
+            "label": "WebP",
+            "value": "webp"
+          }
+        ],
+        "default": "webp"
+      },
+      {
+        "name": "image_size",
+        "label": "Image size",
+        "type": "integer",
+        "default": 2048,
+        "validate": {
+          "min": 100,
+          "max": 10000
+        },
+        "help": "Output image size in pixels, from 100 to 10000."
+      },
+      {
+        "name": "quality",
+        "label": "Quality",
+        "type": "integer",
+        "default": 90,
+        "validate": {
+          "min": 1,
+          "max": 100
+        }
+      },
+      {
+        "name": "dpi",
+        "label": "DPI",
+        "type": "integer",
+        "validate": {
+          "min": 72,
+          "max": 2400
+        }
+      }
+    ],
+    "advanced": true
+  },
+  {
+    "name": "is_async",
+    "label": "Process asynchronously",
+    "type": "boolean",
+    "default": false
+  }
+]
