@@ -218,6 +218,18 @@ for (const type of ['rpc', 'module']) {
   }
 }
 
+for (const local of Object.keys(manifest.components.module)) {
+  const remote = remoteName('module', local);
+  if (!remote) continue;
+  run(
+    'sdk-modules',
+    'set-public',
+    `--app-name=${origin.appId}`,
+    `--app-version=${origin.appVersion}`,
+    `--module-name=${remote}`,
+  );
+}
+
 const webhooks = new Map(list('webhook').map((item) => [item.name, item]));
 for (const [local, webhook] of Object.entries(manifest.components.webhook)) {
   const remote = remoteName('webhook', local);
