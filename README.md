@@ -11,7 +11,7 @@ Official source for the SudoMock integration on Make. Turn product photos into r
 - Generate short product videos.
 - Manage mockups, custom fonts, jobs, and webhooks.
 - Download finished renders as Make files.
-- Access additional SudoMock endpoints with **Make an API Call**.
+- Access additional SudoMock endpoints with **Make an API call**.
 
 The complete in-app guide is in [`src/sudomock/README.md`](src/sudomock/README.md).
 

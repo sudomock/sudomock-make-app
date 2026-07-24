@@ -442,7 +442,7 @@
         }
       },
       "makeApiCall": {
-        "label": "Make an API Call",
+        "label": "Make an API call",
         "description": "Performs an arbitrary authorized API call.",
         "moduleType": "universal",
         "actionCrud": null,
