@@ -254,6 +254,11 @@ if (manifest) {
 
   const generalSchemas = { base: 'base', common: 'common', groups: 'groups' };
   for (const [key, path] of Object.entries(manifest.generalCodeFiles ?? {})) addFileRef(`generalCodeFiles.${key}`, path, generalSchemas[key]);
+  const base = jsonFiles.get(resolve(sourceRoot, manifest.generalCodeFiles?.base ?? ''));
+  const common = jsonFiles.get(resolve(sourceRoot, manifest.generalCodeFiles?.common ?? ''));
+  if (common?.timeout !== 300000 || base?.timeout !== 300000) {
+    errors.push('general Base and common data must use the 300-second timeout for long-running media jobs');
+  }
   const componentSchemas = {
     communication: 'api',
     staticParams: 'parameters',
@@ -442,7 +447,7 @@ if (manifest) {
           && guard.includes('ifempty(parameters.poll_timeout')
           && ['succeeded', 'failed', 'cancelled'].every((status) => guard.includes(status));
       });
-      if (!pollTimeout || pollTimeout.default > 30 || pollTimeout.validate?.max > 30) errors.push(`module.${name}: poll_timeout must stay within Make's 40-second module limit`);
+      if (!pollTimeout || pollTimeout.default !== 300 || pollTimeout.validate?.max !== 300) errors.push(`module.${name}: poll_timeout must match Make's 300-second extended timeout`);
       if (!hasBoundedNonterminalRepeat) errors.push(`module.${name}: wait polling must stop at poll_timeout for every nonterminal status`);
       if (!hasTimeoutDataError) errors.push(`module.${name}: a nonterminal poll timeout must raise DataError`);
     }
