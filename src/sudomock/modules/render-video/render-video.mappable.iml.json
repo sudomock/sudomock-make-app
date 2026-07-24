@@ -215,13 +215,13 @@
     "name": "poll_timeout",
     "label": "Polling timeout",
     "type": "integer",
-    "default": 30,
+    "default": 300,
     "validate": {
       "min": 5,
-      "max": 30
+      "max": 300
     },
     "visible": "{{parameters.wait_for_completion}}",
-    "help": "Maximum wait within Make's 40-second module limit. For longer jobs, call Get a Job in a later scenario cycle."
+    "help": "Maximum wait in seconds. SudoMock uses Make's extended timeout for long-running video, image, and media-generation jobs."
   },
   {
     "name": "idempotency_key",
