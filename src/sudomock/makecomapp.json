@@ -163,8 +163,8 @@
         }
       },
       "listFonts": {
-        "label": "List fonts",
-        "description": "Returns up to the specified number of available fonts.",
+        "label": "Search fonts",
+        "description": "Searches available fonts by category, name, or scope and returns up to the specified number of results.",
         "moduleType": "search",
         "actionCrud": "read",
         "connection": "sudomockApiKey",
@@ -214,8 +214,8 @@
         }
       },
       "listMockups": {
-        "label": "List mockups",
-        "description": "Returns up to the specified number of mockup templates.",
+        "label": "Search mockups",
+        "description": "Searches mockup templates by name or creation date and returns up to the specified number of results.",
         "moduleType": "search",
         "actionCrud": "read",
         "connection": "sudomockApiKey",
@@ -240,8 +240,8 @@
         }
       },
       "listJobs": {
-        "label": "List jobs",
-        "description": "Returns up to the specified number of jobs.",
+        "label": "Search jobs",
+        "description": "Searches jobs by type or mockup and returns up to the specified number of results.",
         "moduleType": "search",
         "actionCrud": "read",
         "connection": "sudomockApiKey",
@@ -331,8 +331,8 @@
         }
       },
       "webhookEventsFeed": {
-        "label": "Get the webhook events feed",
-        "description": "Returns up to the specified number of webhook deliveries across endpoints.",
+        "label": "Search all webhook deliveries",
+        "description": "Searches webhook deliveries across all endpoints by status or event type.",
         "moduleType": "search",
         "actionCrud": "read",
         "connection": "sudomockApiKey",
@@ -357,8 +357,8 @@
         }
       },
       "webhookListDeliveries": {
-        "label": "List webhook deliveries",
-        "description": "Returns up to the specified number of deliveries for a webhook endpoint.",
+        "label": "Search webhook deliveries",
+        "description": "Searches deliveries for a webhook endpoint by status or event type.",
         "moduleType": "search",
         "actionCrud": "read",
         "connection": "sudomockApiKey",
