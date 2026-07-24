@@ -1,6 +1,6 @@
 # SudoMock
 
-SudoMock generates product mockups and videos for Print-on-Demand automation. Turn any product photo into a reusable 2D mockup, or use a PSD template for layered Smart Object rendering. The SudoMock app for Make lets teams personalize designs and text, manage artwork and fonts, run jobs asynchronously, and manage webhooks through the SudoMock API.
+SudoMock turns product photos into reusable mockups without requiring a PSD. The product calls this photo-first workflow a 2D mockup. When exact layered control is needed, SudoMock also renders PSD templates with Smart Objects and editable text. The SudoMock app for Make automates still product images and short videos, personalized artwork and fonts, asynchronous jobs, and webhooks through the SudoMock API.
 
 ## Connect SudoMock to Make
 
@@ -14,23 +14,31 @@ Make masks the API key and tests the connection against the authenticated SudoMo
 ## What you can automate
 
 - Retrieve account, subscription, usage, and credit information.
-- Upload, list, retrieve, rename, and delete reusable PSD mockup templates.
 - Create, prepare, configure, render, list, and delete reusable 2D mockups made from product photos.
+- Upload, list, retrieve, rename, and delete reusable PSD mockup templates.
 - Render product mockups with artwork, Smart Objects, editable text, fonts, and export settings.
 - Create short product videos from a mockup or image.
 - Manage custom fonts and order artwork.
 - Track asynchronous jobs and manage SudoMock webhook endpoints and deliveries.
 - Call additional SudoMock API endpoints with **Make an API Call**.
 
-## Typical product mockup workflow
+## Product photo workflow
 
-1. Select or upload a reusable PSD mockup.
+1. Add **Create a mockup from a photo** and provide a product-photo URL.
+2. Optionally override the automatically detected print areas.
+3. Map artwork and placement settings to each print area.
+4. Render the still product image.
+5. Download the image or continue the scenario with its result URL.
+
+## PSD template workflow
+
+1. Select or upload a reusable PSD template.
 2. Map artwork to one or more Smart Objects.
 3. Add personalized text or font settings when needed.
 4. Start the render and receive the result immediately or as an asynchronous job.
 5. Download the finished image or continue the scenario with its result URL.
 
-This workflow supports print-on-demand operations, e-commerce product catalogs, marketplace listings, campaign variants, and personalized customer orders. SudoMock can be combined in Make scenarios with services such as Shopify, WooCommerce, Etsy, cloud storage, spreadsheets, and order-management systems.
+This workflow supports print-on-demand operations, e-commerce product catalogs, marketplace listings, campaign variants, and personalized customer orders. SudoMock can be combined in Make scenarios with storefronts, marketplaces, cloud storage, spreadsheets, and order-management systems.
 
 ## Asynchronous jobs
 

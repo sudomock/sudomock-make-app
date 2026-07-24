@@ -30,11 +30,11 @@ Primary rules:
 - [Error handling](https://developers.make.com/custom-apps-documentation/best-practices/base/error-handling)
 - [429 handling](https://developers.make.com/custom-apps-documentation/best-practices/base/429-error-handling)
 - [Search modules](https://developers.make.com/custom-apps-documentation/best-practices/modules/search-modules)
-- [Pagination](https://developers.make.com/custom-apps-documentation/app-blocks/api/pagination)
+- [Pagination](https://developers.make.com/custom-apps-documentation/component-blocks/api/pagination)
 - [Output interfaces](https://developers.make.com/custom-apps-documentation/best-practices/output-parameters/interface)
 - [RPC best practices](https://developers.make.com/custom-apps-documentation/best-practices/remote-procedure-calls)
 - [REST universal module](https://developers.make.com/custom-apps-documentation/app-components/modules/universal-module/rest)
-- [Buffer output](https://developers.make.com/custom-apps-documentation/app-blocks/api/buffer)
+- [Buffer output](https://developers.make.com/custom-apps-documentation/component-blocks/api/buffer)
 
 ## Product and presentation
 

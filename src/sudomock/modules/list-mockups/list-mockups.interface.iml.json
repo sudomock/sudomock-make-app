@@ -211,7 +211,7 @@
       },
       {
         "name": "font_postscript_name",
-        "label": "Font PostScript name",
+        "label": "Font internal name",
         "type": "text"
       },
       {
@@ -256,7 +256,7 @@
           },
           {
             "name": "font_postscript_name",
-            "label": "Font PostScript name",
+            "label": "Font internal name",
             "type": "text"
           },
           {

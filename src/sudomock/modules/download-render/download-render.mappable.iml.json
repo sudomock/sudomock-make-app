@@ -4,6 +4,6 @@
     "label": "Render URL",
     "type": "url",
     "required": true,
-    "help": "Full URL returned by a render or completed render job."
+    "help": "Map the result URL returned by a SudoMock render or completed render job."
   }
 ]

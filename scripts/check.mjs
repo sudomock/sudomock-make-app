@@ -333,7 +333,9 @@ if (manifest) {
     }
   }
   const groups = jsonFiles.get(resolve(sourceRoot, manifest.generalCodeFiles?.groups ?? ''));
-  if (!Array.isArray(groups) || groups[0]?.label !== 'Photo to mockup (2D)') errors.push('modules/groups.json: first group must be "Photo to mockup (2D)"');
+  if (!Array.isArray(groups) || groups[0]?.label !== 'Product photos to mockups (2D)') {
+    errors.push('modules/groups.json: first group must be "Product photos to mockups (2D)"');
+  }
   const photoModule = manifest.components?.module?.create2DMockup;
   if (!/\bphoto\b/i.test(`${photoModule?.label ?? ''} ${photoModule?.description ?? ''}`)) {
     errors.push('makecomapp.json: create2DMockup copy must explain the photo capability');

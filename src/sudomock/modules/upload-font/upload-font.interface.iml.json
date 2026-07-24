@@ -16,7 +16,7 @@
   },
   {
     "name": "postscript_name",
-    "label": "PostScript name",
+    "label": "Font internal name",
     "type": "text"
   },
   {

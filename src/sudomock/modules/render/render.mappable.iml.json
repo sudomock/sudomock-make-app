@@ -338,7 +338,7 @@
         "validate": {
           "max": 255
         },
-        "help": "Font UUID or PostScript name for a single-style layer."
+        "help": "Font UUID or internal font name for a single-style layer."
       },
       {
         "name": "font_size",
