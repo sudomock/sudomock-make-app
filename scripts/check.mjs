@@ -116,7 +116,7 @@ if (!existsSync(dependabotPath)) {
 const manifest = jsonFiles.get(manifestPath);
 const expectedInventory = {
   connection: ['sudomockApiKey'],
-  module: `create2DMockup get2DMockup list2DMockups set2DPrintAreas render2DMockup delete2DMockup deleteArtworks storeArtworks deleteMockup deleteFont getFont listFonts uploadFont getAccountInfo getMockup listMockups getJob listJobs render renderVideo updateMockup uploadPsd webhookCreate webhookDelete webhookEventsFeed webhookGet webhookListDeliveries webhookList webhookReplayDelivery webhookReplayFailed webhookRotateSecret webhookTest webhookUpdate downloadRender makeApiCall`.split(' '),
+  module: `create2DMockup get2DMockup list2DMockups set2DPrintAreas render2DMockup delete2DMockup deleteMockup deleteFont getFont listFonts uploadFont getAccountInfo getMockup listMockups getJob listJobs render renderVideo updateMockup uploadPsd webhookCreate webhookDelete webhookEventsFeed webhookGet webhookListDeliveries webhookList webhookReplayDelivery webhookReplayFailed webhookRotateSecret webhookTest webhookUpdate downloadRender makeApiCall`.split(' '),
   function: [],
   rpc: ['listMockups', 'listSmartObjects'],
   webhook: [],
@@ -296,6 +296,7 @@ if (manifest) {
       }
       if (type === 'module') {
         if (component.moduleType !== 'universal' && !component.codeFiles?.interface) errors.push(`makecomapp.json: module.${name} is missing its interface`);
+        if (component.moduleType === 'search' && !component.codeFiles?.samples) errors.push(`makecomapp.json: search module.${name} is missing a static sample`);
         const badLabel = name === 'makeApiCall' && component.label === 'Make an API Call' ? undefined : capitalizedMidSentence(component.label ?? '');
         const badDescription = capitalizedMidSentence(component.description ?? '');
         if (badLabel) errors.push(`makecomapp.json: module.${name} label is not sentence case (${badLabel})`);
@@ -483,7 +484,7 @@ if (manifest) {
   if (!videoExportOptions || renderVideoRequestBody?.export_options !== '{{parameters.export_options}}') {
     errors.push('module.renderVideo: export_options must be exposed and mapped to the request');
   }
-  if (videoDuration?.default !== 5) errors.push('module.renderVideo: video.duration_seconds default must be 5');
+  if (videoDuration?.default !== 4) errors.push('module.renderVideo: video.duration_seconds default must be 4');
   if (videoSmartObjects?.required !== true || videoSmartObjects?.validate?.minItems !== 1) {
     errors.push('module.renderVideo: render-mode smart_objects must require at least one item');
   }
@@ -491,11 +492,18 @@ if (manifest) {
   const renderParams = code(manifest.components?.module?.render ?? {}, 'mappableParams');
   const renderAsset = fieldAt(renderParams, 'smart_objects.asset');
   const renderAssetUrl = fieldAt(renderParams, 'smart_objects.asset.url');
+  const renderBlendModes = fieldAt(renderParams, 'smart_objects.color.blending_mode')?.options?.map((option) => option.value);
   if (renderAsset?.required === true || renderAssetUrl?.required === true) {
     errors.push('module.render: asset and asset.url cannot be required because Base64 and color-only inputs are supported');
   }
   for (const path of ['smart_objects.asset.flip_horizontal', 'smart_objects.asset.flip_vertical']) {
     if (fieldAt(renderParams, path)?.type !== 'boolean') errors.push(`module.render: missing PSD asset input ${path}`);
+  }
+  for (const mode of ['color_dodge', 'color_burn', 'hard_light', 'soft_light']) {
+    if (!renderBlendModes?.includes(mode)) errors.push(`module.render: missing canonical blend mode ${mode}`);
+  }
+  if (renderBlendModes?.some((mode) => mode.includes('-'))) {
+    errors.push('module.render: blend mode values must use the API canonical underscore format');
   }
   const textLayers = fieldAt(renderParams, 'text_layers');
   const textLayerFields = new Set(parameterFields(textLayers?.spec).map((field) => field.path));
@@ -510,6 +518,14 @@ if (manifest) {
       const field = fieldAt(params, path);
       if (!field || Object.hasOwn(field, 'default')) errors.push(`module.${name}: ${path} must default to all values by remaining unset`);
     }
+  }
+  const jobKind = fieldAt(code(manifest.components?.module?.listJobs ?? {}, 'mappableParams'), 'filters.kind');
+  if (!jobKind || Object.hasOwn(jobKind, 'default')) {
+    errors.push('module.listJobs: filters.kind must default to all job kinds by remaining unset');
+  }
+  const placementPositions = fieldAt(render2DParams, 'print_areas.placement.position')?.options?.map((option) => option.value);
+  if (placementPositions?.some((position) => position.includes('-'))) {
+    errors.push('module.render2DMockup: placement positions must use the API canonical underscore format');
   }
   const webhookUpdate = manifest.components?.module?.webhookUpdate;
   const webhookUpdateParams = code(webhookUpdate ?? {}, 'mappableParams');

@@ -47,7 +47,7 @@ const scenarios = [
   reviewScenario('SudoMock App Review - Private QA', [
     step('getAccountInfo'),
   ]),
-  reviewScenario('SudoMock App Review 02 - PSD, still, artwork, cleanup', [
+  reviewScenario('SudoMock App Review 02 - PSD, still, cleanup', [
     step('uploadPsd', { psd_file_url: psdUrl, psd_name: 'Synthetic review QA', is_async: false }),
     step('getMockup', { mockup_uuid: '{{1.data.uuid}}' }),
     step('updateMockup', { mockup_uuid: '{{1.data.uuid}}', name: 'Synthetic review QA' }),
@@ -56,21 +56,35 @@ const scenarios = [
       smart_objects: [{
         uuid: '{{1.data.smart_objects[1].uuid}}',
         asset: { url: artworkUrl, fit: 'contain' },
+        color: { hex: '#334155', blending_mode: 'soft_light' },
       }],
       text_layers: [],
       export_options: { image_format: 'jpg', image_size: 1200, quality: 80, export_label: 'synthetic-review-qa' },
       is_async: false,
     }),
     step('downloadRender', { url: '{{4.renderedImageUrl}}' }, false),
-    step('storeArtworks', { mockup_uuid: '{{1.data.uuid}}', items: [], preview_url: '{{4.renderedImageUrl}}' }),
-    step('deleteArtworks', { delete_by: 'mockup', urls: [], mockup_uuid: '{{1.data.uuid}}' }),
+    step('deleteMockup', { mockup_uuid: '{{1.data.uuid}}' }),
+  ]),
+  reviewScenario('SudoMock App Review 02b - Async render and wait', [
+    step('uploadPsd', { psd_file_url: psdUrl, psd_name: 'Synthetic async review QA', is_async: false }),
+    step('render', {
+      mockup_uuid: '{{1.data.uuid}}',
+      smart_objects: [{
+        uuid: '{{1.data.smart_objects[1].uuid}}',
+        asset: { url: artworkUrl, fit: 'contain' },
+      }],
+      text_layers: [],
+      export_options: { image_format: 'jpg', image_size: 1200, quality: 80, export_label: 'synthetic-async-review-qa' },
+      is_async: true,
+    }),
+    step('getJob', { job_id: '{{2.job_id}}', wait_for_completion: true, poll_timeout: 300 }),
     step('deleteMockup', { mockup_uuid: '{{1.data.uuid}}' }),
   ]),
   reviewScenario('SudoMock App Review 03 - Video', [
     step('renderVideo', {
       input_mode: 'image',
       image_url: productUrl,
-      video: { duration_seconds: 5, audio: false, motion: 'ambient', advanced_model: 'kling-2.6-pro' },
+      video: { duration_seconds: 4, audio: false, motion: 'ambient' },
       wait_for_completion: true,
       poll_timeout: 300,
       idempotency_key: 'make-review-video-v2',
@@ -102,7 +116,7 @@ const scenarios = [
         uuid: '{{3.data.print_areas[1].print_area_id}}',
         artwork_url: artworkUrl,
         adjustments: { opacity: 100, blend_mode: 'multiply' },
-        placement: { position: 'center', coverage: 70, fit: 'contain', scale: 1, rotation: 0, offset_x: 0, offset_y: 0 },
+        placement: { position: 'top_left', coverage: 70, fit: 'contain', scale: 1, rotation: 0, offset_x: 0, offset_y: 0 },
       }],
       export_options: { image_format: 'jpg', image_size: 1200, quality: 80 },
       is_async: false,
@@ -159,8 +173,9 @@ const scenarios = [
 async function check() {
   const manifest = JSON.parse(await readFile(resolve(root, 'src/sudomock/makecomapp.json'), 'utf8'));
   const expected = Object.keys(manifest.components.module).sort();
-  const covered = scenarios.flatMap(({ blueprint }) => blueprint.flow.map(({ module }) => module.slice(app.length + 1))).sort();
-  assert.deepEqual(covered, expected, 'review blueprints must cover every deployed module exactly once');
+  const covered = [...new Set(scenarios.flatMap(({ blueprint }) =>
+    blueprint.flow.map(({ module }) => module.slice(app.length + 1))))].sort();
+  assert.deepEqual(covered, expected, 'review blueprints must cover every deployed module');
   assert.equal(new Set(scenarios.map(({ name }) => name)).size, scenarios.length, 'scenario names must be unique');
   for (const { blueprint } of scenarios) {
     assert.equal(blueprint.flow.length > 0, true);
@@ -183,7 +198,7 @@ if (rawArgs.includes('--dry-run') && apply) throw new Error('--dry-run cannot be
 
 await check();
 if (checkOnly) {
-  console.log(`OK: ${scenarios.length} private scenarios cover 35 modules.`);
+  console.log(`OK: ${scenarios.length} private scenarios cover all deployed modules.`);
   process.exit(0);
 }
 

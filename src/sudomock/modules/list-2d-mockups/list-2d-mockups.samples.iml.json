@@ -1,0 +1,19 @@
+{
+  "mockup_id": "00000000-0000-4000-8000-000000000001",
+  "name": "Sample product photo mockup",
+  "status": "ready",
+  "thumbnail_url": "https://example.com/2d-mockup.webp",
+  "source_width": 2400,
+  "source_height": 2400,
+  "print_areas": [
+    {
+      "print_area_id": "00000000-0000-4000-8000-000000000002",
+      "points": [[600, 600], [1800, 600], [1800, 1800], [600, 1800]],
+      "name": "Front",
+      "sort_order": 0
+    }
+  ],
+  "version": 1,
+  "created_at": "2026-01-01T12:00:00Z",
+  "updated_at": "2026-01-01T12:00:00Z"
+}

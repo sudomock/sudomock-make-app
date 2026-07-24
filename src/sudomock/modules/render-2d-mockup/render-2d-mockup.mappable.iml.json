@@ -160,19 +160,19 @@
             "options": [
               {
                 "label": "Top left",
-                "value": "top-left"
+                "value": "top_left"
               },
               {
                 "label": "Top center",
-                "value": "top-center"
+                "value": "top_center"
               },
               {
                 "label": "Top right",
-                "value": "top-right"
+                "value": "top_right"
               },
               {
                 "label": "Center left",
-                "value": "center-left"
+                "value": "center_left"
               },
               {
                 "label": "Center",
@@ -180,19 +180,19 @@
               },
               {
                 "label": "Center right",
-                "value": "center-right"
+                "value": "center_right"
               },
               {
                 "label": "Bottom left",
-                "value": "bottom-left"
+                "value": "bottom_left"
               },
               {
                 "label": "Bottom center",
-                "value": "bottom-center"
+                "value": "bottom_center"
               },
               {
                 "label": "Bottom right",
-                "value": "bottom-right"
+                "value": "bottom_right"
               }
             ],
             "default": "center"

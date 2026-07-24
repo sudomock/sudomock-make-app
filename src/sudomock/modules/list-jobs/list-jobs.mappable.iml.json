@@ -29,8 +29,7 @@
             "label": "2D render",
             "value": "2d_render"
           }
-        ],
-        "default": "render"
+        ]
       },
       {
         "name": "mockup_uuid",

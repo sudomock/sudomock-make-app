@@ -193,19 +193,19 @@
               },
               {
                 "label": "Color dodge",
-                "value": "color-dodge"
+                "value": "color_dodge"
               },
               {
                 "label": "Color burn",
-                "value": "color-burn"
+                "value": "color_burn"
               },
               {
                 "label": "Hard light",
-                "value": "hard-light"
+                "value": "hard_light"
               },
               {
                 "label": "Soft light",
-                "value": "soft-light"
+                "value": "soft_light"
               }
             ],
             "default": "normal"

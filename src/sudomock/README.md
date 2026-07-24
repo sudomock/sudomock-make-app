@@ -18,7 +18,7 @@ Make masks the API key and tests the connection against the authenticated SudoMo
 - Upload, list, retrieve, rename, and delete reusable PSD mockup templates.
 - Render product mockups with artwork, Smart Objects, editable text, fonts, and export settings.
 - Create short product videos from a mockup or image.
-- Manage custom fonts and order artwork.
+- Manage custom fonts.
 - Track asynchronous jobs and manage SudoMock webhook endpoints and deliveries.
 - Call additional SudoMock API endpoints with **Make an API Call**.
 
