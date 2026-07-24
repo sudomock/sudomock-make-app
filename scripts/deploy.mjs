@@ -76,7 +76,7 @@ const env = { ...process.env, MAKE_API_KEY: apiKey, MAKE_ZONE: new URL(origin.ba
 
 function run(...command) {
   if (dryRun) {
-    console.log(command.filter((argument) => !/^--(?:body|data-base64|docs)=/.test(argument)).join(' '));
+    console.log(command.filter((argument) => !/^--(?:body|common|data-base64|docs)=/.test(argument)).join(' '));
     return '';
   }
   const result = spawnSync('npx', ['--yes', '@makehq/cli@1.4.0', '--output=json', ...command], {
@@ -172,6 +172,9 @@ const sectionNames = {
   requiredScope: 'scope',
 };
 
+if (manifest.generalCodeFiles.common) {
+  run('sdk-apps', 'set-common', `--name=${origin.appId}`, `--version=${origin.appVersion}`, `--common=${body(manifest.generalCodeFiles.common)}`);
+}
 run('sdk-apps', 'set-section', `--name=${origin.appId}`, `--version=${origin.appVersion}`, '--section=base', `--body=${body(manifest.generalCodeFiles.base)}`);
 run('sdk-apps', 'set-docs', `--name=${origin.appId}`, `--version=${origin.appVersion}`, `--docs=${body(manifest.generalCodeFiles.readme)}`);
 

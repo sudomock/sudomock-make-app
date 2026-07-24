@@ -2,7 +2,7 @@
   "fileVersion": 1,
   "generalCodeFiles": {
     "base": "general/base.iml.json",
-    "common": null,
+    "common": "general/common.iml.json",
     "readme": "README.md",
     "groups": "modules/groups.json"
   },

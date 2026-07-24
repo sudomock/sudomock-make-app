@@ -26,7 +26,7 @@
     "method": "GET",
     "condition": "{{parameters.wait_for_completion && temp.jobId}}",
     "repeat": {
-      "condition": "{{parameters.wait_for_completion && temp.jobId && temp.status != 'succeeded' && temp.status != 'failed' && temp.status != 'cancelled' && now < addSeconds(temp.startedAt, ifempty(parameters.poll_timeout, 30))}}",
+      "condition": "{{parameters.wait_for_completion && temp.jobId && temp.status != 'succeeded' && temp.status != 'failed' && temp.status != 'cancelled' && now < addSeconds(temp.startedAt, ifempty(parameters.poll_timeout, 300))}}",
       "delay": 3000,
       "limit": 101
     },
@@ -41,7 +41,7 @@
     "condition": "{{parameters.wait_for_completion && temp.jobId}}",
     "response": {
       "valid": {
-        "condition": "{{temp.status == 'succeeded' || temp.status == 'failed' || temp.status == 'cancelled' || now < addSeconds(temp.startedAt, ifempty(parameters.poll_timeout, 30))}}",
+        "condition": "{{temp.status == 'succeeded' || temp.status == 'failed' || temp.status == 'cancelled' || now < addSeconds(temp.startedAt, ifempty(parameters.poll_timeout, 300))}}",
         "message": "Polling timed out before the job reached a terminal status.",
         "type": "DataError"
       },
