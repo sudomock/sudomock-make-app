@@ -297,7 +297,7 @@ if (manifest) {
       if (type === 'module') {
         if (component.moduleType !== 'universal' && !component.codeFiles?.interface) errors.push(`makecomapp.json: module.${name} is missing its interface`);
         if (component.moduleType === 'search' && !component.codeFiles?.samples) errors.push(`makecomapp.json: search module.${name} is missing a static sample`);
-        const badLabel = name === 'makeApiCall' && component.label === 'Make an API Call' ? undefined : capitalizedMidSentence(component.label ?? '');
+        const badLabel = capitalizedMidSentence(component.label ?? '');
         const badDescription = capitalizedMidSentence(component.description ?? '');
         if (badLabel) errors.push(`makecomapp.json: module.${name} label is not sentence case (${badLabel})`);
         if (badDescription) errors.push(`makecomapp.json: module.${name} description is not sentence case (${badDescription})`);
