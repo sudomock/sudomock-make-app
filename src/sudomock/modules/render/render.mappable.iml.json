@@ -455,5 +455,15 @@
     "label": "Process asynchronously",
     "type": "boolean",
     "default": false
+  },
+  {
+    "name": "idempotency_key",
+    "label": "Idempotency key",
+    "type": "text",
+    "advanced": true,
+    "validate": {
+      "max": 255
+    },
+    "help": "Optional retry-stable key that prevents duplicate renders and duplicate credit charges."
   }
 ]

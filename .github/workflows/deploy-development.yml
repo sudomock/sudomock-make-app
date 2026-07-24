@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: 24
           package-manager-cache: false
-      - run: node scripts/check.mjs
+      - run: node scripts/check.mjs && node scripts/review-qa.mjs --check
         env:
           MAKE_API_KEY: ${{ secrets.MAKE_API_KEY }}
       - run: node scripts/deploy.mjs --origin Development
