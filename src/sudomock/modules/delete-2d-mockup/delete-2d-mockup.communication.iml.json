@@ -2,11 +2,6 @@
   "url": "/sudoai/2d-mockups/{{parameters.mockup_uuid}}",
   "method": "DELETE",
   "response": {
-    "output": {
-      "success": true,
-      "message": "2D mockup deleted successfully",
-      "mockupUuid": "{{parameters.mockup_uuid}}",
-      "statusCode": 204
-    }
+    "output": "{{body}}"
   }
 }

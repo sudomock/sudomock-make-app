@@ -42,6 +42,7 @@
     "name": "headers",
     "label": "Headers",
     "type": "array",
+    "help": "You don't have to add authorization headers; we already did that for you.",
     "spec": [
       {
         "name": "key",

@@ -11,7 +11,7 @@
   },
   {
     "name": "statusCode",
-    "label": "Status Code",
+    "label": "Status code",
     "type": "number"
   }
 ]

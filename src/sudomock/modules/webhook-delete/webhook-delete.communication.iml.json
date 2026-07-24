@@ -2,11 +2,6 @@
   "url": "/webhook-endpoints/{{parameters.webhook_id}}",
   "method": "DELETE",
   "response": {
-    "output": {
-      "success": true,
-      "message": "Webhook endpoint deleted successfully",
-      "webhookId": "{{parameters.webhook_id}}",
-      "statusCode": 204
-    }
+    "output": "{{undefined}}"
   }
 }
