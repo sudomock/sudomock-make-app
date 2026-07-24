@@ -421,12 +421,15 @@ if (manifest) {
     }
 
     if (fieldAt(code(module, 'mappableParams'), 'wait_for_completion')) {
+      const pollTimeout = fieldAt(code(module, 'mappableParams'), 'poll_timeout');
       const requests = Array.isArray(communication) ? communication : [communication];
       const repeatConditions = requests
         .map((request) => request?.repeat?.condition)
         .filter((condition) => typeof condition === 'string');
       const hasBoundedNonterminalRepeat = repeatConditions.some((condition) =>
-        condition.includes('poll_timeout')
+        condition.includes('wait_for_completion')
+        && condition.includes('poll_timeout')
+        && condition.includes('ifempty(parameters.poll_timeout')
         && condition.includes('now < addSeconds')
         && ['succeeded', 'failed', 'cancelled'].every((status) => condition.includes(status)));
       const hasTimeoutDataError = requests.some((request) => {
@@ -436,8 +439,10 @@ if (manifest) {
         return error
           && guard.includes('wait_for_completion')
           && guard.includes('poll_timeout')
+          && guard.includes('ifempty(parameters.poll_timeout')
           && ['succeeded', 'failed', 'cancelled'].every((status) => guard.includes(status));
       });
+      if (!pollTimeout || pollTimeout.default > 30 || pollTimeout.validate?.max > 30) errors.push(`module.${name}: poll_timeout must stay within Make's 40-second module limit`);
       if (!hasBoundedNonterminalRepeat) errors.push(`module.${name}: wait polling must stop at poll_timeout for every nonterminal status`);
       if (!hasTimeoutDataError) errors.push(`module.${name}: a nonterminal poll timeout must raise DataError`);
     }

@@ -31,6 +31,16 @@ node scripts/deploy.mjs --origin Development --dry-run
 
 Pushes to `main` validate and deploy the private Development origin through GitHub Actions. The workflow requires a repository secret named `MAKE_API_KEY`; it does not publish the app or request Make review.
 
+Run the reproducible private review scenarios with environment-specific IDs kept outside the repository:
+
+```sh
+MAKE_QA_TEAM_ID=... \
+MAKE_QA_CONNECTION_ID=... \
+MAKE_QA_WEBHOOK_ID=... \
+MAKE_QA_DELIVERY_ID=... \
+node scripts/review-qa.mjs --run
+```
+
 ## Support
 
 Email [hello@sudomock.com](mailto:hello@sudomock.com).

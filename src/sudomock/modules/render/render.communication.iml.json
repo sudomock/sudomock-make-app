@@ -11,6 +11,9 @@
   {
     "url": "/renders",
     "method": "POST",
+    "headers": {
+      "Idempotency-Key": "{{if(parameters.idempotency_key, parameters.idempotency_key, undefined)}}"
+    },
     "body": {
       "mockup_uuid": "{{parameters.mockup_uuid}}",
       "smart_objects": "{{parameters.smart_objects}}",
