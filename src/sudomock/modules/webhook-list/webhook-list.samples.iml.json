@@ -1,0 +1,10 @@
+{
+  "id": "00000000-0000-4000-8000-000000000008",
+  "url": "https://example.com/webhooks/sudomock",
+  "secret": "********",
+  "description": "Production automation",
+  "event_types": ["render.succeeded", "render.failed"],
+  "enabled": true,
+  "created_at": "2026-01-01T12:00:00Z",
+  "updated_at": "2026-01-01T12:00:00Z"
+}

@@ -31,14 +31,12 @@
     ]
   },
   {
-    "label": "Artwork and fonts",
+    "label": "Fonts",
     "modules": [
       "listFonts",
       "getFont",
       "uploadFont",
-      "deleteFont",
-      "storeArtworks",
-      "deleteArtworks"
+      "deleteFont"
     ]
   },
   {

@@ -1,22 +1,19 @@
 [
   {
+    "name": "data",
+    "label": "Data",
+    "type": "collection",
+    "spec": [
+      {
+        "name": "deleted",
+        "label": "Deleted 2D mockup UUID",
+        "type": "uuid"
+      }
+    ]
+  },
+  {
     "name": "success",
     "label": "Success",
     "type": "boolean"
-  },
-  {
-    "name": "message",
-    "label": "Message",
-    "type": "text"
-  },
-  {
-    "name": "mockupUuid",
-    "label": "2D mockup UUID",
-    "type": "uuid"
-  },
-  {
-    "name": "statusCode",
-    "label": "Status code",
-    "type": "integer"
   }
 ]

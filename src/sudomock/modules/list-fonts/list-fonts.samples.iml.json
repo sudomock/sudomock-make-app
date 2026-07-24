@@ -1,0 +1,13 @@
+{
+  "uuid": "00000000-0000-4000-8000-000000000003",
+  "family": "Open Sans",
+  "subfamily": "Regular",
+  "postscript_name": "OpenSans-Regular",
+  "category": "sans-serif",
+  "license": "OFL-1.1",
+  "is_premium": false,
+  "is_system": true,
+  "preview_url": "https://example.com/font-preview.png",
+  "file_url": "https://example.com/open-sans.ttf",
+  "created_at": "2026-01-01T12:00:00Z"
+}

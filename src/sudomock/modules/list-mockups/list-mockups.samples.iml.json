@@ -1,0 +1,27 @@
+{
+  "uuid": "00000000-0000-4000-8000-000000000004",
+  "name": "Sample layered mockup",
+  "thumbnail": "https://example.com/mockup.webp",
+  "width": 2400,
+  "height": 2400,
+  "smart_objects": [
+    {
+      "uuid": "00000000-0000-4000-8000-000000000005",
+      "name": "Artwork",
+      "size": {
+        "width": 1200,
+        "height": 1200
+      },
+      "position": {
+        "x": 600,
+        "y": 600,
+        "width": 1200,
+        "height": 1200
+      },
+      "layer_name": "Artwork",
+      "blend_mode": "normal",
+      "instance_count": 1
+    }
+  ],
+  "text_layers": []
+}

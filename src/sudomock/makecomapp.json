@@ -55,7 +55,8 @@
         "codeFiles": {
           "communication": "modules/list-2d-mockups/list-2d-mockups.communication.iml.json",
           "mappableParams": "modules/list-2d-mockups/list-2d-mockups.mappable.iml.json",
-          "interface": "modules/list-2d-mockups/list-2d-mockups.interface.iml.json"
+          "interface": "modules/list-2d-mockups/list-2d-mockups.interface.iml.json",
+          "samples": "modules/list-2d-mockups/list-2d-mockups.samples.iml.json"
         }
       },
       "set2DPrintAreas": {
@@ -95,32 +96,6 @@
           "communication": "modules/delete-2d-mockup/delete-2d-mockup.communication.iml.json",
           "mappableParams": "modules/delete-2d-mockup/delete-2d-mockup.mappable.iml.json",
           "interface": "modules/delete-2d-mockup/delete-2d-mockup.interface.iml.json"
-        }
-      },
-      "deleteArtworks": {
-        "label": "Delete stored artwork",
-        "description": "Deletes stored artwork files by mockup or URL.",
-        "moduleType": "action",
-        "actionCrud": "delete",
-        "connection": "sudomockApiKey",
-        "altConnection": null,
-        "codeFiles": {
-          "communication": "modules/delete-artworks/delete-artworks.communication.iml.json",
-          "mappableParams": "modules/delete-artworks/delete-artworks.mappable.iml.json",
-          "interface": "modules/delete-artworks/delete-artworks.interface.iml.json"
-        }
-      },
-      "storeArtworks": {
-        "label": "Store artwork",
-        "description": "Stores artwork files for a mockup.",
-        "moduleType": "action",
-        "actionCrud": "create",
-        "connection": "sudomockApiKey",
-        "altConnection": null,
-        "codeFiles": {
-          "communication": "modules/store-artworks/store-artworks.communication.iml.json",
-          "mappableParams": "modules/store-artworks/store-artworks.mappable.iml.json",
-          "interface": "modules/store-artworks/store-artworks.interface.iml.json"
         }
       },
       "deleteMockup": {
@@ -172,7 +147,8 @@
         "codeFiles": {
           "communication": "modules/list-fonts/list-fonts.communication.iml.json",
           "mappableParams": "modules/list-fonts/list-fonts.mappable.iml.json",
-          "interface": "modules/list-fonts/list-fonts.interface.iml.json"
+          "interface": "modules/list-fonts/list-fonts.interface.iml.json",
+          "samples": "modules/list-fonts/list-fonts.samples.iml.json"
         }
       },
       "uploadFont": {
@@ -223,7 +199,8 @@
         "codeFiles": {
           "communication": "modules/list-mockups/list-mockups.communication.iml.json",
           "mappableParams": "modules/list-mockups/list-mockups.mappable.iml.json",
-          "interface": "modules/list-mockups/list-mockups.interface.iml.json"
+          "interface": "modules/list-mockups/list-mockups.interface.iml.json",
+          "samples": "modules/list-mockups/list-mockups.samples.iml.json"
         }
       },
       "getJob": {
@@ -249,7 +226,8 @@
         "codeFiles": {
           "communication": "modules/list-jobs/list-jobs.communication.iml.json",
           "mappableParams": "modules/list-jobs/list-jobs.mappable.iml.json",
-          "interface": "modules/list-jobs/list-jobs.interface.iml.json"
+          "interface": "modules/list-jobs/list-jobs.interface.iml.json",
+          "samples": "modules/list-jobs/list-jobs.samples.iml.json"
         }
       },
       "render": {
@@ -340,7 +318,8 @@
         "codeFiles": {
           "communication": "modules/webhook-events-feed/webhook-events-feed.communication.iml.json",
           "mappableParams": "modules/webhook-events-feed/webhook-events-feed.mappable.iml.json",
-          "interface": "modules/webhook-events-feed/webhook-events-feed.interface.iml.json"
+          "interface": "modules/webhook-events-feed/webhook-events-feed.interface.iml.json",
+          "samples": "modules/webhook-events-feed/webhook-events-feed.samples.iml.json"
         }
       },
       "webhookGet": {
@@ -366,7 +345,8 @@
         "codeFiles": {
           "communication": "modules/webhook-list-deliveries/webhook-list-deliveries.communication.iml.json",
           "mappableParams": "modules/webhook-list-deliveries/webhook-list-deliveries.mappable.iml.json",
-          "interface": "modules/webhook-list-deliveries/webhook-list-deliveries.interface.iml.json"
+          "interface": "modules/webhook-list-deliveries/webhook-list-deliveries.interface.iml.json",
+          "samples": "modules/webhook-list-deliveries/webhook-list-deliveries.samples.iml.json"
         }
       },
       "webhookList": {
@@ -379,7 +359,8 @@
         "codeFiles": {
           "communication": "modules/webhook-list/webhook-list.communication.iml.json",
           "mappableParams": "modules/webhook-list/webhook-list.mappable.iml.json",
-          "interface": "modules/webhook-list/webhook-list.interface.iml.json"
+          "interface": "modules/webhook-list/webhook-list.interface.iml.json",
+          "samples": "modules/webhook-list/webhook-list.samples.iml.json"
         }
       },
       "webhookReplayDelivery": {
@@ -535,14 +516,6 @@
           {
             "local": "delete2DMockup",
             "remote": "delete2DMockup"
-          },
-          {
-            "local": "deleteArtworks",
-            "remote": "deleteArtworks"
-          },
-          {
-            "local": "storeArtworks",
-            "remote": "storeArtworks"
           },
           {
             "local": "deleteMockup",
