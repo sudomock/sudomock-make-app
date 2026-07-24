@@ -15,12 +15,12 @@
     "name": "poll_timeout",
     "label": "Polling timeout",
     "type": "integer",
-    "default": 300,
+    "default": 30,
     "validate": {
       "min": 5,
-      "max": 300
+      "max": 30
     },
     "visible": "{{parameters.wait_for_completion}}",
-    "help": "Maximum wait in seconds."
+    "help": "Maximum wait within Make's 40-second module limit. For longer jobs, run this module again in a later scenario cycle."
   }
 ]
