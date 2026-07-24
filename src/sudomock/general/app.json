@@ -1,6 +1,6 @@
 {
   "label": "SudoMock",
-  "description": "Generate product mockups and videos for Print-on-Demand automation. Turn any product photo into a reusable 2D mockup, upload PSD templates, personalize designs and text, track asynchronous jobs, and manage webhooks.",
+  "description": "Turn product photos into reusable mockups, no PSD required. Automate still product-image renders and short product videos with reusable 2D mockups or layered PSD templates, personalized artwork, text and fonts, asynchronous jobs, and webhooks for e-commerce and Print-on-Demand.",
   "theme": "#0f172a",
   "icon": "assets/app-logo.png"
 }

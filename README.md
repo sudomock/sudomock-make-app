@@ -1,6 +1,6 @@
 # SudoMock app for Make
 
-Official source for the SudoMock integration on Make. Automate product mockup and video generation for e-commerce and Print-on-Demand workflows: turn any product photo into a reusable mockup, render layered PSD templates, personalize artwork and text, track asynchronous jobs, and manage webhook deliveries.
+Official source for the SudoMock integration on Make. Turn product photos into reusable mockups without a PSD, or automate layered PSD templates when precise Smart Object and text control is required. Create still product images and short videos, personalize artwork and text, track asynchronous jobs, and manage webhook deliveries for e-commerce and Print-on-Demand workflows.
 
 [SudoMock](https://sudomock.com) · [Documentation](https://sudomock.com/docs) · [OpenAPI](https://sudomock.com/openapi.json)
 
@@ -47,4 +47,4 @@ Email [hello@sudomock.com](mailto:hello@sudomock.com).
 
 ## License
 
-[MIT](LICENSE) © SudoMock Labs
+[MIT](LICENSE) © SudoMock
