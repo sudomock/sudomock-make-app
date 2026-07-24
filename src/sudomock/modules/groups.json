@@ -1,6 +1,6 @@
 [
   {
-    "label": "Photo to mockup (2D)",
+    "label": "Product photos to mockups (2D)",
     "modules": [
       "create2DMockup",
       "get2DMockup",
@@ -11,7 +11,7 @@
     ]
   },
   {
-    "label": "Mockups and renders",
+    "label": "PSD templates and still renders",
     "modules": [
       "uploadPsd",
       "render",
@@ -23,7 +23,7 @@
     ]
   },
   {
-    "label": "Jobs and video",
+    "label": "Video renders and jobs",
     "modules": [
       "renderVideo",
       "getJob",
@@ -31,7 +31,7 @@
     ]
   },
   {
-    "label": "Fonts and artwork",
+    "label": "Artwork and fonts",
     "modules": [
       "listFonts",
       "getFont",

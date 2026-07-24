@@ -279,7 +279,7 @@
         }
       },
       "updateMockup": {
-        "label": "Update mockup name",
+        "label": "Update a mockup",
         "description": "Updates the name of a mockup template.",
         "moduleType": "action",
         "actionCrud": "update",
@@ -449,7 +449,7 @@
       },
       "downloadRender": {
         "label": "Download a render",
-        "description": "Downloads a render URL as a file.",
+        "description": "Downloads a SudoMock render URL as a file.",
         "moduleType": "action",
         "actionCrud": "read",
         "connection": null,
