@@ -20,7 +20,7 @@ Make masks the API key and tests the connection against the authenticated SudoMo
 - Create short product videos from a mockup or image.
 - Manage custom fonts.
 - Track asynchronous jobs and manage SudoMock webhook endpoints and deliveries.
-- Call additional SudoMock API endpoints with **Make an API Call**.
+- Call additional SudoMock API endpoints with **Make an API call**.
 
 ## Product photo workflow
 
