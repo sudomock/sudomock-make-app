@@ -47,6 +47,9 @@ const scenarios = [
   reviewScenario('SudoMock App Review - Private QA', [
     step('getAccountInfo'),
   ]),
+  reviewScenario('SudoMock App Review 01b - Background removal', [
+    step('removeBackground', { source_type: 'url', url: artworkUrl }),
+  ]),
   reviewScenario('SudoMock App Review 02 - PSD, still, cleanup', [
     step('uploadPsd', { psd_file_url: psdUrl, psd_name: 'Synthetic review QA', is_async: false }),
     step('getMockup', { mockup_uuid: '{{1.data.uuid}}' }),
