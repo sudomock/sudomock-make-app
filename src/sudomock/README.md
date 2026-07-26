@@ -1,6 +1,6 @@
 # SudoMock
 
-SudoMock turns product photos into reusable mockups without requiring a PSD. The product calls this photo-first workflow a 2D mockup. When exact layered control is needed, SudoMock also renders PSD templates with Smart Objects and editable text. The SudoMock app for Make automates still product images and short videos, personalized artwork and fonts, asynchronous jobs, and webhooks through the SudoMock API.
+SudoMock turns product photos into reusable mockups without requiring a PSD. The product calls this photo-first workflow a 2D mockup. SudoMock can also remove image backgrounds and render PSD templates with Smart Objects and editable text. The SudoMock app for Make automates still product images and short videos, personalized artwork and fonts, asynchronous jobs, and webhooks through the SudoMock API.
 
 ## Connect SudoMock to Make
 
@@ -14,6 +14,7 @@ Make masks the API key and tests the connection against the authenticated SudoMo
 ## What you can automate
 
 - Retrieve account, subscription, usage, and credit information.
+- Remove an image background and receive a transparent PNG cutout URL.
 - Create, prepare, configure, render, list, and delete reusable 2D mockups made from product photos.
 - Upload, list, retrieve, rename, and delete reusable PSD mockup templates.
 - Render product mockups with artwork, Smart Objects, editable text, fonts, and export settings.
@@ -29,6 +30,12 @@ Make masks the API key and tests the connection against the authenticated SudoMo
 3. Map artwork and placement settings to each print area.
 4. Render the still product image.
 5. Download the image or continue the scenario with its result URL.
+
+## Background removal
+
+Add **Remove an image background** and provide an image URL or Base64 value. The module returns a transparent PNG cutout URL with its width, height, and charged credits. Each image costs 25 credits, and failed requests are refunded automatically.
+
+For inline cleanup during a render, enable **Remove background** on a PSD Smart Object asset or 2D print area. Inline cleanup adds 25 credits per unique artwork.
 
 ## PSD template workflow
 

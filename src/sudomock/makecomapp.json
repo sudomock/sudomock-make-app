@@ -243,6 +243,19 @@
           "interface": "modules/render/render.interface.iml.json"
         }
       },
+      "removeBackground": {
+        "label": "Remove an image background",
+        "description": "Isolates the image subject on a transparent background and returns a PNG cutout URL. Costs 25 credits; failed requests are refunded.",
+        "moduleType": "action",
+        "actionCrud": "create",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/remove-background/remove-background.communication.iml.json",
+          "mappableParams": "modules/remove-background/remove-background.mappable.iml.json",
+          "interface": "modules/remove-background/remove-background.interface.iml.json"
+        }
+      },
       "renderVideo": {
         "label": "Render a video",
         "description": "Starts a video render and can wait for completion.",
@@ -560,6 +573,10 @@
           {
             "local": "render",
             "remote": "render"
+          },
+          {
+            "local": "removeBackground",
+            "remote": "removeBackground"
           },
           {
             "local": "renderVideo",

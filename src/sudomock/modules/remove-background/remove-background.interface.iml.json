@@ -1,0 +1,34 @@
+[
+  {
+    "name": "data",
+    "label": "Data",
+    "type": "collection",
+    "spec": [
+      {
+        "name": "url",
+        "label": "Cutout URL",
+        "type": "url"
+      },
+      {
+        "name": "width",
+        "label": "Width",
+        "type": "integer"
+      },
+      {
+        "name": "height",
+        "label": "Height",
+        "type": "integer"
+      },
+      {
+        "name": "credits_charged",
+        "label": "Credits charged",
+        "type": "integer"
+      }
+    ]
+  },
+  {
+    "name": "success",
+    "label": "Success",
+    "type": "boolean"
+  }
+]
