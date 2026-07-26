@@ -1,0 +1,59 @@
+[
+  {
+    "name": "source_type",
+    "label": "Source type",
+    "type": "select",
+    "options": [
+      {
+        "label": "URL",
+        "value": "url"
+      },
+      {
+        "label": "Base64",
+        "value": "base64"
+      }
+    ],
+    "required": true,
+    "default": "url"
+  },
+  {
+    "name": "url",
+    "label": "Image URL",
+    "type": "url",
+    "required": true,
+    "visible": "{{parameters.source_type == 'url'}}"
+  },
+  {
+    "name": "base64",
+    "label": "Image Base64",
+    "type": "text",
+    "required": true,
+    "multiline": true,
+    "visible": "{{parameters.source_type == 'base64'}}"
+  },
+  {
+    "name": "content_type",
+    "label": "Content type",
+    "type": "select",
+    "options": [
+      {
+        "label": "PNG",
+        "value": "image/png"
+      },
+      {
+        "label": "JPEG",
+        "value": "image/jpeg"
+      },
+      {
+        "label": "WebP",
+        "value": "image/webp"
+      },
+      {
+        "label": "GIF",
+        "value": "image/gif"
+      }
+    ],
+    "default": "image/png",
+    "visible": "{{parameters.source_type == 'base64'}}"
+  }
+]

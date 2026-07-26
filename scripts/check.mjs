@@ -116,7 +116,7 @@ if (!existsSync(dependabotPath)) {
 const manifest = jsonFiles.get(manifestPath);
 const expectedInventory = {
   connection: ['sudomockApiKey'],
-  module: `create2DMockup get2DMockup list2DMockups set2DPrintAreas render2DMockup delete2DMockup deleteMockup deleteFont getFont listFonts uploadFont getAccountInfo getMockup listMockups getJob listJobs render renderVideo updateMockup uploadPsd webhookCreate webhookDelete webhookEventsFeed webhookGet webhookListDeliveries webhookList webhookReplayDelivery webhookReplayFailed webhookRotateSecret webhookTest webhookUpdate downloadRender makeApiCall`.split(' '),
+  module: `create2DMockup get2DMockup list2DMockups set2DPrintAreas render2DMockup delete2DMockup deleteMockup deleteFont getFont listFonts uploadFont getAccountInfo getMockup listMockups getJob listJobs render removeBackground renderVideo updateMockup uploadPsd webhookCreate webhookDelete webhookEventsFeed webhookGet webhookListDeliveries webhookList webhookReplayDelivery webhookReplayFailed webhookRotateSecret webhookTest webhookUpdate downloadRender makeApiCall`.split(' '),
   function: [],
   rpc: ['listMockups', 'listSmartObjects'],
   webhook: [],
@@ -499,6 +499,9 @@ if (manifest) {
   for (const path of ['smart_objects.asset.flip_horizontal', 'smart_objects.asset.flip_vertical']) {
     if (fieldAt(renderParams, path)?.type !== 'boolean') errors.push(`module.render: missing PSD asset input ${path}`);
   }
+  if (fieldAt(renderParams, 'smart_objects.asset.remove_background')?.type !== 'boolean') {
+    errors.push('module.render: missing PSD asset input smart_objects.asset.remove_background');
+  }
   for (const mode of ['color_dodge', 'color_burn', 'hard_light', 'soft_light']) {
     if (!renderBlendModes?.includes(mode)) errors.push(`module.render: missing canonical blend mode ${mode}`);
   }
@@ -526,6 +529,20 @@ if (manifest) {
   const placementPositions = fieldAt(render2DParams, 'print_areas.placement.position')?.options?.map((option) => option.value);
   if (placementPositions?.some((position) => position.includes('-'))) {
     errors.push('module.render2DMockup: placement positions must use the API canonical underscore format');
+  }
+  if (fieldAt(render2DParams, 'print_areas.remove_background')?.type !== 'boolean') {
+    errors.push('module.render2DMockup: missing print_areas.remove_background');
+  }
+  const removeBackground = manifest.components?.module?.removeBackground;
+  const removeBackgroundParams = code(removeBackground ?? {}, 'mappableParams');
+  const removeBackgroundBody = code(removeBackground ?? {}, 'communication');
+  const removeBackgroundSources = fieldAt(removeBackgroundParams, 'source_type')?.options?.map((option) => option.value);
+  if (removeBackgroundBody?.url !== '/remove-background'
+    || removeBackgroundBody?.method !== 'POST'
+    || !['url', 'base64'].every((source) => removeBackgroundSources?.includes(source))
+    || removeBackgroundBody?.body?.url !== "{{if(parameters.source_type == 'url', parameters.url, undefined)}}"
+    || removeBackgroundBody?.body?.base64 !== "{{if(parameters.source_type == 'base64', parameters.base64, undefined)}}") {
+    errors.push('module.removeBackground: must send exactly the selected URL or Base64 source to POST /remove-background');
   }
   const webhookUpdate = manifest.components?.module?.webhookUpdate;
   const webhookUpdateParams = code(webhookUpdate ?? {}, 'mappableParams');

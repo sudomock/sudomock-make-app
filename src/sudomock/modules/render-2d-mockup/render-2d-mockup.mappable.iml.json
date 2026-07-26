@@ -36,6 +36,13 @@
         "help": "Optional hex color."
       },
       {
+        "name": "remove_background",
+        "label": "Remove background",
+        "type": "boolean",
+        "default": false,
+        "help": "Isolates the subject on a transparent background before placing the artwork. Adds 25 credits per unique artwork."
+      },
+      {
         "name": "adjustments",
         "label": "Adjustments",
         "type": "collection",

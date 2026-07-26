@@ -1,0 +1,12 @@
+{
+  "url": "/remove-background",
+  "method": "POST",
+  "body": {
+    "url": "{{if(parameters.source_type == 'url', parameters.url, undefined)}}",
+    "base64": "{{if(parameters.source_type == 'base64', parameters.base64, undefined)}}",
+    "content_type": "{{if(parameters.source_type == 'base64', parameters.content_type, undefined)}}"
+  },
+  "response": {
+    "output": "{{body}}"
+  }
+}
