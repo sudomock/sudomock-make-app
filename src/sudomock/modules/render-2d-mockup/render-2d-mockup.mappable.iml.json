@@ -7,14 +7,20 @@
   },
   {
     "name": "print_areas",
-    "label": "Print areas",
+    "label": "Render targets",
     "type": "array",
     "spec": [
       {
         "name": "uuid",
-        "label": "Print area UUID",
+        "label": "Saved print area UUID",
         "type": "uuid",
-        "required": true
+        "help": "Use the print_area_id returned in data.quads. Provide exactly one target identifier: this UUID or a full-surface UUID."
+      },
+      {
+        "name": "surface_uuid",
+        "label": "Full-surface UUID",
+        "type": "uuid",
+        "help": "Use the surface_uuid returned in data.surfaces. Provide exactly one target identifier: this UUID or a saved print area UUID."
       },
       {
         "name": "artwork_url",
@@ -122,36 +128,6 @@
               }
             ],
             "default": "multiply"
-          },
-          {
-            "name": "warp_strength",
-            "label": "Warp strength",
-            "type": "number",
-            "default": 1.5,
-            "validate": {
-              "min": 0,
-              "max": 2
-            }
-          },
-          {
-            "name": "edge_expand",
-            "label": "Edge expand",
-            "type": "number",
-            "default": 0,
-            "validate": {
-              "min": 0,
-              "max": 50
-            }
-          },
-          {
-            "name": "texture_strength",
-            "label": "Texture strength",
-            "type": "number",
-            "default": 0,
-            "validate": {
-              "min": 0,
-              "max": 100
-            }
           }
         ]
       },
@@ -261,6 +237,7 @@
         ]
       }
     ],
+    "help": "Each render target must provide exactly one identifier: a saved print area UUID or a full-surface UUID.",
     "required": true,
     "validate": {
       "minItems": 1,

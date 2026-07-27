@@ -20,6 +20,11 @@
         "type": "text"
       },
       {
+        "name": "customizable",
+        "label": "Customizable",
+        "type": "boolean"
+      },
+      {
         "name": "thumbnail_url",
         "label": "Thumbnail URL",
         "type": "url"
@@ -64,6 +69,23 @@
             "name": "sort_order",
             "label": "Sort order",
             "type": "integer"
+          }
+        ]
+      },
+      {
+        "name": "surfaces",
+        "label": "Full surfaces",
+        "type": "array",
+        "spec": [
+          {
+            "name": "surface_uuid",
+            "label": "Surface UUID",
+            "type": "uuid"
+          },
+          {
+            "name": "coverage",
+            "label": "Coverage",
+            "type": "text"
           }
         ]
       },

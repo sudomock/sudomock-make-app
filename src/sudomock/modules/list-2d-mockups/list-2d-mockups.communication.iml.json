@@ -3,7 +3,8 @@
   "method": "GET",
   "qs": {
     "limit": 100,
-    "offset": 0
+    "offset": 0,
+    "customizable_only": "{{if(parameters.customizable_only, true, undefined)}}"
   },
   "response": {
     "iterate": "{{body.data}}",

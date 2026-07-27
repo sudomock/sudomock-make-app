@@ -34,7 +34,7 @@
       },
       "get2DMockup": {
         "label": "Get a 2D mockup",
-        "description": "Retrieves a 2D mockup by UUID.",
+        "description": "Retrieves a 2D mockup and its addressable saved areas and full surfaces.",
         "moduleType": "action",
         "actionCrud": "read",
         "connection": "sudomockApiKey",
@@ -61,7 +61,7 @@
       },
       "set2DPrintAreas": {
         "label": "Set 2D mockup print areas",
-        "description": "Replaces the print areas on a 2D mockup.",
+        "description": "Replaces or removes the saved print areas on a 2D mockup. The API validates whether it remains renderable.",
         "moduleType": "action",
         "actionCrud": "update",
         "connection": "sudomockApiKey",
@@ -74,7 +74,7 @@
       },
       "render2DMockup": {
         "label": "Render a 2D mockup",
-        "description": "Creates a render from a 2D mockup.",
+        "description": "Creates a render targeting each saved area by UUID or full surface by surface UUID.",
         "moduleType": "action",
         "actionCrud": "create",
         "connection": "sudomockApiKey",

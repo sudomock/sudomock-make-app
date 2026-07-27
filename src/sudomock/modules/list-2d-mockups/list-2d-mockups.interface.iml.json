@@ -15,6 +15,11 @@
     "type": "text"
   },
   {
+    "name": "customizable",
+    "label": "Customizable",
+    "type": "boolean"
+  },
+  {
     "name": "thumbnail_url",
     "label": "Thumbnail URL",
     "type": "url"

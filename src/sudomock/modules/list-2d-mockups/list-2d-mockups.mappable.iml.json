@@ -1,5 +1,12 @@
 [
   {
+    "name": "customizable_only",
+    "label": "Customizable only",
+    "type": "boolean",
+    "default": false,
+    "help": "Return only mockups ready for shopper customization."
+  },
+  {
     "name": "limit",
     "label": "Limit",
     "type": "uinteger",
