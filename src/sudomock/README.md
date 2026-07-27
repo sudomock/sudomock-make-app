@@ -27,9 +27,12 @@ Make masks the API key and tests the connection against the authenticated SudoMo
 
 1. Add **Create a mockup from a photo** and provide a product-photo URL.
 2. Optionally override the automatically detected print areas.
-3. Map artwork and placement settings to each print area.
-4. Render the still product image.
-5. Download the image or continue the scenario with its result URL.
+3. Use **Get a 2D mockup** to read saved areas from `data.quads` and full surfaces from `data.surfaces`.
+4. Map artwork and placement settings to each render target. Provide exactly one identifier per target: `uuid` for a saved area or `surface_uuid` for a full surface.
+5. Render the still product image.
+6. Download the image or continue the scenario with its result URL.
+
+**Set 2D mockup print areas** can send an empty array to remove saved areas. SudoMock remains authoritative and accepts that only when the mockup can stay renderable without them.
 
 ## Background removal
 

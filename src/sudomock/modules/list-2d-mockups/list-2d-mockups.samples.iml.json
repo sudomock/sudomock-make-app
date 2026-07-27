@@ -2,6 +2,7 @@
   "mockup_id": "00000000-0000-4000-8000-000000000001",
   "name": "Sample product photo mockup",
   "status": "ready",
+  "customizable": true,
   "thumbnail_url": "https://example.com/2d-mockup.webp",
   "source_width": 2400,
   "source_height": 2400,
