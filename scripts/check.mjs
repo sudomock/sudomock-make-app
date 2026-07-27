@@ -458,11 +458,34 @@ if (manifest) {
 
   const render2DParams = code(manifest.components?.module?.render2DMockup ?? {}, 'mappableParams');
   const printAreas = fieldAt(render2DParams, 'print_areas');
+  const savedPrintAreaUuid = fieldAt(render2DParams, 'print_areas.uuid');
+  const fullSurfaceUuid = fieldAt(render2DParams, 'print_areas.surface_uuid');
+  const adjustmentFields = fieldAt(render2DParams, 'print_areas.adjustments')?.spec
+    ?.map((field) => field.name).sort();
+  const publicAdjustmentFields = [
+    'blend_mode',
+    'blur',
+    'brightness',
+    'contrast',
+    'opacity',
+    'saturation',
+    'vibrance',
+  ];
   const imageFormat = fieldAt(render2DParams, 'export_options.image_format');
   const imageSize = fieldAt(render2DParams, 'export_options.image_size');
   const dpi = fieldAt(render2DParams, 'export_options.dpi');
   const imageFormats = imageFormat?.options?.map((option) => option.value);
   if (printAreas?.validate?.maxItems !== 8) errors.push('module.render2DMockup: print_areas must allow at most 8 items');
+  if (savedPrintAreaUuid?.type !== 'uuid'
+    || fullSurfaceUuid?.type !== 'uuid'
+    || savedPrintAreaUuid.required === true
+    || fullSurfaceUuid.required === true
+    || !printAreas?.help?.includes('exactly one')) {
+    errors.push('module.render2DMockup: each target must allow exactly one saved-area uuid or full-surface surface_uuid');
+  }
+  if (JSON.stringify(adjustmentFields) !== JSON.stringify(publicAdjustmentFields)) {
+    errors.push('module.render2DMockup: adjustments must contain only public outcome controls');
+  }
   if (imageFormat?.default !== 'webp' || !['png', 'jpg', 'webp'].every((format) => imageFormats?.includes(format))) {
     errors.push('module.render2DMockup: image_format must include png, jpg, and webp with webp as default');
   }
@@ -471,6 +494,81 @@ if (manifest) {
   }
   if (!dpi || dpi.required === true || Object.hasOwn(dpi, 'default')) {
     errors.push('module.render2DMockup: dpi must be optional and have no implicit default');
+  }
+
+  const set2DParams = code(manifest.components?.module?.set2DPrintAreas ?? {}, 'mappableParams');
+  const set2DPrintAreas = fieldAt(set2DParams, 'print_areas');
+  if (!set2DPrintAreas
+    || set2DPrintAreas.required === true
+    || (set2DPrintAreas.validate?.minItems ?? 0) > 0
+    || set2DPrintAreas.validate?.maxItems !== 8) {
+    errors.push('module.set2DPrintAreas: print_areas must allow an explicit empty array and leave validity to the API');
+  }
+
+  const exact2DDetailFields = {
+    create2DMockup: [
+      'created_at', 'mockup_id', 'name', 'quads', 'source_height',
+      'source_width', 'status', 'surfaces', 'thumbnail_url', 'updated_at', 'version',
+    ],
+    get2DMockup: [
+      'created_at', 'customizable', 'mockup_id', 'name', 'quads',
+      'source_height', 'source_width', 'status', 'surfaces', 'thumbnail_url',
+      'updated_at', 'version',
+    ],
+  };
+  for (const [name, expectedFields] of Object.entries(exact2DDetailFields)) {
+    const output = code(manifest.components?.module?.[name] ?? {}, 'interface');
+    const quadMaskUuid = fieldAt(output, 'data.quads.mask_uuid');
+    const surfaces = fieldAt(output, 'data.surfaces');
+    const dataFields = fieldAt(output, 'data')?.spec
+      ?.map((field) => field.name).sort();
+    const surfaceFields = Array.isArray(surfaces?.spec)
+      ? surfaces.spec.map((field) => field.name).sort()
+      : [];
+    if (quadMaskUuid !== undefined
+      || JSON.stringify(dataFields) !== JSON.stringify(expectedFields)
+      || surfaces?.type !== 'array'
+      || JSON.stringify(surfaceFields) !== JSON.stringify(['coverage', 'surface_uuid'])
+      || fieldAt(output, 'data.surfaces.surface_uuid')?.type !== 'uuid'
+      || fieldAt(output, 'data.surfaces.coverage')?.type !== 'text') {
+      errors.push(`module.${name}: output must match the canonical public detail and surface_uuid shape`);
+    }
+  }
+
+  const list2DParams = code(manifest.components?.module?.list2DMockups ?? {}, 'mappableParams');
+  const customizableOnly = fieldAt(list2DParams, 'customizable_only');
+  const list2DBody = code(manifest.components?.module?.list2DMockups ?? {}, 'communication');
+  const list2DOutput = code(manifest.components?.module?.list2DMockups ?? {}, 'interface');
+  const list2DFields = list2DOutput?.map((field) => field.name).sort();
+  const expectedList2DFields = [
+    'created_at', 'customizable', 'mockup_id', 'name', 'print_areas',
+    'source_height', 'source_width', 'status', 'thumbnail_url', 'updated_at', 'version',
+  ];
+  if (customizableOnly?.type !== 'boolean'
+    || customizableOnly.default !== false
+    || list2DBody?.qs?.customizable_only !== '{{if(parameters.customizable_only, true, undefined)}}'
+    || JSON.stringify(list2DFields) !== JSON.stringify(expectedList2DFields)) {
+    errors.push('module.list2DMockups: customizable_only and the canonical list item output are required');
+  }
+
+  const public2DContractCopy = [
+    readFileSync(join(sourceRoot, 'README.md'), 'utf8'),
+    ...['create2DMockup', 'get2DMockup', 'list2DMockups', 'set2DPrintAreas', 'render2DMockup', 'delete2DMockup']
+      .flatMap((name) => {
+        const module = manifest.components?.module?.[name] ?? {};
+        return [
+          module.label,
+          module.description,
+          JSON.stringify(code(module, 'mappableParams') ?? ''),
+          JSON.stringify(code(module, 'interface') ?? ''),
+        ];
+      }),
+  ].join('\n');
+  if (/\/setup\b|\b2D setup\b|auto-segment|presign-masks|mask\/commit/i.test(public2DContractCopy)) {
+    errors.push('public 2D UI/docs: retired setup or mask-workflow aliases are not allowed');
+  }
+  if (/\b(?:mask_uuid|depth_url|displacement_grid|warp_strength|edge_softness|edge_expand|texture_strength)\b/i.test(public2DContractCopy)) {
+    errors.push('public 2D UI/docs: internal mask, depth, grid, warp, edge, and texture fields are not allowed');
   }
 
   const renderVideo = manifest.components?.module?.renderVideo;

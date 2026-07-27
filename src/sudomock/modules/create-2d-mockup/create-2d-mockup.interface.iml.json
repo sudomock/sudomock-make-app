@@ -68,6 +68,23 @@
         ]
       },
       {
+        "name": "surfaces",
+        "label": "Full surfaces",
+        "type": "array",
+        "spec": [
+          {
+            "name": "surface_uuid",
+            "label": "Surface UUID",
+            "type": "uuid"
+          },
+          {
+            "name": "coverage",
+            "label": "Coverage",
+            "type": "text"
+          }
+        ]
+      },
+      {
         "name": "version",
         "label": "Version",
         "type": "integer"

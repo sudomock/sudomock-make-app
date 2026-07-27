@@ -18,10 +18,8 @@
         "help": "Map an array of four [x, y] coordinate pairs in clockwise order."
       }
     ],
-    "help": "One or more quadrilateral print areas. Each item must contain exactly four coordinate pairs.",
-    "required": true,
+    "help": "Replace the saved quadrilateral print areas, or send an empty array to remove them. The API decides whether the mockup can remain renderable without saved areas.",
     "validate": {
-      "minItems": 1,
       "maxItems": 8
     }
   }
