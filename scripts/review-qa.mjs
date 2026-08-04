@@ -119,7 +119,10 @@ const scenarios = [
         uuid: '{{3.data.print_areas[1].print_area_id}}',
         artwork_url: artworkUrl,
         adjustments: { opacity: 100, blend_mode: 'multiply' },
-        placement: { position: 'top_left', coverage: 70, fit: 'contain', scale: 1, rotation: 0, offset_x: 0, offset_y: 0 },
+        // Sizing is coverage+fit here. `scale` is not part of the placement
+        // contract, and the API now answers an unrecognised placement key with
+        // 422 -- which would fail this scenario during Make's app review.
+        placement: { position: 'top_left', coverage: 70, fit: 'contain', rotation: 0, offset_x: 0, offset_y: 0 },
       }],
       export_options: { image_format: 'jpg', image_size: 1200, quality: 80 },
       is_async: false,
