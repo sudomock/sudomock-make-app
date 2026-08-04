@@ -211,10 +211,24 @@
             "default": "contain"
           },
           {
-            "name": "scale",
-            "label": "Scale",
+            "name": "width",
+            "label": "Width",
             "type": "number",
-            "default": 1
+            "help": "Artwork width in print-area pixels. Map together with Height; the pair overrides Coverage and Fit. Width and Height are independent, so any aspect ratio is allowed.",
+            "validate": {
+              "min": 1,
+              "max": 30000
+            }
+          },
+          {
+            "name": "height",
+            "label": "Height",
+            "type": "number",
+            "help": "Artwork height in print-area pixels. Map together with Width. Mapping only one of the two is rejected rather than silently completed, so the aspect ratio is never guessed for you.",
+            "validate": {
+              "min": 1,
+              "max": 30000
+            }
           },
           {
             "name": "rotation",
