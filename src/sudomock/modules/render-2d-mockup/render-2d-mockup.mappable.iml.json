@@ -197,16 +197,16 @@
             "type": "select",
             "options": [
               {
-                "label": "Stretch",
+                "label": "Fill",
                 "value": "fill"
               },
               {
-                "label": "Contain",
-                "value": "contain"
+                "label": "Fit",
+                "value": "fit"
               },
               {
-                "label": "Cover",
-                "value": "cover"
+                "label": "Crop",
+                "value": "crop"
               }
             ],
             "help": "How the artwork sits inside the print area, always against the full area. Applies to print area targets. Leave it empty for Contain. Map Width and Height instead when you need an exact box, and never map both."
