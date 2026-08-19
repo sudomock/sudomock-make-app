@@ -13,7 +13,7 @@ Make masks the API key and tests the connection against the authenticated SudoMo
 
 ## What you can automate
 
-- Retrieve account, subscription, usage, and credit information.
+- Retrieve account, subscription, usage, credit, and prepaid balance information.
 - Remove an image background and receive a transparent PNG cutout URL.
 - Create, prepare, configure, render, list, and delete reusable 2D mockups made from product photos.
 - Upload, list, retrieve, rename, and delete reusable PSD mockup templates.
@@ -27,8 +27,8 @@ Make masks the API key and tests the connection against the authenticated SudoMo
 
 1. Add **Create a mockup from a photo** and provide a product-photo URL.
 2. Optionally override the automatically detected print areas.
-3. Use **Get a 2D mockup** to read saved areas from `data.quads` and full surfaces from `data.surfaces`.
-4. Map artwork and placement settings to each render target. Provide exactly one identifier per target: `uuid` for a saved area or `surface_uuid` for a full surface.
+3. Use **Get a 2D mockup** to read print areas from `data.quads` and surfaces from `data.surfaces`. A surface is one printable product in the photo, and a print area is a bounded zone drawn on that product. A product can offer both, and they are separate render targets.
+4. Map artwork and placement settings to each render target. Provide exactly one identifier per target: `uuid` for a print area or `surface_uuid` for a surface. Size a print area target with **Fit**, or with **Width** and **Height**. Size a surface target with **Coverage**.
 5. Render the still product image.
 6. Download the image or continue the scenario with its result URL.
 

@@ -14,13 +14,13 @@
         "name": "uuid",
         "label": "Saved print area UUID",
         "type": "uuid",
-        "help": "Use the print_area_id returned in data.quads. Provide exactly one target identifier: this UUID or a full-surface UUID."
+        "help": "Use the print_area_id returned in data.quads. Provide exactly one target identifier: this UUID for a print area, or a surface UUID."
       },
       {
         "name": "surface_uuid",
-        "label": "Full-surface UUID",
+        "label": "Surface UUID",
         "type": "uuid",
-        "help": "Use the surface_uuid returned in data.surfaces. Provide exactly one target identifier: this UUID or a saved print area UUID."
+        "help": "Use the surface_uuid returned in data.surfaces. A surface is one printable product in the photo. Provide exactly one target identifier: this UUID for a surface, or a print area UUID."
       },
       {
         "name": "artwork_url",
@@ -184,7 +184,7 @@
             "name": "coverage",
             "label": "Coverage",
             "type": "number",
-            "default": 70,
+            "help": "How much of the surface the artwork covers, from 10 to 100 percent. Applies to surface targets. Leave it empty to cover the whole surface. Map Width and Height instead when you need an exact box, and never map both. Mapping Coverage on a print area target is rejected.",
             "validate": {
               "min": 10,
               "max": 100
@@ -208,13 +208,13 @@
                 "value": "cover"
               }
             ],
-            "default": "contain"
+            "help": "How the artwork sits inside the print area, always against the full area. Applies to print area targets. Leave it empty for Contain. Map Width and Height instead when you need an exact box, and never map both."
           },
           {
             "name": "width",
             "label": "Width",
             "type": "number",
-            "help": "Artwork width in print-area pixels. Map together with Height; the pair overrides Coverage and Fit. Width and Height are independent, so any aspect ratio is allowed.",
+            "help": "Artwork width in target pixels. Applies to both target kinds. Map it together with Height. Do not map Fit at the same time on a print area, or Coverage at the same time on a surface. Width and Height are independent, so any aspect ratio is allowed, which is what makes a size drawn on a canvas expressible at all.",
             "validate": {
               "min": 1,
               "max": 30000
@@ -224,7 +224,7 @@
             "name": "height",
             "label": "Height",
             "type": "number",
-            "help": "Artwork height in print-area pixels. Map together with Width. Mapping only one of the two is rejected rather than silently completed, so the aspect ratio is never guessed for you.",
+            "help": "Artwork height in target pixels. Applies to both target kinds. Map it together with Width. Mapping only one of the two is rejected rather than silently completed, so the aspect ratio is never guessed for you.",
             "validate": {
               "min": 1,
               "max": 30000
@@ -251,7 +251,7 @@
         ]
       }
     ],
-    "help": "Each render target must provide exactly one identifier: a saved print area UUID or a full-surface UUID.",
+    "help": "Each render target must provide exactly one identifier: a print area UUID or a surface UUID. Size a print area target with Fit, or with Width and Height. Size a surface target with Coverage.",
     "required": true,
     "validate": {
       "minItems": 1,

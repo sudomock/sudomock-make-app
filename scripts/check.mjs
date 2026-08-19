@@ -459,7 +459,9 @@ if (manifest) {
   const render2DParams = code(manifest.components?.module?.render2DMockup ?? {}, 'mappableParams');
   const printAreas = fieldAt(render2DParams, 'print_areas');
   const savedPrintAreaUuid = fieldAt(render2DParams, 'print_areas.uuid');
-  const fullSurfaceUuid = fieldAt(render2DParams, 'print_areas.surface_uuid');
+  const surfaceUuid = fieldAt(render2DParams, 'print_areas.surface_uuid');
+  const placementCoverage = fieldAt(render2DParams, 'print_areas.placement.coverage');
+  const placementFit = fieldAt(render2DParams, 'print_areas.placement.fit');
   const adjustmentFields = fieldAt(render2DParams, 'print_areas.adjustments')?.spec
     ?.map((field) => field.name).sort();
   const publicAdjustmentFields = [
@@ -477,11 +479,23 @@ if (manifest) {
   const imageFormats = imageFormat?.options?.map((option) => option.value);
   if (printAreas?.validate?.maxItems !== 8) errors.push('module.render2DMockup: print_areas must allow at most 8 items');
   if (savedPrintAreaUuid?.type !== 'uuid'
-    || fullSurfaceUuid?.type !== 'uuid'
+    || surfaceUuid?.type !== 'uuid'
     || savedPrintAreaUuid.required === true
-    || fullSurfaceUuid.required === true
+    || surfaceUuid.required === true
     || !printAreas?.help?.includes('exactly one')) {
-    errors.push('module.render2DMockup: each target must allow exactly one saved-area uuid or full-surface surface_uuid');
+    errors.push('module.render2DMockup: each target must allow exactly one print-area uuid or surface_uuid');
+  }
+  // Coverage sizes a surface target and fit sizes a print-area target. One array
+  // carries both target kinds, so neither dial may carry a client-side default:
+  // a value the scenario never mapped would travel to the wrong kind and be rejected.
+  if (!placementCoverage
+    || Object.hasOwn(placementCoverage, 'default')
+    || placementCoverage.validate?.min !== 10
+    || placementCoverage.validate?.max !== 100) {
+    errors.push('module.render2DMockup: placement.coverage must be an unset 10-100 surface dial');
+  }
+  if (!placementFit || Object.hasOwn(placementFit, 'default')) {
+    errors.push('module.render2DMockup: placement.fit must stay unset so the API applies its own print-area default');
   }
   if (JSON.stringify(adjustmentFields) !== JSON.stringify(publicAdjustmentFields)) {
     errors.push('module.render2DMockup: adjustments must contain only public outcome controls');
@@ -528,9 +542,8 @@ if (manifest) {
     if (quadMaskUuid !== undefined
       || JSON.stringify(dataFields) !== JSON.stringify(expectedFields)
       || surfaces?.type !== 'array'
-      || JSON.stringify(surfaceFields) !== JSON.stringify(['coverage', 'surface_uuid'])
-      || fieldAt(output, 'data.surfaces.surface_uuid')?.type !== 'uuid'
-      || fieldAt(output, 'data.surfaces.coverage')?.type !== 'text') {
+      || JSON.stringify(surfaceFields) !== JSON.stringify(['surface_uuid'])
+      || fieldAt(output, 'data.surfaces.surface_uuid')?.type !== 'uuid') {
       errors.push(`module.${name}: output must match the canonical public detail and surface_uuid shape`);
     }
   }
