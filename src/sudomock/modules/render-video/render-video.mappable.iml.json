@@ -56,16 +56,16 @@
             "type": "select",
             "options": [
               {
-                "label": "Stretch",
+                "label": "Fill",
                 "value": "fill"
               },
               {
-                "label": "Contain",
-                "value": "contain"
+                "label": "Fit",
+                "value": "fit"
               },
               {
-                "label": "Cover",
-                "value": "cover"
+                "label": "Crop",
+                "value": "crop"
               }
             ],
             "default": "fill"
