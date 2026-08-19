@@ -139,6 +139,7 @@
           {
             "name": "position",
             "label": "Position",
+            "help": "Which anchor cell inside the target the artwork is placed against. Horizontal offset and Vertical offset are measured from this anchor. Leave it empty to place at the center. Target pixels are the pixels of the product photo the mockup was built from, and Output size does not change them.",
             "type": "select",
             "options": [
               {
@@ -234,18 +235,21 @@
             "name": "rotation",
             "label": "Rotation",
             "type": "number",
+            "help": "Degrees, clockwise positive, from -360 to 360. The artwork is rotated before it is positioned, and a rotated artwork takes up its rotated bounding box, so a 100 by 50 box rotated 45 degrees lands as a 106 by 106 footprint. Width and Height describe the box before rotation.",
             "default": 0
           },
           {
             "name": "offset_x",
             "label": "Horizontal offset",
             "type": "number",
+            "help": "Horizontal offset in target pixels, measured from the anchor that Position picks, positive to the right. With the default Position of Center that anchor is the middle of the target.",
             "default": 0
           },
           {
             "name": "offset_y",
             "label": "Vertical offset",
             "type": "number",
+            "help": "Vertical offset in target pixels, measured from the anchor that Position picks, positive downward. With the default Position of Center that anchor is the middle of the target.",
             "default": 0
           }
         ]
