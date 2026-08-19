@@ -34,7 +34,7 @@
       },
       "get2DMockup": {
         "label": "Get a 2D mockup",
-        "description": "Retrieves a 2D mockup and its addressable saved areas and full surfaces.",
+        "description": "Retrieves a 2D mockup with its addressable print areas and surfaces.",
         "moduleType": "action",
         "actionCrud": "read",
         "connection": "sudomockApiKey",
@@ -74,7 +74,7 @@
       },
       "render2DMockup": {
         "label": "Render a 2D mockup",
-        "description": "Creates a render targeting each saved area by UUID or full surface by surface UUID.",
+        "description": "Creates a render targeting each print area by UUID or each surface by surface UUID.",
         "moduleType": "action",
         "actionCrud": "create",
         "connection": "sudomockApiKey",

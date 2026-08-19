@@ -97,6 +97,16 @@
             "name": "billing_period_end",
             "label": "Billing period end",
             "type": "date"
+          },
+          {
+            "name": "prepaid_balance",
+            "label": "Prepaid balance",
+            "type": "number"
+          },
+          {
+            "name": "prepaid_balance_currency",
+            "label": "Prepaid balance currency",
+            "type": "text"
           }
         ]
       },
