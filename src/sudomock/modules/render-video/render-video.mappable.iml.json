@@ -56,7 +56,7 @@
             "type": "select",
             "options": [
               {
-                "label": "Fill",
+                "label": "Stretch",
                 "value": "fill"
               },
               {
