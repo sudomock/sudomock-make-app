@@ -119,10 +119,11 @@ const scenarios = [
         uuid: '{{3.data.print_areas[1].print_area_id}}',
         artwork_url: artworkUrl,
         adjustments: { opacity: 100, blend_mode: 'multiply' },
-        // Sizing is coverage+fit here. `scale` is not part of the placement
-        // contract, and the API now answers an unrecognised placement key with
-        // 422 -- which would fail this scenario during Make's app review.
-        placement: { position: 'top_left', coverage: 70, fit: 'contain', rotation: 0, offset_x: 0, offset_y: 0 },
+        // This target is a print area, so it is sized with fit. Coverage sizes a
+        // surface target instead, and the API answers it here with 422, exactly as
+        // it answers any placement key outside the contract such as `scale`.
+        // Either would fail this scenario during Make's app review.
+        placement: { position: 'top_left', fit: 'contain', rotation: 0, offset_x: 0, offset_y: 0 },
       }],
       export_options: { image_format: 'jpg', image_size: 1200, quality: 80 },
       is_async: false,
