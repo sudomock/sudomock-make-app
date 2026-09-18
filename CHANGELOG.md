@@ -5,9 +5,31 @@ All notable changes to the SudoMock app for Make are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2026-09-18]
 
 ### Added
+- **Photo mockup event names.** Every event picker (**Create a webhook
+  endpoint**, **Update a webhook endpoint**, **Search webhook deliveries**,
+  **Search all webhook deliveries**) now offers `photo_mockup.ready`,
+  `photo_mockup.rejected`, `photo_mockup.failed`,
+  `photo_mockup_render.succeeded`, and `photo_mockup_render.failed`. The
+  `2d_mockup.*` and `2d_render.*` names stay in the list, marked legacy, for
+  endpoints that still receive them.
+- **Create a webhook endpoint** gains an **Event naming** input (`current` or
+  `legacy`, default `current`). It decides which spelling of the photo mockup
+  events, and of the payload `kind`, the new endpoint receives. Endpoints
+  created before this release keep the legacy names, so a scenario filtering on
+  `2d_render.succeeded` from an existing endpoint keeps working unchanged.
+- **Update a webhook endpoint** gains the same **Event naming** input under
+  **Fields to update**, with no default. Left empty, the endpoint keeps the
+  naming it already has, so scenarios that update an existing endpoint do not
+  change what it receives. Choosing a naming switches the endpoint to that
+  spelling and stores its subscribed event types in it.
+- Webhook endpoint outputs (**Create**, **Get**, **List**, **Update**,
+  **Rotate a webhook secret**) expose the endpoint's `event_naming`.
+- **Search jobs** accepts `photo_mockup_create` and `photo_mockup_render` as
+  job kinds. A photo mockup kind matches the job under either spelling; the
+  `2d_create` and `2d_render` values remain selectable as legacy names.
 - **Get Account Info** now exposes `prepaid_balance` and
   `prepaid_balance_currency` as mappable output fields. An account is funded
   either by a subscription allowance or by a prepaid balance, and the module

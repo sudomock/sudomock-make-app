@@ -637,6 +637,55 @@ if (manifest) {
   if (!jobKind || Object.hasOwn(jobKind, 'default')) {
     errors.push('module.listJobs: filters.kind must default to all job kinds by remaining unset');
   }
+  const jobKinds = jobKind?.options?.map((option) => option.value);
+  for (const kind of ['render', 'upload', 'video', 'photo_mockup_create', 'photo_mockup_render', '2d_create', '2d_render']) {
+    if (!jobKinds?.includes(kind)) errors.push(`module.listJobs: filters.kind is missing ${kind}`);
+  }
+  // The webhook event vocabulary every event picker offers, in display order:
+  // the photo mockup family names first, then the 2d_* spellings that endpoints
+  // pinned to the legacy naming still receive.
+  const canonicalWebhookEvents = [
+    'render.succeeded',
+    'render.failed',
+    'upload.succeeded',
+    'video.succeeded',
+    'video.failed',
+    'photo_mockup.ready',
+    'photo_mockup.rejected',
+    'photo_mockup.failed',
+    'photo_mockup_render.succeeded',
+    'photo_mockup_render.failed',
+    '2d_mockup.ready',
+    '2d_mockup.rejected',
+    '2d_mockup.failed',
+    '2d_render.succeeded',
+    '2d_render.failed',
+    'webhook.test',
+  ];
+  for (const [name, path] of [
+    ['webhookCreate', 'event_types'],
+    ['webhookUpdate', 'event_types'],
+    ['webhookListDeliveries', 'filters.event_type'],
+    ['webhookEventsFeed', 'filters.event_type'],
+  ]) {
+    const values = fieldAt(code(manifest.components?.module?.[name] ?? {}, 'mappableParams'), path)?.options?.map((option) => option.value);
+    if (JSON.stringify(values) !== JSON.stringify(canonicalWebhookEvents)) {
+      errors.push(`module.${name}: ${path} must offer the canonical webhook event list`);
+    }
+  }
+  const webhookCreate = manifest.components?.module?.webhookCreate;
+  const eventNaming = fieldAt(code(webhookCreate ?? {}, 'mappableParams'), 'event_naming');
+  const eventNamingValues = eventNaming?.options?.map((option) => option.value).sort();
+  if (eventNaming?.type !== 'select'
+    || JSON.stringify(eventNamingValues) !== JSON.stringify(['current', 'legacy'])
+    || eventNaming.default !== 'current'
+    || code(webhookCreate ?? {}, 'communication')?.body?.event_naming !== '{{ifempty(parameters.event_naming, undefined)}}') {
+    errors.push('module.webhookCreate: event_naming must pin new endpoints to the current event names by default');
+  }
+  for (const name of ['webhookCreate', 'webhookGet', 'webhookList', 'webhookUpdate', 'webhookRotateSecret']) {
+    const output = code(manifest.components?.module?.[name] ?? {}, 'interface');
+    if (!output?.some((field) => field.name === 'event_naming')) errors.push(`module.${name}: output must expose event_naming`);
+  }
   const placementPositions = fieldAt(render2DParams, 'print_areas.placement.position')?.options?.map((option) => option.value);
   if (placementPositions?.some((position) => position.includes('-'))) {
     errors.push('module.render2DMockup: placement positions must use the API canonical underscore format');
@@ -677,6 +726,17 @@ if (manifest) {
     || eventTypesMapping.includes('length(parameters.event_types)')
     || (!directNestedEventTypes && !explicitlyGatedEventTypes)) {
     errors.push('module.webhookUpdate: event_types must preserve unset while sending an intentional empty list');
+  }
+  // An update must not re-pin an endpoint the scenario did not ask to re-pin:
+  // the field carries no default, and an empty value keeps the key out of the
+  // body, so the endpoint keeps the naming it already has.
+  const updateNaming = fieldAt(webhookUpdateParams, 'update_fields.event_naming');
+  const updateNamingValues = updateNaming?.options?.map((option) => option.value).sort();
+  if (updateNaming?.type !== 'select'
+    || JSON.stringify(updateNamingValues) !== JSON.stringify(['current', 'legacy'])
+    || Object.hasOwn(updateNaming, 'default')
+    || code(webhookUpdate ?? {}, 'communication')?.body?.event_naming !== '{{ifempty(parameters.update_fields.event_naming, undefined)}}') {
+    errors.push('module.webhookUpdate: update_fields.event_naming must offer current and legacy without a default and reach the body only when set');
   }
 
   for (const [name, rpc] of Object.entries(manifest.components?.rpc ?? {})) {
