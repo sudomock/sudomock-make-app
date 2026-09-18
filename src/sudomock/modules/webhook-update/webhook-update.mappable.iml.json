@@ -38,23 +38,43 @@
         "value": "video.failed"
       },
       {
-        "label": "2D mockup ready",
+        "label": "Photo mockup ready",
+        "value": "photo_mockup.ready"
+      },
+      {
+        "label": "Photo mockup rejected",
+        "value": "photo_mockup.rejected"
+      },
+      {
+        "label": "Photo mockup failed",
+        "value": "photo_mockup.failed"
+      },
+      {
+        "label": "Photo mockup render succeeded",
+        "value": "photo_mockup_render.succeeded"
+      },
+      {
+        "label": "Photo mockup render failed",
+        "value": "photo_mockup_render.failed"
+      },
+      {
+        "label": "2D mockup ready (legacy)",
         "value": "2d_mockup.ready"
       },
       {
-        "label": "2D mockup rejected",
+        "label": "2D mockup rejected (legacy)",
         "value": "2d_mockup.rejected"
       },
       {
-        "label": "2D mockup failed",
+        "label": "2D mockup failed (legacy)",
         "value": "2d_mockup.failed"
       },
       {
-        "label": "2D render succeeded",
+        "label": "2D render succeeded (legacy)",
         "value": "2d_render.succeeded"
       },
       {
-        "label": "2D render failed",
+        "label": "2D render failed (legacy)",
         "value": "2d_render.failed"
       },
       {
@@ -96,6 +116,23 @@
           }
         ],
         "help": "Leave empty to keep the current state."
+      },
+      {
+        "name": "event_naming",
+        "label": "Event naming",
+        "type": "select",
+        "options": [
+          {
+            "label": "Current names (photo_mockup.*, photo_mockup_render.*)",
+            "value": "current"
+          },
+          {
+            "label": "Legacy names (2d_mockup.*, 2d_render.*)",
+            "value": "legacy"
+          }
+        ],
+        "advanced": true,
+        "help": "Leave empty to keep the naming the endpoint already has. Choosing a naming switches the spelling of the photo mockup events and of the payload kind this endpoint receives, and its subscribed event types are stored in that spelling."
       }
     ]
   }
