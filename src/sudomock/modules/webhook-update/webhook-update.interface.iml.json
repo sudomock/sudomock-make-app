@@ -28,6 +28,11 @@
     }
   },
   {
+    "name": "event_naming",
+    "label": "Event naming",
+    "type": "text"
+  },
+  {
     "name": "enabled",
     "label": "Enabled",
     "type": "boolean"
