@@ -157,7 +157,7 @@ const scenarios = [
       webhook_id: '{{1.id}}',
       update_event_types: true,
       event_types: ['webhook.test'],
-      update_fields: { url: reviewReceiver, description: 'Synthetic review QA', enabled: true },
+      update_fields: { url: reviewReceiver, description: 'Synthetic review QA', enabled: true, event_naming: 'current' },
     }),
     step('webhookTest', { webhook_id: '{{1.id}}' }),
     step('webhookRotateSecret', { webhook_id: '{{1.id}}' }),

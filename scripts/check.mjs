@@ -727,6 +727,17 @@ if (manifest) {
     || (!directNestedEventTypes && !explicitlyGatedEventTypes)) {
     errors.push('module.webhookUpdate: event_types must preserve unset while sending an intentional empty list');
   }
+  // An update must not re-pin an endpoint the scenario did not ask to re-pin:
+  // the field carries no default, and an empty value keeps the key out of the
+  // body, so the endpoint keeps the naming it already has.
+  const updateNaming = fieldAt(webhookUpdateParams, 'update_fields.event_naming');
+  const updateNamingValues = updateNaming?.options?.map((option) => option.value).sort();
+  if (updateNaming?.type !== 'select'
+    || JSON.stringify(updateNamingValues) !== JSON.stringify(['current', 'legacy'])
+    || Object.hasOwn(updateNaming, 'default')
+    || code(webhookUpdate ?? {}, 'communication')?.body?.event_naming !== '{{ifempty(parameters.update_fields.event_naming, undefined)}}') {
+    errors.push('module.webhookUpdate: update_fields.event_naming must offer current and legacy without a default and reach the body only when set');
+  }
 
   for (const [name, rpc] of Object.entries(manifest.components?.rpc ?? {})) {
     const communication = code(rpc, 'communication');
