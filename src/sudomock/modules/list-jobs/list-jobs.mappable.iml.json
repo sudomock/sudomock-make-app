@@ -22,11 +22,19 @@
             "value": "video"
           },
           {
-            "label": "2D create",
+            "label": "Photo mockup create",
+            "value": "photo_mockup_create"
+          },
+          {
+            "label": "Photo mockup render",
+            "value": "photo_mockup_render"
+          },
+          {
+            "label": "2D create (legacy)",
             "value": "2d_create"
           },
           {
-            "label": "2D render",
+            "label": "2D render (legacy)",
             "value": "2d_render"
           }
         ]

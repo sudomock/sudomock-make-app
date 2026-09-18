@@ -22,6 +22,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `2d_render.succeeded` from an existing endpoint keeps working unchanged.
 - Webhook endpoint outputs (**Create**, **Get**, **List**, **Update**,
   **Rotate a webhook secret**) expose the endpoint's `event_naming`.
+- **Search jobs** accepts `photo_mockup_create` and `photo_mockup_render` as
+  job kinds. A photo mockup kind matches the job under either spelling; the
+  `2d_create` and `2d_render` values remain selectable as legacy names.
 - **Get Account Info** now exposes `prepaid_balance` and
   `prepaid_balance_currency` as mappable output fields. An account is funded
   either by a subscription allowance or by a prepaid balance, and the module
