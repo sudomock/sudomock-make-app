@@ -5,7 +5,8 @@
     "url": "{{parameters.update_fields.url}}",
     "description": "{{parameters.update_fields.description}}",
     "enabled": "{{parameters.update_fields.enabled}}",
-    "event_types": "{{if(parameters.update_event_types, ifempty(parameters.event_types, toArray(pick(parameters, '__no_array_item__'))), undefined)}}"
+    "event_types": "{{if(parameters.update_event_types, ifempty(parameters.event_types, toArray(pick(parameters, '__no_array_item__'))), undefined)}}",
+    "event_naming": "{{ifempty(parameters.update_fields.event_naming, undefined)}}"
   },
   "response": {
     "output": "{{body}}"
