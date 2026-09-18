@@ -637,6 +637,10 @@ if (manifest) {
   if (!jobKind || Object.hasOwn(jobKind, 'default')) {
     errors.push('module.listJobs: filters.kind must default to all job kinds by remaining unset');
   }
+  const jobKinds = jobKind?.options?.map((option) => option.value);
+  for (const kind of ['render', 'upload', 'video', 'photo_mockup_create', 'photo_mockup_render', '2d_create', '2d_render']) {
+    if (!jobKinds?.includes(kind)) errors.push(`module.listJobs: filters.kind is missing ${kind}`);
+  }
   // The webhook event vocabulary every event picker offers, in display order:
   // the photo mockup family names first, then the 2d_* spellings that endpoints
   // pinned to the legacy naming still receive.
