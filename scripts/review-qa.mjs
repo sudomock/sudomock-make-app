@@ -150,6 +150,7 @@ const scenarios = [
       url: reviewReceiver,
       description: 'Synthetic review QA',
       event_types: ['webhook.test'],
+      event_naming: 'current',
     }),
     step('webhookGet', { webhook_id: '{{1.id}}' }),
     step('webhookUpdate', {
