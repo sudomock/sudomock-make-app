@@ -8,6 +8,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Photo mockup event names.** Every event picker (**Create a webhook
+  endpoint**, **Update a webhook endpoint**, **Search webhook deliveries**,
+  **Search all webhook deliveries**) now offers `photo_mockup.ready`,
+  `photo_mockup.rejected`, `photo_mockup.failed`,
+  `photo_mockup_render.succeeded`, and `photo_mockup_render.failed`. The
+  `2d_mockup.*` and `2d_render.*` names stay in the list, marked legacy, for
+  endpoints that still receive them.
+- **Create a webhook endpoint** gains an **Event naming** input (`current` or
+  `legacy`, default `current`). It decides which spelling of the photo mockup
+  events, and of the payload `kind`, the new endpoint receives. Endpoints
+  created before this release keep the legacy names, so a scenario filtering on
+  `2d_render.succeeded` from an existing endpoint keeps working unchanged.
+- Webhook endpoint outputs (**Create**, **Get**, **List**, **Update**,
+  **Rotate a webhook secret**) expose the endpoint's `event_naming`.
 - **Get Account Info** now exposes `prepaid_balance` and
   `prepaid_balance_currency` as mappable output fields. An account is funded
   either by a subscription allowance or by a prepaid balance, and the module

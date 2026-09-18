@@ -637,6 +637,51 @@ if (manifest) {
   if (!jobKind || Object.hasOwn(jobKind, 'default')) {
     errors.push('module.listJobs: filters.kind must default to all job kinds by remaining unset');
   }
+  // The webhook event vocabulary every event picker offers, in display order:
+  // the photo mockup family names first, then the 2d_* spellings that endpoints
+  // pinned to the legacy naming still receive.
+  const canonicalWebhookEvents = [
+    'render.succeeded',
+    'render.failed',
+    'upload.succeeded',
+    'video.succeeded',
+    'video.failed',
+    'photo_mockup.ready',
+    'photo_mockup.rejected',
+    'photo_mockup.failed',
+    'photo_mockup_render.succeeded',
+    'photo_mockup_render.failed',
+    '2d_mockup.ready',
+    '2d_mockup.rejected',
+    '2d_mockup.failed',
+    '2d_render.succeeded',
+    '2d_render.failed',
+    'webhook.test',
+  ];
+  for (const [name, path] of [
+    ['webhookCreate', 'event_types'],
+    ['webhookUpdate', 'event_types'],
+    ['webhookListDeliveries', 'filters.event_type'],
+    ['webhookEventsFeed', 'filters.event_type'],
+  ]) {
+    const values = fieldAt(code(manifest.components?.module?.[name] ?? {}, 'mappableParams'), path)?.options?.map((option) => option.value);
+    if (JSON.stringify(values) !== JSON.stringify(canonicalWebhookEvents)) {
+      errors.push(`module.${name}: ${path} must offer the canonical webhook event list`);
+    }
+  }
+  const webhookCreate = manifest.components?.module?.webhookCreate;
+  const eventNaming = fieldAt(code(webhookCreate ?? {}, 'mappableParams'), 'event_naming');
+  const eventNamingValues = eventNaming?.options?.map((option) => option.value).sort();
+  if (eventNaming?.type !== 'select'
+    || JSON.stringify(eventNamingValues) !== JSON.stringify(['current', 'legacy'])
+    || eventNaming.default !== 'current'
+    || code(webhookCreate ?? {}, 'communication')?.body?.event_naming !== '{{ifempty(parameters.event_naming, undefined)}}') {
+    errors.push('module.webhookCreate: event_naming must pin new endpoints to the current event names by default');
+  }
+  for (const name of ['webhookCreate', 'webhookGet', 'webhookList', 'webhookUpdate', 'webhookRotateSecret']) {
+    const output = code(manifest.components?.module?.[name] ?? {}, 'interface');
+    if (!output?.some((field) => field.name === 'event_naming')) errors.push(`module.${name}: output must expose event_naming`);
+  }
   const placementPositions = fieldAt(render2DParams, 'print_areas.placement.position')?.options?.map((option) => option.value);
   if (placementPositions?.some((position) => position.includes('-'))) {
     errors.push('module.render2DMockup: placement positions must use the API canonical underscore format');
