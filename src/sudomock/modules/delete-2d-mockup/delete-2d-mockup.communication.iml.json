@@ -1,5 +1,5 @@
 {
-  "url": "/sudoai/2d-mockups/{{parameters.mockup_uuid}}",
+  "url": "/photo-mockups/{{parameters.mockup_uuid}}",
   "method": "DELETE",
   "response": {
     "output": "{{body}}"

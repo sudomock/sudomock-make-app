@@ -1,5 +1,5 @@
 {
-  "url": "/sudoai/2d-mockups/{{parameters.mockup_uuid}}/render",
+  "url": "/photo-mockups/{{parameters.mockup_uuid}}/render",
   "method": "POST",
   "body": {
     "print_areas": "{{parameters.print_areas}}",
