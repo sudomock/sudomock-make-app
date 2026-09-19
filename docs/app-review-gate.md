@@ -40,7 +40,7 @@ Primary rules:
 
 - [ ] App name is `SudoMock`; the theme is `#0f172a`; the icon is the approved SudoMock mark.
 - [ ] English labels use sentence case, start with a verb, and descriptions state the result in third person.
-- [ ] Public copy explains photo-to-mockup first, then covers the 2D product name, PSD templates, product videos, jobs, fonts, artwork, and webhook management.
+- [ ] Public copy explains photo-to-mockup first, then covers the photo mockup product name, PSD templates, product videos, jobs, fonts, artwork, and webhook management.
 - [ ] Public metadata contains only SudoMock identity, public URLs, and `hello@sudomock.com`.
 - [ ] No personal name, local path, credential, private project detail, or test customer data appears in code, logs, scenarios, metadata, or review material.
 - [ ] Public API and Make documentation matches the submitted module surface and contains no premature or outdated integration claims.

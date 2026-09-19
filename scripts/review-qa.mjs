@@ -170,7 +170,7 @@ const scenarios = [
   ]),
   reviewScenario('SudoMock App Review 08 - Safe 404', [
     step('makeApiCall', {
-      url: `/api/v1/mockups/${missingUuid}`,
+      url: `/api/v1/psd-mockups/${missingUuid}`,
       method: 'GET',
       headers: [{ key: 'Content-Type', value: 'application/json' }],
       qs: [],

@@ -5,6 +5,26 @@ All notable changes to the SudoMock app for Make are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2026-09-19]
+
+### Changed
+- **Create a mockup from a photo**, **Get a photo mockup**, **List photo
+  mockups**, **Set photo mockup print areas**, **Render a photo mockup**, and
+  **Delete a photo mockup** now call `/api/v1/photo-mockups`. Module
+  identifiers, inputs, and outputs are the same, so saved scenarios keep working
+  unchanged.
+- Asynchronous jobs started by **Create a mockup from a photo** and **Render a
+  photo mockup** report `kind` as `photo_mockup_create` and
+  `photo_mockup_render`. A scenario filter comparing `kind` against `2d_create`
+  or `2d_render` should compare against the new values. **Search jobs** keeps
+  both spellings selectable.
+- **Get mockup details**, **Search mockups**, **Update a mockup**, **Delete a mockup**,
+  and the mockup and Smart Object pickers now call `/api/v1/psd-mockups`.
+  Module identifiers, inputs, and outputs are the same.
+- Labels, descriptions, and help text say "photo mockup" where they said "2D
+  mockup". The first module group is named **Photo Mockups**. Module
+  identifiers are unchanged, so saved scenarios open exactly as before.
+
 ## [2026-09-18]
 
 ### Added

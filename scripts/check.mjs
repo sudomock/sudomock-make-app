@@ -199,7 +199,7 @@ function capabilityComesFirst(text) {
     .map((phrase) => copy.indexOf(phrase))
     .filter((index) => index !== -1)
     .sort((a, b) => a - b)[0];
-  const productName = copy.indexOf('2d mockup');
+  const productName = copy.indexOf('photo mockup');
   return capability !== undefined && (productName === -1 || capability < productName);
 }
 
@@ -322,7 +322,7 @@ if (manifest) {
   const app = jsonFiles.get(join(sourceRoot, 'general/app.json'));
   if (app) {
     addFileRef('general/app.json icon', app.icon);
-    if (!capabilityComesFirst(app.description ?? '')) errors.push('general/app.json: description must introduce product-photo capability before the 2D product name');
+    if (!capabilityComesFirst(app.description ?? '')) errors.push('general/app.json: description must introduce product-photo capability before the photo mockup product name');
   }
   const readmeRef = manifest.generalCodeFiles?.readme;
   if (typeof readmeRef !== 'string') {
@@ -330,16 +330,40 @@ if (manifest) {
   } else {
     const readmePath = resolve(sourceRoot, readmeRef);
     if (existsSync(readmePath) && !capabilityComesFirst(readFileSync(readmePath, 'utf8'))) {
-      errors.push('README.md: first product introduction must explain product-photo capability before the 2D product name');
+      errors.push('README.md: first product introduction must explain product-photo capability before the photo mockup product name');
     }
   }
   const groups = jsonFiles.get(resolve(sourceRoot, manifest.generalCodeFiles?.groups ?? ''));
-  if (!Array.isArray(groups) || groups[0]?.label !== 'Product photos to mockups (2D)') {
-    errors.push('modules/groups.json: first group must be "Product photos to mockups (2D)"');
+  if (!Array.isArray(groups) || groups[0]?.label !== 'Photo Mockups') {
+    errors.push('modules/groups.json: first group must be "Photo Mockups"');
   }
   const photoModule = manifest.components?.module?.create2DMockup;
   if (!/\bphoto\b/i.test(`${photoModule?.label ?? ''} ${photoModule?.description ?? ''}`)) {
     errors.push('makecomapp.json: create2DMockup copy must explain the photo capability');
+  }
+  // Every mockup module and picker calls the family path the API documents
+  // first. Module identifiers, inputs, and outputs stay as they are, so saved
+  // scenarios keep working unchanged.
+  const expectedWirePaths = {
+    'module:create2DMockup': ['POST', '/photo-mockups'],
+    'module:get2DMockup': ['GET', '/photo-mockups/{{parameters.mockup_uuid}}'],
+    'module:list2DMockups': ['GET', '/photo-mockups'],
+    'module:set2DPrintAreas': ['PUT', '/photo-mockups/{{parameters.mockup_uuid}}/print-areas'],
+    'module:render2DMockup': ['POST', '/photo-mockups/{{parameters.mockup_uuid}}/render'],
+    'module:delete2DMockup': ['DELETE', '/photo-mockups/{{parameters.mockup_uuid}}'],
+    'module:getMockup': ['GET', '/psd-mockups/{{parameters.mockup_uuid}}'],
+    'module:listMockups': ['GET', '/psd-mockups'],
+    'module:updateMockup': ['PATCH', '/psd-mockups/{{parameters.mockup_uuid}}'],
+    'module:deleteMockup': ['DELETE', '/psd-mockups/{{parameters.mockup_uuid}}'],
+    'rpc:listMockups': ['GET', '/psd-mockups'],
+    'rpc:listSmartObjects': ['GET', '/psd-mockups/{{parameters.mockup_uuid}}'],
+  };
+  for (const [key, [method, url]] of Object.entries(expectedWirePaths)) {
+    const [type, name] = key.split(':');
+    const request = code(manifest.components?.[type]?.[name] ?? {}, 'communication');
+    if (request?.method !== method || request?.url !== url) {
+      errors.push(`${type}.${name}: must call ${method} ${url}`);
+    }
   }
 
   const paginationRequired = new Set([
@@ -578,10 +602,10 @@ if (manifest) {
       }),
   ].join('\n');
   if (/\/setup\b|\b2D setup\b|auto-segment|presign-masks|mask\/commit/i.test(public2DContractCopy)) {
-    errors.push('public 2D UI/docs: retired setup or mask-workflow aliases are not allowed');
+    errors.push('public photo mockup UI/docs: retired setup or mask-workflow aliases are not allowed');
   }
   if (/\b(?:mask_uuid|depth_url|displacement_grid|warp_strength|edge_softness|edge_expand|texture_strength)\b/i.test(public2DContractCopy)) {
-    errors.push('public 2D UI/docs: internal mask, depth, grid, warp, edge, and texture fields are not allowed');
+    errors.push('public photo mockup UI/docs: internal mask, depth, grid, warp, edge, and texture fields are not allowed');
   }
 
   const renderVideo = manifest.components?.module?.renderVideo;

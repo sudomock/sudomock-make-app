@@ -1,6 +1,6 @@
 [
   {
-    "label": "Product photos to mockups (2D)",
+    "label": "Photo Mockups",
     "modules": [
       "create2DMockup",
       "get2DMockup",
