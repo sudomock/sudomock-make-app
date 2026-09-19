@@ -1,7 +1,7 @@
 [
   {
     "name": "mockup_id",
-    "label": "2D mockup ID",
+    "label": "Photo mockup ID",
     "type": "uuid"
   },
   {

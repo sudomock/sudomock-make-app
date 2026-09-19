@@ -1,5 +1,5 @@
 {
-  "url": "/sudoai/2d-mockups",
+  "url": "/photo-mockups",
   "method": "POST",
   "body": {
     "source_url": "{{if(parameters.source_type == 'url', parameters.source_url, undefined)}}",
