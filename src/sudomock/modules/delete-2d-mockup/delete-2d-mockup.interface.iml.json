@@ -6,7 +6,7 @@
     "spec": [
       {
         "name": "deleted",
-        "label": "Deleted 2D mockup UUID",
+        "label": "Deleted photo mockup UUID",
         "type": "uuid"
       }
     ]

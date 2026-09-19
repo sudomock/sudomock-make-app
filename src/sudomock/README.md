@@ -1,6 +1,6 @@
 # SudoMock
 
-SudoMock turns product photos into reusable mockups without requiring a PSD. The product calls this photo-first workflow a 2D mockup. SudoMock can also remove image backgrounds and render PSD templates with Smart Objects and editable text. The SudoMock app for Make automates still product images and short videos, personalized artwork and fonts, asynchronous jobs, and webhooks through the SudoMock API.
+SudoMock turns product photos into reusable mockups without requiring a PSD. The product calls this photo-first workflow a photo mockup. SudoMock can also remove image backgrounds and render PSD templates with Smart Objects and editable text. The SudoMock app for Make automates still product images and short videos, personalized artwork and fonts, asynchronous jobs, and webhooks through the SudoMock API.
 
 ## Connect SudoMock to Make
 
@@ -15,7 +15,7 @@ Make masks the API key and tests the connection against the authenticated SudoMo
 
 - Retrieve account, subscription, usage, credit, and prepaid balance information.
 - Remove an image background and receive a transparent PNG cutout URL.
-- Create, prepare, configure, render, list, and delete reusable 2D mockups made from product photos.
+- Create, prepare, configure, render, list, and delete reusable photo mockups made from product photos.
 - Upload, list, retrieve, rename, and delete reusable PSD mockup templates.
 - Render product mockups with artwork, Smart Objects, editable text, fonts, and export settings.
 - Create short product videos from a mockup or image.
@@ -27,18 +27,18 @@ Make masks the API key and tests the connection against the authenticated SudoMo
 
 1. Add **Create a mockup from a photo** and provide a product-photo URL.
 2. Optionally override the automatically detected print areas.
-3. Use **Get a 2D mockup** to read print areas from `data.quads` and surfaces from `data.surfaces`. A surface is one printable product in the photo, and a print area is a bounded zone drawn on that product. A product can offer both, and they are separate render targets.
+3. Use **Get a photo mockup** to read print areas from `data.quads` and surfaces from `data.surfaces`. A surface is one printable product in the photo, and a print area is a bounded zone drawn on that product. A product can offer both, and they are separate render targets.
 4. Map artwork and placement settings to each render target. Provide exactly one identifier per target: `uuid` for a print area or `surface_uuid` for a surface. Size a print area target with **Fit**, or with **Width** and **Height**. Size a surface target with **Coverage**.
 5. Render the still product image.
 6. Download the image or continue the scenario with its result URL.
 
-**Set 2D mockup print areas** can send an empty array to remove saved areas. SudoMock remains authoritative and accepts that only when the mockup can stay renderable without them.
+**Set photo mockup print areas** can send an empty array to remove saved areas. SudoMock remains authoritative and accepts that only when the mockup can stay renderable without them.
 
 ## Background removal
 
 Add **Remove an image background** and provide an image URL or Base64 value. The module returns a transparent PNG cutout URL with its width, height, and charged credits. Each image costs 25 credits, and failed requests are refunded automatically.
 
-For inline cleanup during a render, enable **Remove background** on a PSD Smart Object asset or 2D print area. Inline cleanup adds 25 credits per unique artwork.
+For inline cleanup during a render, enable **Remove background** on a PSD Smart Object asset or photo mockup print area. Inline cleanup adds 25 credits per unique artwork.
 
 ## PSD template workflow
 
@@ -52,7 +52,7 @@ This workflow supports print-on-demand operations, e-commerce product catalogs, 
 
 ## Asynchronous jobs
 
-Long-running PSD uploads, renders, videos, and 2D operations return a job ID. Use the job modules to check status. Webhook management modules can create endpoints, inspect deliveries, and replay failed deliveries.
+Long-running PSD uploads, renders, videos, and photo mockup operations return a job ID. Use the job modules to check status. Webhook management modules can create endpoints, inspect deliveries, and replay failed deliveries.
 
 Terminal job statuses are `succeeded`, `failed`, and `cancelled`. Work in progress reports `queued`, `dispatched`, or `running`. Webhook deliveries are signed by SudoMock.
 
@@ -67,7 +67,7 @@ Terminal job statuses are `succeeded`, `failed`, and `cancelled`. Work in progre
 
 ### What is SudoMock?
 
-SudoMock is a mockup rendering API that turns reusable PSD templates and 2D product photos into production-ready product images and short product videos.
+SudoMock is a mockup rendering API that turns reusable PSD templates and product photos into production-ready product images and short product videos.
 
 ### Can SudoMock place multiple designs in one PSD?
 
