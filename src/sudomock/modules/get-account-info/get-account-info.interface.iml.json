@@ -32,6 +32,23 @@
         ]
       },
       {
+        "name": "organization",
+        "label": "Organization",
+        "type": "collection",
+        "spec": [
+          {
+            "name": "id",
+            "label": "ID",
+            "type": "uuid"
+          },
+          {
+            "name": "name",
+            "label": "Name",
+            "type": "text"
+          }
+        ]
+      },
+      {
         "name": "subscription",
         "label": "Subscription",
         "type": "collection",
