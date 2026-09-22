@@ -5,6 +5,16 @@ All notable changes to the SudoMock app for Make are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2026-09-22]
+
+### Added
+- **Get account information** now exposes `organization` as a mappable output
+  collection with the organization `id` and `name`. The field is an addition
+  to the module interface. No existing field was removed, renamed, or retyped,
+  so scenarios already mapping the account, subscription, usage, or API key
+  fields keep working unchanged. The connection is still labelled with the
+  account email.
+
 ## [2026-09-19]
 
 ### Changed
