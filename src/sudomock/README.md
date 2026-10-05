@@ -16,7 +16,7 @@ Make masks the API key and tests the connection against the authenticated SudoMo
 - Retrieve account, subscription, usage, credit, and prepaid balance information.
 - Remove an image background and receive a transparent PNG cutout URL.
 - Create, prepare, configure, render, list, and delete reusable photo mockups made from product photos.
-- Upload, list, retrieve, rename, and delete reusable PSD mockup templates.
+- Upload, list, retrieve, rename, and delete reusable PSD mockup templates, and list every layer of a template.
 - Render product mockups with artwork, Smart Objects, editable text, fonts, and export settings.
 - Create short product videos from a mockup or image.
 - Manage custom fonts.
@@ -45,7 +45,7 @@ For inline cleanup during a render, enable **Remove background** on a PSD Smart 
 1. Select or upload a reusable PSD template.
 2. Map artwork to one or more Smart Objects.
 3. Add personalized text or font settings when needed.
-4. Optionally add layer UUIDs to **Hidden layers** to leave those layers out of this render. **Make an API call** to `/api/v1/psd-mockups/{uuid}/layers` lists every layer of the template with its UUID, and hiding a group hides every layer inside it.
+4. Optionally add layer UUIDs to **Hidden layers** to leave those layers out of this render. **Get PSD mockup layers** lists every layer of the template with its UUID, including the layers inside its Smart Objects, and hiding a group hides every layer inside it.
 5. Start the render and receive the result immediately or as an asynchronous job.
 6. Download the finished image or continue the scenario with its result URL.
 

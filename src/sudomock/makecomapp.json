@@ -189,6 +189,19 @@
           "interface": "modules/get-mockup/get-mockup.interface.iml.json"
         }
       },
+      "getMockupLayers": {
+        "label": "Get PSD mockup layers",
+        "description": "Retrieves every layer of a mockup template with its UUID, including the layers inside its smart objects.",
+        "moduleType": "action",
+        "actionCrud": "read",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/get-mockup-layers/get-mockup-layers.communication.iml.json",
+          "mappableParams": "modules/get-mockup-layers/get-mockup-layers.mappable.iml.json",
+          "interface": "modules/get-mockup-layers/get-mockup-layers.interface.iml.json"
+        }
+      },
       "listMockups": {
         "label": "Search mockups",
         "description": "Searches mockup templates by name or creation date and returns up to the specified number of results.",
@@ -557,6 +570,10 @@
           {
             "local": "getMockup",
             "remote": "getMockup"
+          },
+          {
+            "local": "getMockupLayers",
+            "remote": "getMockupLayers"
           },
           {
             "local": "listMockups",

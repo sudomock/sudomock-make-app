@@ -66,6 +66,7 @@ const scenarios = [
       is_async: false,
     }),
     step('downloadRender', { url: '{{4.renderedImageUrl}}' }, false),
+    step('getMockupLayers', { mockup_uuid: '{{1.data.uuid}}' }),
     step('deleteMockup', { mockup_uuid: '{{1.data.uuid}}' }),
   ]),
   reviewScenario('SudoMock App Review 02b - Async render and wait', [
