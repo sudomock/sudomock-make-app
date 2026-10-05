@@ -11,8 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Get PSD mockup layers** retrieves every layer of a mockup template, nested
   the way Photoshop's Layers panel shows them and front-most first, each with
   `uuid`, `name`, `kind`, `visible` and `children`. A Smart Object whose
-  contents hold layers you can fill lists those layers as its children. The
-  output is mappable four levels deep. The module sits in the PSD templates
+  contents hold layers you can fill lists those layers as its children. An
+  artboard has kind `artboard`, and its own layers are listed right before it
+  at the top level. The output is mappable four levels deep. The module sits in the PSD templates
   group after **Get mockup details**, and the private review scenario for PSD
   templates runs it.
 - **Render a mockup** takes **Hidden layers**: up to 50 layer UUIDs to leave
