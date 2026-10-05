@@ -116,7 +116,7 @@ if (!existsSync(dependabotPath)) {
 const manifest = jsonFiles.get(manifestPath);
 const expectedInventory = {
   connection: ['sudomockApiKey'],
-  module: `create2DMockup get2DMockup list2DMockups set2DPrintAreas render2DMockup delete2DMockup deleteMockup deleteFont getFont listFonts uploadFont getAccountInfo getMockup listMockups getJob listJobs render removeBackground renderVideo updateMockup uploadPsd webhookCreate webhookDelete webhookEventsFeed webhookGet webhookListDeliveries webhookList webhookReplayDelivery webhookReplayFailed webhookRotateSecret webhookTest webhookUpdate downloadRender makeApiCall`.split(' '),
+  module: `create2DMockup get2DMockup list2DMockups set2DPrintAreas render2DMockup delete2DMockup deleteMockup deleteFont getFont listFonts uploadFont getAccountInfo getMockup getMockupLayers listMockups getJob listJobs render removeBackground renderVideo updateMockup uploadPsd webhookCreate webhookDelete webhookEventsFeed webhookGet webhookListDeliveries webhookList webhookReplayDelivery webhookReplayFailed webhookRotateSecret webhookTest webhookUpdate downloadRender makeApiCall`.split(' '),
   function: [],
   rpc: ['listMockups', 'listSmartObjects'],
   webhook: [],
@@ -352,6 +352,7 @@ if (manifest) {
     'module:render2DMockup': ['POST', '/photo-mockups/{{parameters.mockup_uuid}}/render'],
     'module:delete2DMockup': ['DELETE', '/photo-mockups/{{parameters.mockup_uuid}}'],
     'module:getMockup': ['GET', '/psd-mockups/{{parameters.mockup_uuid}}'],
+    'module:getMockupLayers': ['GET', '/psd-mockups/{{parameters.mockup_uuid}}/layers'],
     'module:listMockups': ['GET', '/psd-mockups'],
     'module:updateMockup': ['PATCH', '/psd-mockups/{{parameters.mockup_uuid}}'],
     'module:deleteMockup': ['DELETE', '/psd-mockups/{{parameters.mockup_uuid}}'],

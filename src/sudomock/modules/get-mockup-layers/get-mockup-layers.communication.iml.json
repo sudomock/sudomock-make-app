@@ -1,0 +1,7 @@
+{
+  "url": "/psd-mockups/{{parameters.mockup_uuid}}/layers",
+  "method": "GET",
+  "response": {
+    "output": "{{body}}"
+  }
+}

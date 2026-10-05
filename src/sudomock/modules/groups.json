@@ -23,6 +23,7 @@
       "render",
       "downloadRender",
       "getMockup",
+      "getMockupLayers",
       "listMockups",
       "updateMockup",
       "deleteMockup"
