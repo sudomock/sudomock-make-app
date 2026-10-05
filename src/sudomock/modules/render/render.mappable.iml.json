@@ -396,6 +396,19 @@
     "help": "Add text layer overrides. Each item must use either text or segments."
   },
   {
+    "name": "hidden_layers",
+    "label": "Hidden layers",
+    "type": "array",
+    "spec": {
+      "type": "uuid",
+      "label": "Layer UUID"
+    },
+    "validate": {
+      "maxItems": 50
+    },
+    "help": "Layers to leave out of this render, by the UUIDs that GET /api/v1/psd-mockups/{uuid}/layers lists. Hiding a group hides every layer inside it. Works without smart objects or text layers."
+  },
+  {
     "name": "export_options",
     "label": "Export options",
     "type": "collection",
