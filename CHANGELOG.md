@@ -8,11 +8,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Get PSD mockup layers** retrieves every layer of a mockup template, nested
+  the way Photoshop's Layers panel shows them and front-most first, each with
+  `uuid`, `name`, `kind`, `visible` and `children`. A Smart Object whose
+  contents hold layers you can fill lists those layers as its children. The
+  output is mappable four levels deep. The module sits in the PSD templates
+  group after **Get mockup details**, and the private review scenario for PSD
+  templates runs it.
 - **Render a mockup** takes **Hidden layers**: up to 50 layer UUIDs to leave
-  out of the render, as `GET /api/v1/psd-mockups/{uuid}/layers` lists them.
-  Hiding a group hides every layer inside it, and a render may carry hidden
-  layers alone. The input is an addition: a scenario that does not map it sends
-  the same request as before.
+  out of the render, as **Get PSD mockup layers** lists them, including the
+  layers inside a Smart Object. Hiding a group hides every layer inside it, a
+  layer hidden inside a Smart Object is hidden in every copy of it, and a
+  render may carry hidden layers alone. The input is an addition: a scenario
+  that does not map it sends the same request as before.
 
 ## [2026-10-05]
 
