@@ -45,8 +45,9 @@ For inline cleanup during a render, enable **Remove background** on a PSD Smart 
 1. Select or upload a reusable PSD template.
 2. Map artwork to one or more Smart Objects.
 3. Add personalized text or font settings when needed.
-4. Start the render and receive the result immediately or as an asynchronous job.
-5. Download the finished image or continue the scenario with its result URL.
+4. Optionally add layer UUIDs to **Hidden layers** to leave those layers out of this render. **Make an API call** to `/api/v1/psd-mockups/{uuid}/layers` lists every layer of the template with its UUID, and hiding a group hides every layer inside it.
+5. Start the render and receive the result immediately or as an asynchronous job.
+6. Download the finished image or continue the scenario with its result URL.
 
 This workflow supports print-on-demand operations, e-commerce product catalogs, marketplace listings, campaign variants, and personalized customer orders. SudoMock can be combined in Make scenarios with storefronts, marketplaces, cloud storage, spreadsheets, and order-management systems.
 
