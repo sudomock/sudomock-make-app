@@ -5,6 +5,23 @@ All notable changes to the SudoMock app for Make are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2026-10-05]
+
+### Added
+- **Upload a PSD template**, **Get mockup details**, **Search mockups**, and **Update a
+  mockup** now expose the Smart Objects and text layers that sit inside a
+  Smart Object. Each Smart Object entry can carry its own `smart_objects` and
+  `text_layers` lists, mappable two levels deep, with the same fields as the
+  top level. Their positions are measured in the enclosing Smart Object's own
+  canvas. Fill them in **Render a mockup** by UUID, exactly like a top level
+  Smart Object or text layer. The lists are an addition to the module
+  interfaces. No existing field was removed, renamed, or retyped, so saved
+  scenarios keep working unchanged.
+- A render that sends artwork to a Smart Object and also fills a slot inside it
+  is refused with `NESTED_SLOT_CONFLICT`. An upload whose Smart Object contents
+  could not be read carries the warning `PSD_NESTED_CONTENTS_UNAVAILABLE`; that
+  Smart Object stays one slot and still renders as designed.
+
 ## [2026-09-22]
 
 ### Added
