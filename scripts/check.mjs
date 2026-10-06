@@ -650,6 +650,15 @@ if (manifest) {
   if (textLayers?.type !== 'array' || expectedTextLayerFields.some((path) => !textLayerFields.has(path))) {
     errors.push('module.render: text_layers must expose the TextLayerInput structure instead of type any');
   }
+  const renderRequest = [code(manifest.components?.module?.render ?? {}, 'communication')].flat().find((request) => request?.url === '/renders');
+  const originalSize = fieldAt(renderParams, 'export_options.original_size');
+  if (originalSize?.type !== 'boolean'
+    || originalSize.default !== false
+    || renderRequest?.temp?.originalSizeExport?.['{{...}}'] !== "{{omit(parameters.export_options, 'export_label', 'original_size', 'image_size')}}"
+    || renderRequest?.temp?.originalSizeExport?.image_size !== 'original'
+    || renderRequest?.body?.export_options !== "{{if(parameters.export_options.original_size, temp.originalSizeExport, if(parameters.export_options, omit(parameters.export_options, 'export_label', 'original_size'), undefined))}}") {
+    errors.push('module.render: export_options.original_size must send image_size "original" and never forward itself');
+  }
 
   for (const name of ['webhookEventsFeed', 'webhookListDeliveries']) {
     const params = code(manifest.components?.module?.[name] ?? {}, 'mappableParams');
