@@ -22,6 +22,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   layer hidden inside a Smart Object is hidden in every copy of it, and a
   render may carry hidden layers alone. The input is an addition: a scenario
   that does not map it sends the same request as before.
+- **Render a mockup** takes **PSD's own size and resolution** in the export
+  options. When it is on, the render has the template's own width, its height
+  follows the template's proportions, and the file carries the resolution the
+  PSD was saved with unless **DPI** is set. **Image size** is not used then.
+  The option is off by default, so saved scenarios send the same request as
+  before. A template uploaded before this option existed needs to be uploaded
+  again to use it.
 
 ## [2026-10-05]
 
