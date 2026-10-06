@@ -11,6 +11,12 @@
   {
     "url": "/renders",
     "method": "POST",
+    "temp": {
+      "originalSizeExport": {
+        "{{...}}": "{{omit(parameters.export_options, 'export_label', 'original_size', 'image_size')}}",
+        "image_size": "original"
+      }
+    },
     "headers": {
       "Idempotency-Key": "{{if(parameters.idempotency_key, parameters.idempotency_key, undefined)}}"
     },
@@ -19,7 +25,7 @@
       "smart_objects": "{{parameters.smart_objects}}",
       "text_layers": "{{parameters.text_layers}}",
       "hidden_layers": "{{parameters.hidden_layers}}",
-      "export_options": "{{if(parameters.export_options, omit(parameters.export_options, 'export_label'), undefined)}}",
+      "export_options": "{{if(parameters.export_options.original_size, temp.originalSizeExport, if(parameters.export_options, omit(parameters.export_options, 'export_label', 'original_size'), undefined))}}",
       "export_label": "{{parameters.export_options.export_label}}",
       "is_async": "{{if(parameters.is_async, true, undefined)}}"
     },

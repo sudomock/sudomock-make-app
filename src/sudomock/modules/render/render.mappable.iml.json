@@ -444,6 +444,13 @@
         }
       },
       {
+        "name": "original_size",
+        "label": "PSD's own size and resolution",
+        "type": "boolean",
+        "default": false,
+        "help": "Renders at the PSD's own width, with the height following its proportions, and with the resolution the PSD was saved with unless DPI is set. Image size is not used when this is on."
+      },
+      {
         "name": "quality",
         "label": "Quality",
         "type": "integer",
