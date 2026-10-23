@@ -1,7 +1,0 @@
-{
-  "url": "/webhook-endpoints/{{parameters.webhook_id}}",
-  "method": "DELETE",
-  "response": {
-    "output": "{{undefined}}"
-  }
-}

@@ -47,22 +47,6 @@
     ]
   },
   {
-    "label": "Webhooks",
-    "modules": [
-      "webhookCreate",
-      "webhookGet",
-      "webhookList",
-      "webhookUpdate",
-      "webhookDelete",
-      "webhookEventsFeed",
-      "webhookListDeliveries",
-      "webhookReplayDelivery",
-      "webhookReplayFailed",
-      "webhookRotateSecret",
-      "webhookTest"
-    ]
-  },
-  {
     "label": "Other",
     "modules": [
       "getAccountInfo",

@@ -1,6 +1,6 @@
 # SudoMock
 
-SudoMock turns product photos into reusable mockups without requiring a PSD. The product calls this photo-first workflow a photo mockup. SudoMock can also remove image backgrounds and render PSD templates with Smart Objects and editable text. The SudoMock app for Make automates still product images and short videos, personalized artwork and fonts, asynchronous jobs, and webhooks through the SudoMock API.
+SudoMock turns product photos into reusable mockups without requiring a PSD. The product calls this photo-first workflow a photo mockup. SudoMock can also remove image backgrounds and render PSD templates with Smart Objects and editable text. The SudoMock app for Make automates still product images and short videos, personalized artwork and fonts, and asynchronous jobs through the SudoMock API.
 
 ## Connect SudoMock to Make
 
@@ -20,7 +20,7 @@ Make masks the API key and tests the connection against the authenticated SudoMo
 - Render product mockups with artwork, Smart Objects, editable text, fonts, and export settings.
 - Create short product videos from a mockup or image.
 - Manage custom fonts.
-- Track asynchronous jobs and manage SudoMock webhook endpoints and deliveries.
+- Track asynchronous jobs.
 - Call additional SudoMock API endpoints with **Make an API call**.
 
 ## Product photo workflow
@@ -53,7 +53,7 @@ This workflow supports print-on-demand operations, e-commerce product catalogs, 
 
 ## Asynchronous jobs
 
-Long-running PSD uploads, renders, videos, and photo mockup operations return a job ID. Use the job modules to check status. Webhook management modules can create endpoints, inspect deliveries, and replay failed deliveries.
+Long-running PSD uploads, renders, videos, and photo mockup operations return a job ID. Use the job modules to check status.
 
 Terminal job statuses are `succeeded`, `failed`, and `cancelled`. Work in progress reports `queued`, `dispatched`, or `running`. Webhook deliveries are signed by SudoMock.
 
