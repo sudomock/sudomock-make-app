@@ -5,6 +5,17 @@ All notable changes to the SudoMock app for Make are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2026-10-23]
+
+### Added
+- **Render a mockup** takes **Tile** on a Smart Object's asset: the artwork
+  repeats as a pattern across the whole Smart Object, with Size as one tile
+  and Position setting where the grid starts. A tile needs a Size.
+- **Render a photo mockup** takes **Tile** in its placement: the sizing you
+  set is one tile.
+- **Get photo mockup** and **Create photo mockup** list each surface's
+  `label`, what was detected there, such as `wall` or `pillow`.
+
 ## [2026-10-06]
 
 ### Added
