@@ -153,6 +153,13 @@
               }
             ],
             "advanced": true
+          },
+          {
+            "name": "tile",
+            "label": "Tile",
+            "type": "boolean",
+            "help": "Repeat the artwork as a pattern across the whole smart object. size is one tile, fit places the artwork inside each tile, and position sets where the grid starts. Requires size.",
+            "advanced": true
           }
         ],
         "help": "Optional image asset. Provide a URL or Base64 value when using it."
