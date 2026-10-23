@@ -116,7 +116,7 @@ if (!existsSync(dependabotPath)) {
 const manifest = jsonFiles.get(manifestPath);
 const expectedInventory = {
   connection: ['sudomockApiKey'],
-  module: `create2DMockup get2DMockup list2DMockups set2DPrintAreas render2DMockup delete2DMockup deleteMockup deleteFont getFont listFonts uploadFont getAccountInfo getMockup getMockupLayers listMockups getJob listJobs render removeBackground renderVideo updateMockup uploadPsd webhookCreate webhookDelete webhookEventsFeed webhookGet webhookListDeliveries webhookList webhookReplayDelivery webhookReplayFailed webhookRotateSecret webhookTest webhookUpdate downloadRender makeApiCall`.split(' '),
+  module: `create2DMockup get2DMockup list2DMockups set2DPrintAreas render2DMockup delete2DMockup deleteMockup deleteFont getFont listFonts uploadFont getAccountInfo getMockup getMockupLayers listMockups getJob listJobs render removeBackground renderVideo updateMockup uploadPsd downloadRender makeApiCall`.split(' '),
   function: [],
   rpc: ['listMockups', 'listSmartObjects'],
   webhook: [],
@@ -372,8 +372,6 @@ if (manifest) {
     'module:listFonts',
     'module:listJobs',
     'module:listMockups',
-    'module:webhookEventsFeed',
-    'module:webhookListDeliveries',
     'rpc:listMockups',
   ]);
   const searchPageSizes = {
@@ -381,10 +379,8 @@ if (manifest) {
     listFonts: ['per_page', 100],
     listJobs: ['limit', 50],
     listMockups: ['limit', 100],
-    webhookEventsFeed: ['limit', 200],
-    webhookListDeliveries: ['limit', 200],
   };
-  const expectedSearches = new Set([...Object.keys(searchPageSizes), 'webhookList']);
+  const expectedSearches = new Set(Object.keys(searchPageSizes));
   const actualSearches = Object.entries(manifest.components?.module ?? {})
     .filter(([, module]) => module.moduleType === 'search')
     .map(([name]) => name);
@@ -418,7 +414,6 @@ if (manifest) {
       if (pageSize && communication.qs?.[pageSize[0]] !== pageSize[1]) {
         errors.push(`module.${name}: request ${pageSize[0]} must use API maximum ${pageSize[1]}`);
       }
-      if (name === 'webhookList' && containsKey(communication, 'pagination')) errors.push('module.webhookList: unpaginated API must not define pagination');
       if (name === 'listMockups') {
         const params = parameterFields(code(module, 'mappableParams'));
         if (params.some((field) => field.path === 'return_all') || JSON.stringify(communication).includes('return_all')) {
@@ -660,13 +655,6 @@ if (manifest) {
     errors.push('module.render: export_options.original_size must send image_size "original" and never forward itself');
   }
 
-  for (const name of ['webhookEventsFeed', 'webhookListDeliveries']) {
-    const params = code(manifest.components?.module?.[name] ?? {}, 'mappableParams');
-    for (const path of ['filters.status', 'filters.event_type']) {
-      const field = fieldAt(params, path);
-      if (!field || Object.hasOwn(field, 'default')) errors.push(`module.${name}: ${path} must default to all values by remaining unset`);
-    }
-  }
   const jobKind = fieldAt(code(manifest.components?.module?.listJobs ?? {}, 'mappableParams'), 'filters.kind');
   if (!jobKind || Object.hasOwn(jobKind, 'default')) {
     errors.push('module.listJobs: filters.kind must default to all job kinds by remaining unset');
@@ -674,51 +662,6 @@ if (manifest) {
   const jobKinds = jobKind?.options?.map((option) => option.value);
   for (const kind of ['render', 'upload', 'video', 'photo_mockup_create', 'photo_mockup_render', '2d_create', '2d_render']) {
     if (!jobKinds?.includes(kind)) errors.push(`module.listJobs: filters.kind is missing ${kind}`);
-  }
-  // The webhook event vocabulary every event picker offers, in display order:
-  // the photo mockup family names first, then the 2d_* spellings that endpoints
-  // pinned to the legacy naming still receive.
-  const canonicalWebhookEvents = [
-    'render.succeeded',
-    'render.failed',
-    'upload.succeeded',
-    'video.succeeded',
-    'video.failed',
-    'photo_mockup.ready',
-    'photo_mockup.rejected',
-    'photo_mockup.failed',
-    'photo_mockup_render.succeeded',
-    'photo_mockup_render.failed',
-    '2d_mockup.ready',
-    '2d_mockup.rejected',
-    '2d_mockup.failed',
-    '2d_render.succeeded',
-    '2d_render.failed',
-    'webhook.test',
-  ];
-  for (const [name, path] of [
-    ['webhookCreate', 'event_types'],
-    ['webhookUpdate', 'event_types'],
-    ['webhookListDeliveries', 'filters.event_type'],
-    ['webhookEventsFeed', 'filters.event_type'],
-  ]) {
-    const values = fieldAt(code(manifest.components?.module?.[name] ?? {}, 'mappableParams'), path)?.options?.map((option) => option.value);
-    if (JSON.stringify(values) !== JSON.stringify(canonicalWebhookEvents)) {
-      errors.push(`module.${name}: ${path} must offer the canonical webhook event list`);
-    }
-  }
-  const webhookCreate = manifest.components?.module?.webhookCreate;
-  const eventNaming = fieldAt(code(webhookCreate ?? {}, 'mappableParams'), 'event_naming');
-  const eventNamingValues = eventNaming?.options?.map((option) => option.value).sort();
-  if (eventNaming?.type !== 'select'
-    || JSON.stringify(eventNamingValues) !== JSON.stringify(['current', 'legacy'])
-    || eventNaming.default !== 'current'
-    || code(webhookCreate ?? {}, 'communication')?.body?.event_naming !== '{{ifempty(parameters.event_naming, undefined)}}') {
-    errors.push('module.webhookCreate: event_naming must pin new endpoints to the current event names by default');
-  }
-  for (const name of ['webhookCreate', 'webhookGet', 'webhookList', 'webhookUpdate', 'webhookRotateSecret']) {
-    const output = code(manifest.components?.module?.[name] ?? {}, 'interface');
-    if (!output?.some((field) => field.name === 'event_naming')) errors.push(`module.${name}: output must expose event_naming`);
   }
   const placementPositions = fieldAt(render2DParams, 'print_areas.placement.position')?.options?.map((option) => option.value);
   if (placementPositions?.some((position) => position.includes('-'))) {
@@ -737,40 +680,6 @@ if (manifest) {
     || removeBackgroundBody?.body?.url !== "{{if(parameters.source_type == 'url', parameters.url, undefined)}}"
     || removeBackgroundBody?.body?.base64 !== "{{if(parameters.source_type == 'base64', parameters.base64, undefined)}}") {
     errors.push('module.removeBackground: must send exactly the selected URL or Base64 source to POST /remove-background');
-  }
-  const webhookUpdate = manifest.components?.module?.webhookUpdate;
-  const webhookUpdateParams = code(webhookUpdate ?? {}, 'mappableParams');
-  const enabled = fieldAt(webhookUpdateParams, 'update_fields.enabled');
-  const enabledValues = enabled?.options?.map((option) => option.value);
-  if (!enabled
-    || enabled.type !== 'select'
-    || enabled.required === true
-    || Object.hasOwn(enabled, 'default')
-    || !enabledValues?.includes(true)
-    || !enabledValues?.includes(false)) {
-    errors.push('module.webhookUpdate: enabled must be an unset/true/false three-state input with no default');
-  }
-  const eventTypesMapping = code(webhookUpdate ?? {}, 'communication')?.body?.event_types;
-  const directNestedEventTypes = eventTypesMapping === '{{parameters.update_fields.event_types}}';
-  const explicitlyGatedEventTypes = typeof eventTypesMapping === 'string'
-    && eventTypesMapping.includes('parameters.event_types')
-    && eventTypesMapping.includes('undefined')
-    && /parameters\.(?!event_types\b)[A-Za-z0-9_.]+/.test(eventTypesMapping);
-  if (typeof eventTypesMapping !== 'string'
-    || eventTypesMapping.includes('length(parameters.event_types)')
-    || (!directNestedEventTypes && !explicitlyGatedEventTypes)) {
-    errors.push('module.webhookUpdate: event_types must preserve unset while sending an intentional empty list');
-  }
-  // An update must not re-pin an endpoint the scenario did not ask to re-pin:
-  // the field carries no default, and an empty value keeps the key out of the
-  // body, so the endpoint keeps the naming it already has.
-  const updateNaming = fieldAt(webhookUpdateParams, 'update_fields.event_naming');
-  const updateNamingValues = updateNaming?.options?.map((option) => option.value).sort();
-  if (updateNaming?.type !== 'select'
-    || JSON.stringify(updateNamingValues) !== JSON.stringify(['current', 'legacy'])
-    || Object.hasOwn(updateNaming, 'default')
-    || code(webhookUpdate ?? {}, 'communication')?.body?.event_naming !== '{{ifempty(parameters.update_fields.event_naming, undefined)}}') {
-    errors.push('module.webhookUpdate: update_fields.event_naming must offer current and legacy without a default and reach the body only when set');
   }
 
   for (const [name, rpc] of Object.entries(manifest.components?.rpc ?? {})) {
