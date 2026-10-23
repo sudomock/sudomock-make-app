@@ -257,6 +257,16 @@
             "label": "Tile",
             "type": "boolean",
             "help": "Repeat the artwork as a pattern across the whole target. The sizing answer (coverage, fit, or width and height) is one tile, and position with offset_x and offset_y sets where the grid starts. Requires a sizing answer."
+          },
+          {
+            "name": "tile_spacing",
+            "label": "Tile spacing",
+            "type": "number",
+            "help": "Gap between tiles as a percentage of the tile size, 0 to 100. The horizontal gap is that percent of the tile width, the vertical gap that percent of the tile height. Used only when tile is true.",
+            "validate": {
+              "min": 0,
+              "max": 100
+            }
           }
         ]
       }

@@ -160,6 +160,17 @@
             "type": "boolean",
             "help": "Repeat the artwork as a pattern across the whole smart object. size is one tile, fit places the artwork inside each tile, and position sets where the grid starts. Requires size.",
             "advanced": true
+          },
+          {
+            "name": "tile_spacing",
+            "label": "Tile spacing",
+            "type": "number",
+            "help": "Gap between tiles as a percentage of the tile size, 0 to 100. The horizontal gap is that percent of the tile width, the vertical gap that percent of the tile height. Used only when tile is true.",
+            "validate": {
+              "min": 0,
+              "max": 100
+            },
+            "advanced": true
           }
         ],
         "help": "Optional image asset. Provide a URL or Base64 value when using it."
