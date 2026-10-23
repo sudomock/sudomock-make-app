@@ -81,6 +81,11 @@
             "name": "surface_uuid",
             "label": "Surface UUID",
             "type": "uuid"
+          },
+          {
+            "name": "label",
+            "label": "Label",
+            "type": "text"
           }
         ]
       },
