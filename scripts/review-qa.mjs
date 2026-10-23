@@ -15,9 +15,6 @@ const productUrl = `${fixtures}/product-photo.jpg`;
 const psdUrl = `${fixtures}/sudomock-smart-object-template.psd`;
 const fontUrl = 'https://raw.githubusercontent.com/google/fonts/main/ofl/opensans/OpenSans%5Bwdth%2Cwght%5D.ttf';
 const missingUuid = '00000000-0000-4000-8000-000000000000';
-const reviewWebhookId = process.env.MAKE_QA_WEBHOOK_ID || missingUuid;
-const reviewDeliveryId = process.env.MAKE_QA_DELIVERY_ID || missingUuid;
-const reviewReceiver = 'https://edge.sudomock.com/make-review/ok';
 
 function step(name, mapper = {}, connected = true) {
   return {
@@ -140,35 +137,6 @@ const scenarios = [
   reviewScenario('SudoMock App Review 06c - Search 2D mockups', [
     step('list2DMockups', { limit: 101 }),
   ]),
-  reviewScenario('SudoMock App Review 06d - Search webhook endpoints', [
-    step('webhookList', { limit: 10 }),
-  ]),
-  reviewScenario('SudoMock App Review 06e - Search webhook deliveries', [
-    step('webhookEventsFeed', { filters: {}, limit: 201 }),
-  ]),
-  reviewScenario('SudoMock App Review 07 - Webhook lifecycle', [
-    step('webhookCreate', {
-      url: reviewReceiver,
-      description: 'Synthetic review QA',
-      event_types: ['webhook.test'],
-      event_naming: 'current',
-    }),
-    step('webhookGet', { webhook_id: '{{1.id}}' }),
-    step('webhookUpdate', {
-      webhook_id: '{{1.id}}',
-      update_event_types: true,
-      event_types: ['webhook.test'],
-      update_fields: { url: reviewReceiver, description: 'Synthetic review QA', enabled: true, event_naming: 'current' },
-    }),
-    step('webhookTest', { webhook_id: '{{1.id}}' }),
-    step('webhookRotateSecret', { webhook_id: '{{1.id}}' }),
-    step('webhookDelete', { webhook_id: '{{1.id}}' }),
-  ]),
-  reviewScenario('SudoMock App Review 07b - Webhook delivery lifecycle', [
-    step('webhookReplayDelivery', { webhook_id: reviewWebhookId, delivery_id: reviewDeliveryId }),
-    step('webhookReplayFailed', { webhook_id: reviewWebhookId }),
-    step('webhookListDeliveries', { webhook_id: reviewWebhookId, filters: {}, limit: 201 }),
-  ]),
   reviewScenario('SudoMock App Review 08 - Safe 404', [
     step('makeApiCall', {
       url: `/api/v1/psd-mockups/${missingUuid}`,
@@ -217,10 +185,6 @@ const selected = only
 if (!selected.length) throw new Error(`No scenario matches --only=${only}`);
 if (apply && (![teamId, connectionId].every((value) => Number.isSafeInteger(value) && value > 0))) {
   throw new Error('Set MAKE_QA_TEAM_ID and MAKE_QA_CONNECTION_ID for private Make QA.');
-}
-if (apply && selected.some(({ name }) => name.includes('07b'))
-  && (reviewWebhookId === missingUuid || reviewDeliveryId === missingUuid)) {
-  throw new Error('Set MAKE_QA_WEBHOOK_ID and MAKE_QA_DELIVERY_ID for the webhook delivery QA scenario.');
 }
 
 if (!apply) {

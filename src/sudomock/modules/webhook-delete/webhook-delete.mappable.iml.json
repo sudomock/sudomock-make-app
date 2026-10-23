@@ -1,8 +1,0 @@
-[
-  {
-    "name": "webhook_id",
-    "label": "Webhook endpoint ID",
-    "type": "uuid",
-    "required": true
-  }
-]

@@ -1,6 +1,6 @@
 # SudoMock app for Make
 
-Official source for the SudoMock integration on Make. Turn product photos into reusable mockups without a PSD, or automate layered PSD templates when precise Smart Object and text control is required. Create still product images and short videos, personalize artwork and text, track asynchronous jobs, and manage webhook deliveries for e-commerce and Print-on-Demand workflows.
+Official source for the SudoMock integration on Make. Turn product photos into reusable mockups without a PSD, or automate layered PSD templates when precise Smart Object and text control is required. Create still product images and short videos, personalize artwork and text, and track asynchronous jobs for e-commerce and Print-on-Demand workflows.
 
 [SudoMock](https://sudomock.com) · [Documentation](https://sudomock.com/docs) · [OpenAPI](https://sudomock.com/openapi.json)
 
@@ -10,7 +10,7 @@ Official source for the SudoMock integration on Make. Turn product photos into r
 - Remove image backgrounds and receive transparent PNG cutouts.
 - Upload and render PSD templates with Smart Objects and editable text.
 - Generate short product videos.
-- Manage mockups, custom fonts, jobs, and webhooks.
+- Manage mockups, custom fonts, and jobs.
 - Download finished renders as Make files.
 - Access additional SudoMock endpoints with **Make an API call**.
 
@@ -37,8 +37,6 @@ Run the reproducible private review scenarios with environment-specific IDs kept
 ```sh
 MAKE_QA_TEAM_ID=... \
 MAKE_QA_CONNECTION_ID=... \
-MAKE_QA_WEBHOOK_ID=... \
-MAKE_QA_DELIVERY_ID=... \
 node scripts/review-qa.mjs --run
 ```
 
