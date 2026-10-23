@@ -567,7 +567,7 @@ if (manifest) {
     if (quadMaskUuid !== undefined
       || JSON.stringify(dataFields) !== JSON.stringify(expectedFields)
       || surfaces?.type !== 'array'
-      || JSON.stringify(surfaceFields) !== JSON.stringify(['surface_uuid'])
+      || JSON.stringify(surfaceFields) !== JSON.stringify(['label', 'surface_uuid'])
       || fieldAt(output, 'data.surfaces.surface_uuid')?.type !== 'uuid') {
       errors.push(`module.${name}: output must match the canonical public detail and surface_uuid shape`);
     }
