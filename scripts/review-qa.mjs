@@ -231,20 +231,26 @@ if (!token) throw new Error('Missing Make API token.');
 async function request(method, path, body, acceptedStatuses = [], timeoutMs = 30_000) {
   let response;
   let text;
-  try {
-    response = await fetch(`${baseUrl}${path}`, {
-      method,
-      headers: {
-        Authorization: `Token ${token}`,
-        ...(body === undefined ? {} : { 'content-type': 'application/json' }),
-      },
-      body: body === undefined ? undefined : JSON.stringify(body),
-      signal: AbortSignal.timeout(timeoutMs),
-    });
-    text = await response.text();
-  } catch (error) {
-    if (error?.name !== 'TimeoutError') throw error;
-    throw new Error(`${method} ${path.split('?')[0]} timed out after ${timeoutMs / 1000} s`);
+  // Make rate-limits the API; a 429 waits for Retry-After (or a growing pause) and tries again.
+  for (let attempt = 0; ; attempt += 1) {
+    try {
+      response = await fetch(`${baseUrl}${path}`, {
+        method,
+        headers: {
+          Authorization: `Token ${token}`,
+          ...(body === undefined ? {} : { 'content-type': 'application/json' }),
+        },
+        body: body === undefined ? undefined : JSON.stringify(body),
+        signal: AbortSignal.timeout(timeoutMs),
+      });
+      text = await response.text();
+    } catch (error) {
+      if (error?.name !== 'TimeoutError') throw error;
+      throw new Error(`${method} ${path.split('?')[0]} timed out after ${timeoutMs / 1000} s`);
+    }
+    if (response.status !== 429 || attempt === 5) break;
+    const wait = Number(response.headers.get('retry-after')) || 2 ** attempt * 5;
+    await new Promise((resolveWait) => setTimeout(resolveWait, wait * 1000));
   }
   let data;
   try {
