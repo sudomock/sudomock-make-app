@@ -1,34 +1,22 @@
 [
   {
-    "name": "data",
-    "label": "Data",
-    "type": "collection",
-    "spec": [
-      {
-        "name": "url",
-        "label": "Cutout URL",
-        "type": "url"
-      },
-      {
-        "name": "width",
-        "label": "Width",
-        "type": "integer"
-      },
-      {
-        "name": "height",
-        "label": "Height",
-        "type": "integer"
-      },
-      {
-        "name": "credits_charged",
-        "label": "Credits charged",
-        "type": "integer"
-      }
-    ]
+    "name": "url",
+    "label": "Cutout URL",
+    "type": "url"
   },
   {
-    "name": "success",
-    "label": "Success",
-    "type": "boolean"
+    "name": "width",
+    "label": "Width",
+    "type": "integer"
+  },
+  {
+    "name": "height",
+    "label": "Height",
+    "type": "integer"
+  },
+  {
+    "name": "credits_charged",
+    "label": "Credits charged",
+    "type": "integer"
   }
 ]

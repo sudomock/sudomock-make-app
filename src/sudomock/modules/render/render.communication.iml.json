@@ -31,7 +31,8 @@
     },
     "response": {
       "output": {
-        "{{...}}": "{{body}}",
+        "{{...}}": "{{if(statusCode == 202, body, body.data)}}",
+        "warnings": "{{body.warnings}}",
         "renderedImageUrl": "{{if(length(body.data.print_files) > 0, first(map(body.data.print_files, 'export_path')), undefined)}}",
         "allRenderedUrls": "{{if(length(body.data.print_files) > 0, map(body.data.print_files, 'export_path'), undefined)}}"
       }

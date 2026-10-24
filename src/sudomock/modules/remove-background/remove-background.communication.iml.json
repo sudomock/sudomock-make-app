@@ -6,6 +6,6 @@
     "base64": "{{parameters.base64}}"
   },
   "response": {
-    "output": "{{body}}"
+    "output": "{{body.data}}"
   }
 }

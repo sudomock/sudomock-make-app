@@ -14,13 +14,13 @@
         "name": "uuid",
         "label": "Saved print area UUID",
         "type": "uuid",
-        "help": "Use the print_area_id returned in data.quads. Provide exactly one target identifier: this UUID for a print area, or a surface UUID."
+        "help": "Use the print_area_id returned in quads. Provide exactly one target identifier: this UUID for a print area, or a surface UUID."
       },
       {
         "name": "surface_uuid",
         "label": "Surface UUID",
         "type": "uuid",
-        "help": "Use the surface_uuid returned in data.surfaces. A surface is one printable product in the photo. Provide exactly one target identifier: this UUID for a surface, or a print area UUID."
+        "help": "Use the surface_uuid returned in surfaces. A surface is one printable product in the photo. Provide exactly one target identifier: this UUID for a surface, or a print area UUID."
       },
       {
         "name": "artwork_url",
