@@ -5,6 +5,35 @@ All notable changes to the SudoMock app for Make are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2026-10-24]
+
+### Changed
+- **Create a mockup from a photo** and **Remove an image background** show
+  only the field for the chosen **Source type**: the URL field under URL, the
+  Base64 field under Base64.
+- **Render a video** shows the mockup, Smart Objects and export options under
+  the Render input mode, and the image URL under the Image input mode.
+- Module outputs put the result fields at the top level instead of under
+  `data`, and no longer carry `success`. Map `uuid` where a scenario mapped
+  `data.uuid`, for example. **Get mockup details**, **Update a mockup**,
+  **Upload a PSD template** and **Render a mockup** keep `warnings` next to the
+  result and no longer carry the empty `message`.
+- **Create a mockup from a photo**, **Upload a PSD template**, **Render a
+  mockup** and **Render a photo mockup** return the job, with `job_id`, `kind`,
+  `status` and `status_url`, when the request is processed asynchronously.
+- **Delete a custom font** and **Delete a photo mockup** return no output, like
+  **Delete a mockup**.
+- **Remove an image background** no longer asks for a content type.
+
+### Removed
+- The 11 webhook management modules: **Create a webhook endpoint**, **Get a
+  webhook endpoint**, **List webhook endpoints**, **Update a webhook
+  endpoint**, **Delete a webhook endpoint**, **Search all webhook
+  deliveries**, **Search webhook deliveries**, **Replay a webhook delivery**,
+  **Replay failed webhook deliveries**, **Rotate a webhook secret** and **Send
+  a webhook test**, together with the Webhooks module group. SudoMock still
+  signs its webhook deliveries.
+
 ## [2026-10-23]
 
 ### Added
