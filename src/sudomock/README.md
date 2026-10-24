@@ -28,7 +28,7 @@ Make masks the API key and tests the connection against the authenticated SudoMo
 
 1. Add **Create a mockup from a photo**, choose URL or Base64 as the **Source type**, and provide the product photo.
 2. Optionally override the automatically detected print areas.
-3. Use **Get a photo mockup** to read print areas from `quads` and surfaces from `surfaces`. A surface is one printable product in the photo, and a print area is a bounded zone drawn on that product. A product can offer both, and they are separate render targets.
+3. Use **Get a photo mockup** to read print areas from `quads` and surfaces from `surfaces`. A surface is one printable product in the photo, and a print area is a bounded zone drawn on that product. A product can offer both, and they are separate render targets. Each surface carries a `label`, what was detected there, such as `pillow` or `wall`, so you can tell surfaces apart.
 4. Map artwork and placement settings to each render target. Provide exactly one identifier per target: `uuid` for a print area or `surface_uuid` for a surface. Size a print area target with **Fit**, or with **Width** and **Height**. Size a surface target with **Coverage**.
 5. Render the still product image.
 6. Download the image or continue the scenario with its result URL.
@@ -53,6 +53,13 @@ For inline cleanup during a render, enable **Remove background** on a PSD Smart 
 **Render a video** turns a PSD template into a short product video. Its Smart Object assets take the same **Size**, **Position**, **Tile**, and **Tile spacing** settings as **Render a mockup**.
 
 This workflow supports print-on-demand operations, e-commerce product catalogs, marketplace listings, campaign variants, and personalized customer orders. SudoMock can be combined in Make scenarios with storefronts, marketplaces, cloud storage, spreadsheets, and order-management systems.
+
+## Repeat a design as a pattern
+
+Set **Tile** to repeat the artwork as a pattern across the whole target, and **Tile spacing** to leave a gap between the tiles, from 0 to 100 percent of the tile: that percent of the tile width between columns, and of its height between rows.
+
+- On **Render a mockup** and **Render a video**, **Tile** sits on a Smart Object's **Asset**. **Size** is one tile, **Fit** places the artwork inside each tile, and **Position** sets where the grid starts, so a tile needs a **Size**.
+- On **Render a photo mockup**, **Tile** sits in a render target's **Placement**. The size you set is one tile: **Fit**, or **Width** and **Height**, on a print area, and **Coverage**, or **Width** and **Height**, on a surface. **Position** with **Horizontal offset** and **Vertical offset** sets where the grid starts.
 
 ## Asynchronous jobs
 
