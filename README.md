@@ -11,6 +11,7 @@ Official source for the SudoMock integration on Make. Turn product photos into r
 - Upload and render PSD templates with Smart Objects and editable text.
 - Generate short product videos.
 - Manage mockups, custom fonts, and jobs.
+- Start a scenario when a SudoMock job finishes with **Watch events**.
 - Download finished renders as Make files.
 - Access additional SudoMock endpoints with **Make an API call**.
 
@@ -37,8 +38,11 @@ Run the reproducible private review scenarios with environment-specific IDs kept
 ```sh
 MAKE_QA_TEAM_ID=... \
 MAKE_QA_CONNECTION_ID=... \
+MAKE_QA_HOOK_ID=... \
 node scripts/review-qa.mjs --run
 ```
+
+`MAKE_QA_HOOK_ID` is the **Watch events** webhook of the trigger scenario. Its run sends a signed test event to that webhook and waits for the trigger scenario to finish successfully.
 
 ## Support
 

@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2026-10-24]
 
+### Added
+- **Watch events** starts a scenario when a SudoMock job finishes. Choose the
+  **Event types** to receive, or leave the field empty to receive every
+  event. Each delivery is checked against SudoMock's signature and rejected
+  when it does not match or is older than 5 minutes; a rejected delivery
+  starts no scenario. The trigger sits in the Webhooks group.
+
 ### Changed
 - **Create a mockup from a photo** and **Remove an image background** show
   only the field for the chosen **Source type**: the URL field under URL, the
@@ -31,8 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   endpoint**, **Delete a webhook endpoint**, **Search all webhook
   deliveries**, **Search webhook deliveries**, **Replay a webhook delivery**,
   **Replay failed webhook deliveries**, **Rotate a webhook secret** and **Send
-  a webhook test**, together with the Webhooks module group. SudoMock still
-  signs its webhook deliveries.
+  a webhook test**. SudoMock still signs its webhook deliveries.
 
 ## [2026-10-23]
 
