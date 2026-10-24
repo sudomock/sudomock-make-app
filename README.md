@@ -42,7 +42,7 @@ MAKE_QA_HOOK_ID=... \
 node scripts/review-qa.mjs --run
 ```
 
-`MAKE_QA_HOOK_ID` is the **Watch events** webhook of the trigger scenario. Its run sends a signed test event to that webhook and waits for the trigger scenario to finish successfully.
+`MAKE_QA_HOOK_ID` is the **Watch events** webhook of the trigger scenario and is needed only when those scenarios are selected. Their run sends a signed test event to that webhook and waits for the trigger scenario to finish successfully.
 
 ## Support
 

@@ -208,8 +208,12 @@ const watchPair = [watchEventsName, testEventName];
 if (selected.some(({ name }) => watchPair.includes(name))) {
   selected = [...selected, ...scenarios.filter(({ name }) => watchPair.includes(name) && !selected.some((item) => item.name === name))];
 }
-if (apply && (![teamId, connectionId, hookId].every((value) => Number.isSafeInteger(value) && value > 0))) {
-  throw new Error('Set MAKE_QA_TEAM_ID, MAKE_QA_CONNECTION_ID and MAKE_QA_HOOK_ID for private Make QA.');
+const validId = (value) => Number.isSafeInteger(value) && value > 0;
+if (apply && !(validId(teamId) && validId(connectionId))) {
+  throw new Error('Set MAKE_QA_TEAM_ID and MAKE_QA_CONNECTION_ID for private Make QA.');
+}
+if (apply && selected.some(({ name }) => watchPair.includes(name)) && !validId(hookId)) {
+  throw new Error('Set MAKE_QA_HOOK_ID to run the Watch events scenarios.');
 }
 
 if (!apply) {
@@ -223,16 +227,25 @@ if (!apply) {
 const token = (process.env.MAKE_API_KEY || await readFile(resolve(root, '.secrets/apikey'), 'utf8')).trim();
 if (!token) throw new Error('Missing Make API token.');
 
-async function request(method, path, body, acceptedStatuses = []) {
-  const response = await fetch(`${baseUrl}${path}`, {
-    method,
-    headers: {
-      Authorization: `Token ${token}`,
-      ...(body === undefined ? {} : { 'content-type': 'application/json' }),
-    },
-    body: body === undefined ? undefined : JSON.stringify(body),
-  });
-  const text = await response.text();
+// Every call is aborted after timeoutMs, so a stalled response cannot hold a run open.
+async function request(method, path, body, acceptedStatuses = [], timeoutMs = 30_000) {
+  let response;
+  let text;
+  try {
+    response = await fetch(`${baseUrl}${path}`, {
+      method,
+      headers: {
+        Authorization: `Token ${token}`,
+        ...(body === undefined ? {} : { 'content-type': 'application/json' }),
+      },
+      body: body === undefined ? undefined : JSON.stringify(body),
+      signal: AbortSignal.timeout(timeoutMs),
+    });
+    text = await response.text();
+  } catch (error) {
+    if (error?.name !== 'TimeoutError') throw error;
+    throw new Error(`${method} ${path.split('?')[0]} timed out after ${timeoutMs / 1000} s`);
+  }
   let data;
   try {
     data = text ? JSON.parse(text) : {};
@@ -245,6 +258,9 @@ async function request(method, path, body, acceptedStatuses = []) {
   }
   return data;
 }
+
+// Stopping is cleanup, so it gets its own short bound and runs even after a stalled call.
+const stopScenario = (id) => request('POST', `/scenarios/${id}/stop`, undefined, [422], 15_000);
 
 const connection = await request('GET', `/connections/${connectionId}?cols[]=metadata`);
 assert.equal(
@@ -286,7 +302,7 @@ for (const scenario of selected) {
     id = created.scenario.id;
     console.log(`Created ${scenario.name} (${id}).`);
   }
-  await request('POST', `/scenarios/${id}/stop`, undefined, [422]);
+  await stopScenario(id);
   upserted.push({ ...scenario, id });
 }
 
@@ -325,7 +341,7 @@ async function runOnDemand(scenario) {
     }
     console.log(`Passed ${scenario.name} (${executionId}): ${status}.`);
   } finally {
-    await request('POST', `/scenarios/${scenario.id}/stop`, undefined, [422]);
+    await stopScenario(scenario.id);
   }
 }
 
@@ -336,9 +352,11 @@ async function runWatchEvents(trigger, sender) {
   try {
     await request('POST', `/scenarios/${trigger.id}/start`);
     await runOnDemand(sender);
-    for (let attempt = 0; attempt < 60; attempt += 1) {
+    const deadline = Date.now() + 120_000;
+    for (let attempt = 0; Date.now() < deadline; attempt += 1) {
       if (attempt) await pause(2000);
-      const { scenarioLogs = [] } = await request('GET', `/scenarios/${trigger.id}/logs?from=${since}&pg[sortDir]=desc&pg[limit]=50`);
+      const remaining = Math.max(1000, Math.min(30_000, deadline - Date.now()));
+      const { scenarioLogs = [] } = await request('GET', `/scenarios/${trigger.id}/logs?from=${since}&pg[sortDir]=desc&pg[limit]=50`, undefined, [], remaining);
       const execution = scenarioLogs.find((log) => log.status === 1 || log.displayStatus === 'SUCCESS');
       if (execution) {
         console.log(`Passed ${trigger.name} (${execution.id}): SUCCESS.`);
@@ -347,7 +365,7 @@ async function runWatchEvents(trigger, sender) {
     }
     throw new Error(`Timed out waiting for "${trigger.name}" to receive the test event.`);
   } finally {
-    await request('POST', `/scenarios/${trigger.id}/stop`, undefined, [422]);
+    await stopScenario(trigger.id);
   }
 }
 
