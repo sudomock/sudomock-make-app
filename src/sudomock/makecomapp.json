@@ -333,6 +333,19 @@
           "mappableParams": "modules/make-api-call/make-api-call.mappable.iml.json",
           "interface": "modules/make-api-call/make-api-call.interface.iml.json"
         }
+      },
+      "watchEvents": {
+        "label": "Watch events",
+        "description": "Triggers when a SudoMock job finishes.",
+        "moduleType": "instant_trigger",
+        "actionCrud": null,
+        "connection": null,
+        "altConnection": null,
+        "webhook": "sudomockEvents",
+        "codeFiles": {
+          "interface": "modules/watch-events/watch-events.interface.iml.json",
+          "samples": "modules/watch-events/watch-events.samples.iml.json"
+        }
       }
     },
     "function": {},
@@ -356,7 +369,20 @@
         }
       }
     },
-    "webhook": {},
+    "webhook": {
+      "sudomockEvents": {
+        "label": "SudoMock events",
+        "webhookType": "web",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "webhooks/sudomock-events/sudomock-events.communication.iml.json",
+          "params": "webhooks/sudomock-events/sudomock-events.params.iml.json",
+          "attach": "webhooks/sudomock-events/sudomock-events.attach.iml.json",
+          "detach": "webhooks/sudomock-events/sudomock-events.detach.iml.json"
+        }
+      }
+    },
     "endpoint": {}
   },
   "origins": [
@@ -468,6 +494,10 @@
           {
             "local": "makeApiCall",
             "remote": "makeApiCall"
+          },
+          {
+            "local": "watchEvents",
+            "remote": "watchEvents"
           }
         ],
         "function": [],
@@ -481,7 +511,12 @@
             "remote": "listSmartObjects"
           }
         ],
-        "webhook": [],
+        "webhook": [
+          {
+            "local": "sudomockEvents",
+            "remote": "sudomock-rhef0p"
+          }
+        ],
         "endpoint": []
       },
       "apikeyFile": "../../.secrets/apikey"

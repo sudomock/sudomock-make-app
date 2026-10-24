@@ -1,0 +1,124 @@
+[
+  {
+    "name": "event",
+    "label": "Event",
+    "type": "text"
+  },
+  {
+    "name": "job_id",
+    "label": "Job ID",
+    "type": "uuid"
+  },
+  {
+    "name": "kind",
+    "label": "Kind",
+    "type": "text"
+  },
+  {
+    "name": "status",
+    "label": "Status",
+    "type": "text"
+  },
+  {
+    "name": "result_url",
+    "label": "Result URL",
+    "type": "text"
+  },
+  {
+    "name": "mockup_id",
+    "label": "Photo mockup ID",
+    "type": "uuid"
+  },
+  {
+    "name": "name",
+    "label": "Name",
+    "type": "text"
+  },
+  {
+    "name": "reason",
+    "label": "Reason",
+    "type": "text"
+  },
+  {
+    "name": "error",
+    "label": "Error",
+    "type": "collection",
+    "spec": [
+      {
+        "name": "error_code",
+        "label": "Error code",
+        "type": "text"
+      },
+      {
+        "name": "message",
+        "label": "Message",
+        "type": "text"
+      }
+    ]
+  },
+  {
+    "name": "warnings",
+    "label": "Warnings",
+    "type": "array",
+    "spec": [
+      {
+        "name": "code",
+        "label": "Code",
+        "type": "text"
+      },
+      {
+        "name": "message",
+        "label": "Message",
+        "type": "text"
+      }
+    ]
+  },
+  {
+    "name": "print_areas",
+    "label": "Print areas",
+    "type": "array",
+    "spec": [
+      {
+        "name": "print_area_id",
+        "label": "Print area ID",
+        "type": "uuid"
+      },
+      {
+        "name": "points",
+        "label": "Points",
+        "type": "array",
+        "spec": {
+          "type": "array",
+          "spec": {
+            "type": "number"
+          }
+        }
+      },
+      {
+        "name": "sort_order",
+        "label": "Sort order",
+        "type": "integer"
+      }
+    ]
+  },
+  {
+    "name": "export_format",
+    "label": "Export format",
+    "type": "text"
+  },
+  {
+    "name": "duration_ms",
+    "label": "Duration milliseconds",
+    "type": "integer"
+  },
+  {
+    "name": "version",
+    "label": "Version",
+    "type": "integer"
+  },
+  {
+    "name": "created_at",
+    "label": "Created at",
+    "type": "date"
+  }
+]

@@ -1,0 +1,4 @@
+{
+  "url": "/webhook-endpoints/{{webhook.id}}",
+  "method": "DELETE"
+}
