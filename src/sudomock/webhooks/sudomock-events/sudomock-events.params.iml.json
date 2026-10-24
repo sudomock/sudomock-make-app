@@ -1,0 +1,55 @@
+[
+  {
+    "name": "event_types",
+    "label": "Event types",
+    "type": "select",
+    "multiple": true,
+    "options": [
+      {
+        "label": "Render succeeded",
+        "value": "render.succeeded"
+      },
+      {
+        "label": "Render failed",
+        "value": "render.failed"
+      },
+      {
+        "label": "Upload succeeded",
+        "value": "upload.succeeded"
+      },
+      {
+        "label": "Video succeeded",
+        "value": "video.succeeded"
+      },
+      {
+        "label": "Video failed",
+        "value": "video.failed"
+      },
+      {
+        "label": "Photo mockup ready",
+        "value": "photo_mockup.ready"
+      },
+      {
+        "label": "Photo mockup rejected",
+        "value": "photo_mockup.rejected"
+      },
+      {
+        "label": "Photo mockup failed",
+        "value": "photo_mockup.failed"
+      },
+      {
+        "label": "Photo mockup render succeeded",
+        "value": "photo_mockup_render.succeeded"
+      },
+      {
+        "label": "Photo mockup render failed",
+        "value": "photo_mockup_render.failed"
+      },
+      {
+        "label": "Webhook test",
+        "value": "webhook.test"
+      }
+    ],
+    "help": "Leave empty to receive every event."
+  }
+]
