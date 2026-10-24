@@ -1,0 +1,16 @@
+{
+  "url": "/webhook-endpoints",
+  "method": "POST",
+  "body": {
+    "url": "{{webhook.url}}",
+    "description": "Make",
+    "event_types": "{{ifempty(parameters.event_types, undefined)}}",
+    "event_naming": "current"
+  },
+  "response": {
+    "data": {
+      "id": "{{body.id}}",
+      "secret": "{{body.secret}}"
+    }
+  }
+}

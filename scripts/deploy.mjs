@@ -188,6 +188,25 @@ for (const [local, connection] of Object.entries(manifest.components.connection)
   }
 }
 
+// An instant trigger references its webhook, so webhooks are deployed before modules.
+const webhooks = new Map(list('webhook').map((item) => [item.name, item]));
+const webhooksUrl = `${origin.baseUrl.replace(/\/$/, '')}/v2/sdk/apps/webhooks`;
+for (const [local, webhook] of Object.entries(manifest.components.webhook)) {
+  const remote = remoteName('webhook', local);
+  if (!remote) continue;
+  if (!dryRun && !webhooks.has(remote)) {
+    throw new Error(`Create webhook "${local}" once in Make, then add its remote name to ${originLabel} idMapping.`);
+  }
+  await request('PATCH', `${webhooksUrl}/${encodeURIComponent(remote)}`, {
+    label: webhook.label,
+    connection: referenceName('connection', webhook.connection),
+  });
+  for (const [key, path] of Object.entries(webhook.codeFiles)) {
+    if (!path || !sectionNames[key]) continue;
+    run('sdk-webhooks', 'set-section', `--webhook-name=${remote}`, `--section=${sectionNames[key]}`, `--body=${body(path)}`);
+  }
+}
+
 for (const type of ['rpc', 'module']) {
   const existing = new Set(list(type).map(({ name }) => name));
   for (const [local, component] of Object.entries(manifest.components[type])) {
@@ -231,20 +250,6 @@ for (const local of Object.keys(manifest.components.module)) {
     `--app-version=${origin.appVersion}`,
     `--module-name=${remote}`,
   );
-}
-
-const webhooks = new Map(list('webhook').map((item) => [item.name, item]));
-for (const [local, webhook] of Object.entries(manifest.components.webhook)) {
-  const remote = remoteName('webhook', local);
-  if (!remote) continue;
-  if (!webhooks.has(remote)) {
-    throw new Error(`Create webhook "${local}" once in Make, then add its remote name to ${originLabel} idMapping.`);
-  }
-  run('sdk-webhooks', 'update', `--webhook-name=${remote}`, `--label=${webhook.label}`);
-  for (const [key, path] of Object.entries(webhook.codeFiles)) {
-    if (!path || !sectionNames[key]) continue;
-    run('sdk-webhooks', 'set-section', `--webhook-name=${remote}`, `--section=${sectionNames[key]}`, `--body=${body(path)}`);
-  }
 }
 
 run('sdk-apps', 'set-section', `--name=${origin.appId}`, `--version=${origin.appVersion}`, '--section=groups', `--body=${body(manifest.generalCodeFiles.groups)}`);

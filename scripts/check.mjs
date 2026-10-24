@@ -116,10 +116,10 @@ if (!existsSync(dependabotPath)) {
 const manifest = jsonFiles.get(manifestPath);
 const expectedInventory = {
   connection: ['sudomockApiKey'],
-  module: `create2DMockup get2DMockup list2DMockups set2DPrintAreas render2DMockup delete2DMockup deleteMockup deleteFont getFont listFonts uploadFont getAccountInfo getMockup getMockupLayers listMockups getJob listJobs render removeBackground renderVideo updateMockup uploadPsd downloadRender makeApiCall`.split(' '),
+  module: `create2DMockup get2DMockup list2DMockups set2DPrintAreas render2DMockup delete2DMockup deleteMockup deleteFont getFont listFonts uploadFont getAccountInfo getMockup getMockupLayers listMockups getJob listJobs render removeBackground renderVideo updateMockup uploadPsd downloadRender makeApiCall watchEvents`.split(' '),
   function: [],
   rpc: ['listMockups', 'listSmartObjects'],
-  webhook: [],
+  webhook: ['sudomockEvents'],
   endpoint: [],
 };
 const schemaRefs = new Map();
@@ -301,7 +301,11 @@ if (manifest) {
       for (const key of ['followRedirects', 'followAllRedirects']) {
         if (containsKey(communication, key)) errors.push(`${type}.${name}: invalid request key ${key}; use the official singular key`);
       }
-      if (['connection', 'module', 'rpc', 'webhook'].includes(type) && !component.codeFiles?.communication) {
+      // Make documents communication as optional only for an instant trigger,
+      // whose webhook already processes the incoming request.
+      if (['connection', 'module', 'rpc', 'webhook'].includes(type)
+        && !(type === 'module' && component.moduleType === 'instant_trigger')
+        && !component.codeFiles?.communication) {
         errors.push(`makecomapp.json: ${type}.${name} is missing communication`);
       }
       if (type === 'module') {
