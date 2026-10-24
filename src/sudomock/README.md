@@ -50,6 +50,8 @@ For inline cleanup during a render, enable **Remove background** on a PSD Smart 
 5. Start the render and receive the result immediately or as an asynchronous job.
 6. Download the finished image or continue the scenario with its result URL.
 
+**Render a video** turns a PSD template into a short product video. Its Smart Object assets take the same **Size**, **Position**, **Tile**, and **Tile spacing** settings as **Render a mockup**.
+
 This workflow supports print-on-demand operations, e-commerce product catalogs, marketplace listings, campaign variants, and personalized customer orders. SudoMock can be combined in Make scenarios with storefronts, marketplaces, cloud storage, spreadsheets, and order-management systems.
 
 ## Asynchronous jobs
