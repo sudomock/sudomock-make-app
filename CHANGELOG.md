@@ -5,9 +5,14 @@ All notable changes to the SudoMock app for Make are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2026-10-24]
 
 ### Added
+- **Watch events** starts a scenario when a SudoMock job finishes. Choose the
+  **Event types** to receive, or leave the field empty to receive every
+  event. Each delivery is checked against SudoMock's signature and rejected
+  when it does not match or is older than 5 minutes; a rejected delivery
+  starts no scenario. The trigger sits in the Webhooks group.
 - **Render a mockup** and **Render a photo mockup** take **Tile spacing**
   beside **Tile**: the gap between tiles, from 0 to 100 percent of the tile
   size, so that percent of the tile width lies between columns and of its
@@ -19,15 +24,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Set photo mockup print areas** takes a **Print area ID** on each area. An
   area that carries the id of one of the mockup's print areas keeps that id;
   an area without one gets a new id.
-
-## [2026-10-24]
-
-### Added
-- **Watch events** starts a scenario when a SudoMock job finishes. Choose the
-  **Event types** to receive, or leave the field empty to receive every
-  event. Each delivery is checked against SudoMock's signature and rejected
-  when it does not match or is older than 5 minutes; a rejected delivery
-  starts no scenario. The trigger sits in the Webhooks group.
 
 ### Changed
 - **Create a mockup from a photo** and **Remove an image background** show
