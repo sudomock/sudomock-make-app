@@ -12,7 +12,7 @@ Re-check the sources on the day the review is requested.
 
 ## Code and security
 
-- [ ] The app contains exactly one connection, one universal module, the reviewed public modules, and no test-only components.
+- [ ] The app contains exactly one connection, one webhook, one universal module, the reviewed public modules, and no test-only components.
 - [ ] `X-API-KEY`, `Authorization`, and webhook signing secrets are sanitized from logs.
 - [ ] Invalid credentials fail through `GET /api/v1/me` with a useful Make error.
 - [ ] API errors and HTTP 429 responses become useful Make errors.
@@ -21,7 +21,7 @@ Re-check the sources on the day the review is requested.
 - [ ] Every RPC has a limit and bounded pagination.
 - [ ] Every module exposes a complete, correctly typed output interface, including nested fields and parsed dates.
 - [ ] Download a Render never forwards SudoMock credentials to the asset host.
-- [ ] No incoming webhook trigger is exposed until exact raw-body signature verification is possible in Make.
+- [ ] **Watch events** verifies the HMAC of the timestamp and body of every delivery and a 5-minute timestamp window, and rejects a failing delivery with HTTP 400 and no bundle. Rebuilding the exact signed body for payloads with non-ASCII text requires Make's custom IML functions; this item stays unchecked until that is in place.
 
 Primary rules:
 
@@ -40,7 +40,7 @@ Primary rules:
 
 - [ ] App name is `SudoMock`; the theme is `#0f172a`; the icon is the approved SudoMock mark.
 - [ ] English labels use sentence case, start with a verb, and descriptions state the result in third person.
-- [ ] Public copy explains photo-to-mockup first, then covers the photo mockup product name, PSD templates, product videos, jobs, fonts, and artwork, and states that SudoMock signs its webhook deliveries without promising a webhook trigger.
+- [ ] Public copy explains photo-to-mockup first, then covers the photo mockup product name, PSD templates, product videos, jobs, fonts, and artwork, and describes **Watch events**: it starts a scenario when a SudoMock job finishes and rejects a delivery whose signature does not match or that is older than 5 minutes.
 - [ ] Public metadata contains only SudoMock identity, public URLs, and `hello@sudomock.com`.
 - [ ] No personal name, local path, credential, private project detail, or test customer data appears in code, logs, scenarios, metadata, or review material.
 - [ ] Public API and Make documentation matches the submitted module surface and contains no premature or outdated integration claims.

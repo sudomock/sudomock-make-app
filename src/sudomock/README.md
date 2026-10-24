@@ -21,6 +21,7 @@ Make masks the API key and tests the connection against the authenticated SudoMo
 - Create short product videos from a mockup or image.
 - Manage custom fonts.
 - Track asynchronous jobs.
+- Start a scenario when a SudoMock job finishes with **Watch events**.
 - Call additional SudoMock API endpoints with **Make an API call**.
 
 ## Product photo workflow
@@ -56,6 +57,16 @@ This workflow supports print-on-demand operations, e-commerce product catalogs, 
 Long-running PSD uploads, renders, videos, and photo mockup operations return a job ID. When a module answers with a job, its output holds `job_id`, `kind`, `status`, and `status_url` in place of the result. Use the job modules to check status.
 
 Terminal job statuses are `succeeded`, `failed`, and `cancelled`. Work in progress reports `queued`, `dispatched`, or `running`. Webhook deliveries are signed by SudoMock.
+
+## Watch events
+
+**Watch events** starts a scenario when a SudoMock job finishes, so the scenario can continue with the render, video, upload, or photo mockup result without checking the job.
+
+1. Add **Watch events** as the first module of a scenario and create a webhook with your SudoMock connection.
+2. Choose the **Event types** to receive, or leave the field empty to receive every event.
+3. Turn the scenario on. Each event you receive starts it with the event name, the job ID and status, and the result URL or error.
+
+Each delivery is checked against SudoMock's signature. A delivery whose signature does not match, or that is older than 5 minutes, is rejected and starts no scenario.
 
 ## Files, retries, and credits
 
