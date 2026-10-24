@@ -7,6 +7,6 @@
     "is_async": "{{if(parameters.is_async, true, undefined)}}"
   },
   "response": {
-    "output": "{{body}}"
+    "output": "{{if(statusCode == 202, body, body.data)}}"
   }
 }

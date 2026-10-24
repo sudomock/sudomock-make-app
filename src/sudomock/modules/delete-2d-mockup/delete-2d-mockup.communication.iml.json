@@ -2,6 +2,6 @@
   "url": "/photo-mockups/{{parameters.mockup_uuid}}",
   "method": "DELETE",
   "response": {
-    "output": "{{body}}"
+    "output": "{{undefined}}"
   }
 }

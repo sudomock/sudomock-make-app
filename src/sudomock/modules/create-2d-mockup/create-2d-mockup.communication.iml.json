@@ -9,6 +9,6 @@
     "print_areas": "{{parameters.print_areas}}"
   },
   "response": {
-    "output": "{{body}}"
+    "output": "{{if(statusCode == 202, body, body.data)}}"
   }
 }

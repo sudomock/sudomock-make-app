@@ -1,17 +1,37 @@
 [
   {
-    "name": "data",
-    "label": "Data",
-    "type": "collection",
+    "name": "mockup_uuid",
+    "label": "Mockup UUID",
+    "type": "uuid"
+  },
+  {
+    "name": "layers",
+    "label": "Layers",
+    "type": "array",
     "spec": [
       {
-        "name": "mockup_uuid",
-        "label": "Mockup UUID",
+        "name": "uuid",
+        "label": "UUID",
         "type": "uuid"
       },
       {
-        "name": "layers",
-        "label": "Layers",
+        "name": "name",
+        "label": "Name",
+        "type": "text"
+      },
+      {
+        "name": "kind",
+        "label": "Kind",
+        "type": "text"
+      },
+      {
+        "name": "visible",
+        "label": "Visible",
+        "type": "boolean"
+      },
+      {
+        "name": "children",
+        "label": "Children",
         "type": "array",
         "spec": [
           {
@@ -83,33 +103,6 @@
                     "name": "visible",
                     "label": "Visible",
                     "type": "boolean"
-                  },
-                  {
-                    "name": "children",
-                    "label": "Children",
-                    "type": "array",
-                    "spec": [
-                      {
-                        "name": "uuid",
-                        "label": "UUID",
-                        "type": "uuid"
-                      },
-                      {
-                        "name": "name",
-                        "label": "Name",
-                        "type": "text"
-                      },
-                      {
-                        "name": "kind",
-                        "label": "Kind",
-                        "type": "text"
-                      },
-                      {
-                        "name": "visible",
-                        "label": "Visible",
-                        "type": "boolean"
-                      }
-                    ]
                   }
                 ]
               }
@@ -118,10 +111,5 @@
         ]
       }
     ]
-  },
-  {
-    "name": "success",
-    "label": "Success",
-    "type": "boolean"
   }
 ]

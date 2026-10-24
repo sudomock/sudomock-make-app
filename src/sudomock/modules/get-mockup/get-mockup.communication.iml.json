@@ -2,6 +2,9 @@
   "url": "/psd-mockups/{{parameters.mockup_uuid}}",
   "method": "GET",
   "response": {
-    "output": "{{body}}"
+    "output": {
+      "{{...}}": "{{body.data}}",
+      "warnings": "{{body.warnings}}"
+    }
   }
 }

@@ -49,12 +49,12 @@ const scenarios = [
   ]),
   reviewScenario('SudoMock App Review 02 - PSD, still, cleanup', [
     step('uploadPsd', { psd_file_url: psdUrl, psd_name: 'Synthetic review QA', is_async: false }),
-    step('getMockup', { mockup_uuid: '{{1.data.uuid}}' }),
-    step('updateMockup', { mockup_uuid: '{{1.data.uuid}}', name: 'Synthetic review QA' }),
+    step('getMockup', { mockup_uuid: '{{1.uuid}}' }),
+    step('updateMockup', { mockup_uuid: '{{1.uuid}}', name: 'Synthetic review QA' }),
     step('render', {
-      mockup_uuid: '{{1.data.uuid}}',
+      mockup_uuid: '{{1.uuid}}',
       smart_objects: [{
-        uuid: '{{1.data.smart_objects[1].uuid}}',
+        uuid: '{{1.smart_objects[1].uuid}}',
         asset: { url: artworkUrl, fit: 'contain' },
         color: { hex: '#334155', blending_mode: 'soft_light' },
       }],
@@ -63,15 +63,15 @@ const scenarios = [
       is_async: false,
     }),
     step('downloadRender', { url: '{{4.renderedImageUrl}}' }, false),
-    step('getMockupLayers', { mockup_uuid: '{{1.data.uuid}}' }),
-    step('deleteMockup', { mockup_uuid: '{{1.data.uuid}}' }),
+    step('getMockupLayers', { mockup_uuid: '{{1.uuid}}' }),
+    step('deleteMockup', { mockup_uuid: '{{1.uuid}}' }),
   ]),
   reviewScenario('SudoMock App Review 02b - Async render and wait', [
     step('uploadPsd', { psd_file_url: psdUrl, psd_name: 'Synthetic async review QA', is_async: false }),
     step('render', {
-      mockup_uuid: '{{1.data.uuid}}',
+      mockup_uuid: '{{1.uuid}}',
       smart_objects: [{
-        uuid: '{{1.data.smart_objects[1].uuid}}',
+        uuid: '{{1.smart_objects[1].uuid}}',
         asset: { url: artworkUrl, fit: 'contain' },
       }],
       text_layers: [],
@@ -79,7 +79,7 @@ const scenarios = [
       is_async: true,
     }),
     step('getJob', { job_id: '{{2.job_id}}', wait_for_completion: true, poll_timeout: 300 }),
-    step('deleteMockup', { mockup_uuid: '{{1.data.uuid}}' }),
+    step('deleteMockup', { mockup_uuid: '{{1.uuid}}' }),
   ]),
   reviewScenario('SudoMock App Review 03 - Video', [
     step('renderVideo', {
@@ -106,15 +106,15 @@ const scenarios = [
       is_async: false,
       print_areas: [{ points: [[300, 300], [900, 300], [900, 900], [300, 900]] }],
     }),
-    step('get2DMockup', { mockup_uuid: '{{1.data.mockup_id}}' }),
+    step('get2DMockup', { mockup_uuid: '{{1.mockup_id}}' }),
     step('set2DPrintAreas', {
-      mockup_uuid: '{{1.data.mockup_id}}',
+      mockup_uuid: '{{1.mockup_id}}',
       print_areas: [{ points: [[300, 300], [900, 300], [900, 900], [300, 900]] }],
     }),
     step('render2DMockup', {
-      mockup_uuid: '{{1.data.mockup_id}}',
+      mockup_uuid: '{{1.mockup_id}}',
       print_areas: [{
-        uuid: '{{3.data.print_areas[1].print_area_id}}',
+        uuid: '{{3.print_areas[1].print_area_id}}',
         artwork_url: artworkUrl,
         adjustments: { opacity: 100, blend_mode: 'multiply' },
         // This target is a print area, so it is sized with fit. Coverage sizes a
@@ -126,7 +126,7 @@ const scenarios = [
       export_options: { image_format: 'jpg', image_size: 1200, quality: 80 },
       is_async: false,
     }),
-    step('delete2DMockup', { mockup_uuid: '{{1.data.mockup_id}}' }),
+    step('delete2DMockup', { mockup_uuid: '{{1.mockup_id}}' }),
   ]),
   reviewScenario('SudoMock App Review 06a - Search mockups', [
     step('listMockups', { additional_options: { sort: 'created_at', order: 'desc' }, limit: 101 }),

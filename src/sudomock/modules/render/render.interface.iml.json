@@ -1,50 +1,87 @@
 [
   {
-    "name": "data",
-    "label": "Data",
-    "type": "collection",
+    "name": "print_files",
+    "label": "Print files",
+    "type": "array",
     "spec": [
       {
-        "name": "print_files",
-        "label": "Print files",
-        "type": "array",
-        "spec": [
-          {
-            "name": "export_path",
-            "label": "Export path",
-            "type": "url"
-          },
-          {
-            "name": "smart_object_uuid",
-            "label": "Smart object UUID",
-            "type": "uuid"
-          },
-          {
-            "name": "render_uuid",
-            "label": "Render UUID",
-            "type": "uuid"
-          }
-        ]
+        "name": "export_path",
+        "label": "Export path",
+        "type": "url"
+      },
+      {
+        "name": "smart_object_uuid",
+        "label": "Smart object UUID",
+        "type": "uuid"
       },
       {
         "name": "render_uuid",
         "label": "Render UUID",
         "type": "uuid"
+      }
+    ]
+  },
+  {
+    "name": "render_uuid",
+    "label": "Render UUID",
+    "type": "uuid"
+  },
+  {
+    "name": "text_layers",
+    "label": "Text layers",
+    "type": "array",
+    "spec": [
+      {
+        "name": "uuid",
+        "label": "UUID",
+        "type": "uuid"
       },
       {
-        "name": "text_layers",
-        "label": "Text layers",
+        "name": "name",
+        "label": "Name",
+        "type": "text"
+      },
+      {
+        "name": "requested_font",
+        "label": "Requested font",
+        "type": "text"
+      },
+      {
+        "name": "resolved_font",
+        "label": "Resolved font",
+        "type": "collection",
+        "spec": [
+          {
+            "name": "family",
+            "label": "Family",
+            "type": "text"
+          },
+          {
+            "name": "postscript_name",
+            "label": "Font internal name",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "name": "match_source",
+        "label": "Match source",
+        "type": "text"
+      },
+      {
+        "name": "glyph_coverage_ok",
+        "label": "Glyph coverage OK",
+        "type": "boolean"
+      },
+      {
+        "name": "segments",
+        "label": "Segments",
         "type": "array",
         "spec": [
           {
-            "name": "uuid",
-            "label": "UUID",
-            "type": "uuid"
-          },
-          {
-            "name": "name",
-            "label": "Name",
-            "type": "text"
+            "name": "index",
+            "label": "Index",
+            "type": "integer"
           },
           {
             "name": "requested_font",
@@ -77,59 +114,10 @@
             "name": "glyph_coverage_ok",
             "label": "Glyph coverage OK",
             "type": "boolean"
-          },
-          {
-            "name": "segments",
-            "label": "Segments",
-            "type": "array",
-            "spec": [
-              {
-                "name": "index",
-                "label": "Index",
-                "type": "integer"
-              },
-              {
-                "name": "requested_font",
-                "label": "Requested font",
-                "type": "text"
-              },
-              {
-                "name": "resolved_font",
-                "label": "Resolved font",
-                "type": "collection",
-                "spec": [
-                  {
-                    "name": "family",
-                    "label": "Family",
-                    "type": "text"
-                  },
-                  {
-                    "name": "postscript_name",
-                    "label": "Font internal name",
-                    "type": "text"
-                  }
-                ]
-              },
-              {
-                "name": "match_source",
-                "label": "Match source",
-                "type": "text"
-              },
-              {
-                "name": "glyph_coverage_ok",
-                "label": "Glyph coverage OK",
-                "type": "boolean"
-              }
-            ]
           }
         ]
       }
     ]
-  },
-  {
-    "name": "success",
-    "label": "Success",
-    "type": "boolean"
   },
   {
     "name": "warnings",

@@ -1,42 +1,30 @@
 [
   {
-    "name": "data",
-    "label": "Data",
-    "type": "collection",
+    "name": "print_files",
+    "label": "Print files",
+    "type": "array",
     "spec": [
       {
-        "name": "print_files",
-        "label": "Print files",
-        "type": "array",
-        "spec": [
-          {
-            "name": "export_path",
-            "label": "Export path",
-            "type": "url"
-          },
-          {
-            "name": "duration_ms",
-            "label": "Duration milliseconds",
-            "type": "integer"
-          },
-          {
-            "name": "export_format",
-            "label": "Export format",
-            "type": "text"
-          }
-        ]
+        "name": "export_path",
+        "label": "Export path",
+        "type": "url"
       },
       {
-        "name": "render_uuid",
-        "label": "Render UUID",
-        "type": "uuid"
+        "name": "duration_ms",
+        "label": "Duration milliseconds",
+        "type": "integer"
+      },
+      {
+        "name": "export_format",
+        "label": "Export format",
+        "type": "text"
       }
     ]
   },
   {
-    "name": "success",
-    "label": "Success",
-    "type": "boolean"
+    "name": "render_uuid",
+    "label": "Render UUID",
+    "type": "uuid"
   },
   {
     "name": "job_id",
