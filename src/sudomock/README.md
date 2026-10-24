@@ -25,9 +25,9 @@ Make masks the API key and tests the connection against the authenticated SudoMo
 
 ## Product photo workflow
 
-1. Add **Create a mockup from a photo** and provide a product-photo URL.
+1. Add **Create a mockup from a photo**, choose URL or Base64 as the **Source type**, and provide the product photo.
 2. Optionally override the automatically detected print areas.
-3. Use **Get a photo mockup** to read print areas from `data.quads` and surfaces from `data.surfaces`. A surface is one printable product in the photo, and a print area is a bounded zone drawn on that product. A product can offer both, and they are separate render targets.
+3. Use **Get a photo mockup** to read print areas from `quads` and surfaces from `surfaces`. A surface is one printable product in the photo, and a print area is a bounded zone drawn on that product. A product can offer both, and they are separate render targets.
 4. Map artwork and placement settings to each render target. Provide exactly one identifier per target: `uuid` for a print area or `surface_uuid` for a surface. Size a print area target with **Fit**, or with **Width** and **Height**. Size a surface target with **Coverage**.
 5. Render the still product image.
 6. Download the image or continue the scenario with its result URL.
@@ -36,7 +36,7 @@ Make masks the API key and tests the connection against the authenticated SudoMo
 
 ## Background removal
 
-Add **Remove an image background** and provide an image URL or Base64 value. The module returns a transparent PNG cutout URL with its width, height, and charged credits. Each image costs 25 credits, and failed requests are refunded automatically.
+Add **Remove an image background**, choose URL or Base64 as the **Source type**, and provide the image. The module returns a transparent PNG cutout URL with its width, height, and charged credits. Each image costs 25 credits, and failed requests are refunded automatically.
 
 For inline cleanup during a render, enable **Remove background** on a PSD Smart Object asset or photo mockup print area. Inline cleanup adds 25 credits per unique artwork.
 
@@ -53,7 +53,7 @@ This workflow supports print-on-demand operations, e-commerce product catalogs, 
 
 ## Asynchronous jobs
 
-Long-running PSD uploads, renders, videos, and photo mockup operations return a job ID. Use the job modules to check status.
+Long-running PSD uploads, renders, videos, and photo mockup operations return a job ID. When a module answers with a job, its output holds `job_id`, `kind`, `status`, and `status_url` in place of the result. Use the job modules to check status.
 
 Terminal job statuses are `succeeded`, `failed`, and `cancelled`. Work in progress reports `queued`, `dispatched`, or `running`. Webhook deliveries are signed by SudoMock.
 
