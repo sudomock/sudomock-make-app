@@ -5,6 +5,9 @@
     "name": "{{parameters.name}}"
   },
   "response": {
-    "output": "{{body}}"
+    "output": {
+      "{{...}}": "{{body.data}}",
+      "warnings": "{{body.warnings}}"
+    }
   }
 }

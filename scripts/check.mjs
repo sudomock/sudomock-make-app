@@ -549,10 +549,12 @@ if (manifest) {
     errors.push('module.set2DPrintAreas: print_areas must allow an explicit empty array and leave validity to the API');
   }
 
+  // The detail fields sit at the root of the output. Create can also answer
+  // with the job, so its output adds the job fields and shares one status.
   const exact2DDetailFields = {
     create2DMockup: [
-      'created_at', 'mockup_id', 'name', 'quads', 'source_height',
-      'source_width', 'status', 'surfaces', 'thumbnail_url', 'updated_at', 'version',
+      'created_at', 'job_id', 'kind', 'mockup_id', 'name', 'quads', 'source_height',
+      'source_width', 'status', 'status_url', 'surfaces', 'thumbnail_url', 'updated_at', 'version',
     ],
     get2DMockup: [
       'created_at', 'customizable', 'mockup_id', 'name', 'quads',
@@ -562,18 +564,17 @@ if (manifest) {
   };
   for (const [name, expectedFields] of Object.entries(exact2DDetailFields)) {
     const output = code(manifest.components?.module?.[name] ?? {}, 'interface');
-    const quadMaskUuid = fieldAt(output, 'data.quads.mask_uuid');
-    const surfaces = fieldAt(output, 'data.surfaces');
-    const dataFields = fieldAt(output, 'data')?.spec
-      ?.map((field) => field.name).sort();
+    const quadMaskUuid = fieldAt(output, 'quads.mask_uuid');
+    const surfaces = fieldAt(output, 'surfaces');
+    const outputFields = Array.isArray(output) ? output.map((field) => field.name).sort() : [];
     const surfaceFields = Array.isArray(surfaces?.spec)
       ? surfaces.spec.map((field) => field.name).sort()
       : [];
     if (quadMaskUuid !== undefined
-      || JSON.stringify(dataFields) !== JSON.stringify(expectedFields)
+      || JSON.stringify(outputFields) !== JSON.stringify(expectedFields)
       || surfaces?.type !== 'array'
       || JSON.stringify(surfaceFields) !== JSON.stringify(['label', 'surface_uuid'])
-      || fieldAt(output, 'data.surfaces.surface_uuid')?.type !== 'uuid') {
+      || fieldAt(output, 'surfaces.surface_uuid')?.type !== 'uuid') {
       errors.push(`module.${name}: output must match the canonical public detail and surface_uuid shape`);
     }
   }
