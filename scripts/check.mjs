@@ -160,12 +160,22 @@ function responseDirectives(value, directive, found = []) {
   return found;
 }
 
+function selectOptions(field) {
+  return Array.isArray(field?.options) ? field.options : Array.isArray(field?.options?.store) ? field.options.store : [];
+}
+
+// Fields nested under a select option share the select's own level, so a
+// mapping reaches them as {{parameters.<name>}} next to the select.
 function parameterFields(schema, prefix = '') {
   if (!Array.isArray(schema)) return [];
   return schema.flatMap((field) => {
     if (!field?.name) return [];
     const path = prefix ? `${prefix}.${field.name}` : field.name;
-    return [{ ...field, path }, ...parameterFields(field.spec, path)];
+    return [
+      { ...field, path },
+      ...parameterFields(field.spec, path),
+      ...selectOptions(field).flatMap((option) => parameterFields(option.nested, prefix)),
+    ];
   });
 }
 
@@ -673,12 +683,15 @@ if (manifest) {
   const removeBackground = manifest.components?.module?.removeBackground;
   const removeBackgroundParams = code(removeBackground ?? {}, 'mappableParams');
   const removeBackgroundBody = code(removeBackground ?? {}, 'communication');
-  const removeBackgroundSources = fieldAt(removeBackgroundParams, 'source_type')?.options?.map((option) => option.value);
+  // Each source option nests its own field, so only the selected source has a
+  // value and the body maps both fields directly.
+  const removeBackgroundSources = selectOptions(fieldAt(removeBackgroundParams, 'source_type'));
   if (removeBackgroundBody?.url !== '/remove-background'
     || removeBackgroundBody?.method !== 'POST'
-    || !['url', 'base64'].every((source) => removeBackgroundSources?.includes(source))
-    || removeBackgroundBody?.body?.url !== "{{if(parameters.source_type == 'url', parameters.url, undefined)}}"
-    || removeBackgroundBody?.body?.base64 !== "{{if(parameters.source_type == 'base64', parameters.base64, undefined)}}") {
+    || !['url', 'base64'].every((source) => removeBackgroundSources.find((option) => option.value === source)
+      ?.nested?.some((field) => field.name === source))
+    || removeBackgroundBody?.body?.url !== '{{parameters.url}}'
+    || removeBackgroundBody?.body?.base64 !== '{{parameters.base64}}') {
     errors.push('module.removeBackground: must send exactly the selected URL or Base64 source to POST /remove-background');
   }
 
