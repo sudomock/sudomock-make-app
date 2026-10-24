@@ -20,7 +20,7 @@
         "name": "surface_uuid",
         "label": "Surface UUID",
         "type": "uuid",
-        "help": "Use the surface_uuid returned in surfaces. A surface is one printable product in the photo. Provide exactly one target identifier: this UUID for a surface, or a print area UUID."
+        "help": "Use the surface_uuid returned in surfaces. A surface is one printable product in the photo, or the main wall of a room photo. Provide exactly one target identifier: this UUID for a surface, or a print area UUID."
       },
       {
         "name": "artwork_url",

@@ -28,7 +28,7 @@ Make masks the API key and tests the connection against the authenticated SudoMo
 
 1. Add **Create a mockup from a photo**, choose URL or Base64 as the **Source type**, and provide the product photo.
 2. Optionally override the automatically detected print areas.
-3. Use **Get a photo mockup** to read print areas from `quads` and surfaces from `surfaces`. A surface is one printable product in the photo, and a print area is a bounded zone drawn on that product. A product can offer both, and they are separate render targets. Each surface carries a `label`, what was detected there, such as `pillow` or `wall`, so you can tell surfaces apart.
+3. Use **Get a photo mockup** to read print areas from `quads` and surfaces from `surfaces`. A surface is one printable product in the photo, or the main wall of a room photo, and a print area is a bounded zone drawn on that product. A product can offer both, and they are separate render targets. Each surface carries a `label`, what was detected there, such as `pillow` or `wall`, so you can tell surfaces apart.
 4. Map artwork and placement settings to each render target. Provide exactly one identifier per target: `uuid` for a print area or `surface_uuid` for a surface. Size a print area target with **Fit**, or with **Width** and **Height**. Size a surface target with **Coverage**, or with **Width** and **Height**.
 5. Render the still product image.
 6. Download the image or continue the scenario with its result URL.
