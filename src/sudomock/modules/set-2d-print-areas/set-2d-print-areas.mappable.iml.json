@@ -16,9 +16,15 @@
         "type": "any",
         "required": true,
         "help": "Map an array of four [x, y] coordinate pairs in clockwise order."
+      },
+      {
+        "name": "print_area_id",
+        "label": "Print area ID",
+        "type": "uuid",
+        "help": "Id of an existing print area of this mockup to keep its id. Leave it out for a new area."
       }
     ],
-    "help": "Replace the saved quadrilateral print areas, or send an empty array to remove them. The API decides whether the mockup can remain renderable without saved areas.",
+    "help": "Replace the saved quadrilateral print areas, or send an empty array to remove them. The API decides whether the mockup can remain renderable without saved areas. An area with a print area ID keeps that id.",
     "validate": {
       "maxItems": 8
     }

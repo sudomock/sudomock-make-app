@@ -33,7 +33,7 @@ Make masks the API key and tests the connection against the authenticated SudoMo
 5. Render the still product image.
 6. Download the image or continue the scenario with its result URL.
 
-**Set photo mockup print areas** can send an empty array to remove saved areas. SudoMock remains authoritative and accepts that only when the mockup can stay renderable without them.
+**Set photo mockup print areas** can send an empty array to remove saved areas. SudoMock remains authoritative and accepts that only when the mockup can stay renderable without them. An area with a **Print area ID**, the id of one of the mockup's print areas, keeps that id; an area without one gets a new id.
 
 ## Background removal
 
