@@ -5,6 +5,21 @@ All notable changes to the SudoMock app for Make are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- **Render a mockup** and **Render a photo mockup** take **Tile spacing**
+  beside **Tile**: the gap between tiles, from 0 to 100 percent of the tile
+  size, so that percent of the tile width lies between columns and of its
+  height between rows. It is used only when **Tile** is on.
+- **Render a video** takes **Size**, **Position**, **Tile** and **Tile
+  spacing** on a Smart Object's asset, the same fields as **Render a mockup**.
+  A field left empty is not sent, so a saved scenario sends the same request
+  as before.
+- **Set photo mockup print areas** takes a **Print area ID** on each area. An
+  area that carries the id of one of the mockup's print areas keeps that id;
+  an area without one gets a new id.
+
 ## [2026-10-24]
 
 ### Added
