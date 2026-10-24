@@ -7,14 +7,16 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const baseUrl = 'https://eu1.make.com/api/v2';
 const teamId = Number(process.env.MAKE_QA_TEAM_ID || 0);
 const connectionId = Number(process.env.MAKE_QA_CONNECTION_ID || 0);
+const hookId = Number(process.env.MAKE_QA_HOOK_ID || 0);
 const app = 'app#sudomock-rhef0p';
-const scheduling = { type: 'on-demand' };
 const fixtures = 'https://github.com/sudomock/sudomock-make-app/releases/download/qa-fixtures-v1';
 const artworkUrl = `${fixtures}/artwork.jpg`;
 const productUrl = `${fixtures}/product-photo.jpg`;
 const psdUrl = `${fixtures}/sudomock-smart-object-template.psd`;
 const fontUrl = 'https://raw.githubusercontent.com/google/fonts/main/ofl/opensans/OpenSans%5Bwdth%2Cwght%5D.ttf';
 const missingUuid = '00000000-0000-4000-8000-000000000000';
+const watchEventsName = 'SudoMock App Review 09 - Watch events';
+const testEventName = 'SudoMock App Review 09b - Send test event';
 
 function step(name, mapper = {}, connected = true) {
   return {
@@ -26,7 +28,7 @@ function step(name, mapper = {}, connected = true) {
   };
 }
 
-function reviewScenario(name, steps, expectedStatus = 'SUCCESS', expectedError) {
+function reviewScenario(name, steps, expectedStatus = 'SUCCESS', expectedError, instant = false) {
   const flow = steps.map((item, index) => ({
     id: index + 1,
     ...item,
@@ -36,8 +38,22 @@ function reviewScenario(name, steps, expectedStatus = 'SUCCESS', expectedError) 
     name,
     expectedStatus,
     expectedError,
-    blueprint: { flow, name, metadata: { instant: false, version: 1 } },
+    scheduling: { type: instant ? 'immediately' : 'on-demand' },
+    blueprint: { flow, name, metadata: { instant, version: 1 } },
   };
+}
+
+// Sends a signed webhook.test event to the SudoMock endpoint attached to the
+// Watch events hook. The endpoint ID is read from the hook when QA runs.
+function testEventScenario(endpointId) {
+  return reviewScenario(testEventName, [
+    step('makeApiCall', {
+      url: `/api/v1/webhook-endpoints/${endpointId}/test`,
+      method: 'POST',
+      headers: [{ key: 'Content-Type', value: 'application/json' }],
+      qs: [],
+    }),
+  ]);
 }
 
 const scenarios = [
@@ -145,6 +161,10 @@ const scenarios = [
       qs: [],
     }),
   ], 'ERROR', '404'),
+  reviewScenario(watchEventsName, [
+    { ...step('watchEvents', {}, false), parameters: { __IMTHOOK__: hookId } },
+  ], 'SUCCESS', undefined, true),
+  testEventScenario('{endpoint_id}'),
 ];
 
 async function check() {
@@ -179,12 +199,17 @@ if (checkOnly) {
   process.exit(0);
 }
 
-const selected = only
+let selected = only
   ? scenarios.filter(({ name }) => name.toLowerCase().includes(only.toLowerCase()))
   : scenarios;
 if (!selected.length) throw new Error(`No scenario matches --only=${only}`);
-if (apply && (![teamId, connectionId].every((value) => Number.isSafeInteger(value) && value > 0))) {
-  throw new Error('Set MAKE_QA_TEAM_ID and MAKE_QA_CONNECTION_ID for private Make QA.');
+// Watch events is proven by the event its sender scenario causes, so the two go together.
+const watchPair = [watchEventsName, testEventName];
+if (selected.some(({ name }) => watchPair.includes(name))) {
+  selected = [...selected, ...scenarios.filter(({ name }) => watchPair.includes(name) && !selected.some((item) => item.name === name))];
+}
+if (apply && (![teamId, connectionId, hookId].every((value) => Number.isSafeInteger(value) && value > 0))) {
+  throw new Error('Set MAKE_QA_TEAM_ID, MAKE_QA_CONNECTION_ID and MAKE_QA_HOOK_ID for private Make QA.');
 }
 
 if (!apply) {
@@ -228,6 +253,14 @@ assert.equal(
   'Review connection must use the SudoMock QA account.',
 );
 
+if (selected.some(({ name }) => name === testEventName)) {
+  // The hook holds the attached endpoint's ID and signing secret; only the ID is read.
+  const hook = await request('GET', `/hooks/${hookId}`);
+  const endpointId = hook.hook?.data?.id;
+  if (typeof endpointId !== 'string' || !endpointId) throw new Error(`Hook ${hookId} has no attached SudoMock endpoint.`);
+  selected = selected.map((scenario) => (scenario.name === testEventName ? testEventScenario(endpointId) : scenario));
+}
+
 const listed = await request('GET', `/scenarios?teamId=${teamId}&pg[limit]=100`);
 const byName = new Map();
 for (const item of listed.scenarios || []) {
@@ -241,7 +274,7 @@ for (const scenario of selected) {
   if (matches.length > 1) throw new Error(`Multiple scenarios named "${scenario.name}".`);
   const payload = {
     blueprint: JSON.stringify(scenario.blueprint),
-    scheduling: JSON.stringify(scheduling),
+    scheduling: JSON.stringify(scenario.scheduling),
   };
   let id;
   if (matches.length) {
@@ -260,7 +293,8 @@ for (const scenario of selected) {
 if (!runScenarios) process.exit(0);
 
 const pause = (milliseconds) => new Promise((resolvePause) => setTimeout(resolvePause, milliseconds));
-for (const scenario of upserted) {
+
+async function runOnDemand(scenario) {
   let executionId;
   try {
     await request('POST', `/scenarios/${scenario.id}/start`);
@@ -292,5 +326,36 @@ for (const scenario of upserted) {
     console.log(`Passed ${scenario.name} (${executionId}): ${status}.`);
   } finally {
     await request('POST', `/scenarios/${scenario.id}/stop`, undefined, [422]);
+  }
+}
+
+// Starts the trigger, causes a real signed delivery through the sender scenario,
+// and waits for the trigger to finish an execution that started after it went live.
+async function runWatchEvents(trigger, sender) {
+  const since = Date.now();
+  try {
+    await request('POST', `/scenarios/${trigger.id}/start`);
+    await runOnDemand(sender);
+    for (let attempt = 0; attempt < 60; attempt += 1) {
+      if (attempt) await pause(2000);
+      const { scenarioLogs = [] } = await request('GET', `/scenarios/${trigger.id}/logs?from=${since}&pg[sortDir]=desc&pg[limit]=50`);
+      const execution = scenarioLogs.find((log) => log.status === 1 || log.displayStatus === 'SUCCESS');
+      if (execution) {
+        console.log(`Passed ${trigger.name} (${execution.id}): SUCCESS.`);
+        return;
+      }
+    }
+    throw new Error(`Timed out waiting for "${trigger.name}" to receive the test event.`);
+  } finally {
+    await request('POST', `/scenarios/${trigger.id}/stop`, undefined, [422]);
+  }
+}
+
+for (const scenario of upserted) {
+  if (scenario.name === testEventName) continue;
+  if (scenario.name === watchEventsName) {
+    await runWatchEvents(scenario, upserted.find(({ name }) => name === testEventName));
+  } else {
+    await runOnDemand(scenario);
   }
 }
