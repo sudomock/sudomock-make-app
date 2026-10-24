@@ -3,33 +3,37 @@
     "name": "source_type",
     "label": "Source type",
     "type": "select",
-    "options": [
-      {
-        "label": "URL",
-        "value": "url"
-      },
-      {
-        "label": "Base64",
-        "value": "base64"
-      }
-    ],
+    "options": {
+      "store": [
+        {
+          "label": "URL",
+          "value": "url",
+          "nested": [
+            {
+              "name": "source_url",
+              "label": "Source URL",
+              "type": "url",
+              "required": true
+            }
+          ]
+        },
+        {
+          "label": "Base64",
+          "value": "base64",
+          "nested": [
+            {
+              "name": "source_base64",
+              "label": "Source Base64",
+              "type": "text",
+              "required": true,
+              "multiline": true
+            }
+          ]
+        }
+      ]
+    },
     "required": true,
     "default": "url"
-  },
-  {
-    "name": "source_url",
-    "label": "Source URL",
-    "type": "url",
-    "required": true,
-    "visible": "{{parameters.source_type == 'url'}}"
-  },
-  {
-    "name": "source_base64",
-    "label": "Source Base64",
-    "type": "text",
-    "required": true,
-    "multiline": true,
-    "visible": "{{parameters.source_type == 'base64'}}"
   },
   {
     "name": "name",

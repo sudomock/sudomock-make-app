@@ -3,147 +3,149 @@
     "name": "input_mode",
     "label": "Input mode",
     "type": "select",
-    "options": [
-      {
-        "label": "Render",
-        "value": "render"
-      },
-      {
-        "label": "Image",
-        "value": "image"
-      }
-    ],
+    "options": {
+      "store": [
+        {
+          "label": "Render",
+          "value": "render",
+          "nested": [
+            {
+              "name": "mockup_uuid",
+              "label": "Mockup",
+              "type": "select",
+              "required": true,
+              "mode": "edit",
+              "options": "rpc://listMockups",
+              "help": "Choose a mockup or map its UUID."
+            },
+            {
+              "name": "smart_objects",
+              "label": "Smart objects",
+              "type": "array",
+              "spec": [
+                {
+                  "name": "uuid",
+                  "label": "Smart object",
+                  "type": "select",
+                  "required": true,
+                  "mode": "edit",
+                  "options": "rpc://listSmartObjects?mockup_uuid={{parameters.mockup_uuid}}"
+                },
+                {
+                  "name": "asset",
+                  "label": "Asset",
+                  "type": "collection",
+                  "spec": [
+                    {
+                      "name": "url",
+                      "label": "Asset URL",
+                      "type": "url",
+                      "required": true
+                    },
+                    {
+                      "name": "fit",
+                      "label": "Fit",
+                      "type": "select",
+                      "options": [
+                        {
+                          "label": "Fill",
+                          "value": "fill"
+                        },
+                        {
+                          "label": "Fit",
+                          "value": "fit"
+                        },
+                        {
+                          "label": "Crop",
+                          "value": "crop"
+                        }
+                      ],
+                      "default": "fill"
+                    }
+                  ],
+                  "required": true
+                }
+              ],
+              "required": true,
+              "validate": {
+                "minItems": 1
+              }
+            },
+            {
+              "name": "export_options",
+              "label": "Export options",
+              "type": "collection",
+              "spec": [
+                {
+                  "name": "image_format",
+                  "label": "Image format",
+                  "type": "select",
+                  "options": [
+                    {
+                      "label": "WebP",
+                      "value": "webp"
+                    },
+                    {
+                      "label": "PNG",
+                      "value": "png"
+                    },
+                    {
+                      "label": "JPG",
+                      "value": "jpg"
+                    }
+                  ],
+                  "default": "webp"
+                },
+                {
+                  "name": "image_size",
+                  "label": "Image size",
+                  "type": "integer",
+                  "default": 2048,
+                  "validate": {
+                    "min": 100,
+                    "max": 10000
+                  }
+                },
+                {
+                  "name": "quality",
+                  "label": "Quality",
+                  "type": "integer",
+                  "default": 90,
+                  "validate": {
+                    "min": 1,
+                    "max": 100
+                  }
+                },
+                {
+                  "name": "dpi",
+                  "label": "DPI",
+                  "type": "integer",
+                  "validate": {
+                    "min": 72,
+                    "max": 2400
+                  }
+                }
+              ],
+              "advanced": true
+            }
+          ]
+        },
+        {
+          "label": "Image",
+          "value": "image",
+          "nested": [
+            {
+              "name": "image_url",
+              "label": "Image URL",
+              "type": "url",
+              "required": true
+            }
+          ]
+        }
+      ]
+    },
     "required": true,
     "default": "render"
-  },
-  {
-    "name": "mockup_uuid",
-    "label": "Mockup",
-    "type": "select",
-    "required": true,
-    "mode": "edit",
-    "options": "rpc://listMockups",
-    "help": "Choose a mockup or map its UUID.",
-    "visible": "{{parameters.input_mode == 'render'}}"
-  },
-  {
-    "name": "smart_objects",
-    "label": "Smart objects",
-    "type": "array",
-    "spec": [
-      {
-        "name": "uuid",
-        "label": "Smart object",
-        "type": "select",
-        "required": true,
-        "mode": "edit",
-        "options": "rpc://listSmartObjects?mockup_uuid={{parameters.mockup_uuid}}"
-      },
-      {
-        "name": "asset",
-        "label": "Asset",
-        "type": "collection",
-        "spec": [
-          {
-            "name": "url",
-            "label": "Asset URL",
-            "type": "url",
-            "required": true
-          },
-          {
-            "name": "fit",
-            "label": "Fit",
-            "type": "select",
-            "options": [
-              {
-                "label": "Fill",
-                "value": "fill"
-              },
-              {
-                "label": "Fit",
-                "value": "fit"
-              },
-              {
-                "label": "Crop",
-                "value": "crop"
-              }
-            ],
-            "default": "fill"
-          }
-        ],
-        "required": true
-      }
-    ],
-    "visible": "{{parameters.input_mode == 'render'}}",
-    "required": true,
-    "validate": {
-      "minItems": 1
-    }
-  },
-  {
-    "name": "export_options",
-    "label": "Export options",
-    "type": "collection",
-    "spec": [
-      {
-        "name": "image_format",
-        "label": "Image format",
-        "type": "select",
-        "options": [
-          {
-            "label": "WebP",
-            "value": "webp"
-          },
-          {
-            "label": "PNG",
-            "value": "png"
-          },
-          {
-            "label": "JPG",
-            "value": "jpg"
-          }
-        ],
-        "default": "webp"
-      },
-      {
-        "name": "image_size",
-        "label": "Image size",
-        "type": "integer",
-        "default": 2048,
-        "validate": {
-          "min": 100,
-          "max": 10000
-        }
-      },
-      {
-        "name": "quality",
-        "label": "Quality",
-        "type": "integer",
-        "default": 90,
-        "validate": {
-          "min": 1,
-          "max": 100
-        }
-      },
-      {
-        "name": "dpi",
-        "label": "DPI",
-        "type": "integer",
-        "validate": {
-          "min": 72,
-          "max": 2400
-        }
-      }
-    ],
-    "visible": "{{parameters.input_mode == 'render'}}",
-    "advanced": true
-  },
-  {
-    "name": "image_url",
-    "label": "Image URL",
-    "type": "url",
-    "required": true,
-    "visible": "{{parameters.input_mode == 'image'}}"
   },
   {
     "name": "webhook",

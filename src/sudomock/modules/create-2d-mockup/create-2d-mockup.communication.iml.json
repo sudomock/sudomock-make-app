@@ -2,10 +2,10 @@
   "url": "/photo-mockups",
   "method": "POST",
   "body": {
-    "source_url": "{{if(parameters.source_type == 'url', parameters.source_url, undefined)}}",
-    "source_base64": "{{if(parameters.source_type == 'base64', parameters.source_base64, undefined)}}",
+    "source_url": "{{parameters.source_url}}",
+    "source_base64": "{{parameters.source_base64}}",
     "name": "{{parameters.name}}",
-    "is_async": "{{if(parameters.is_async, true, undefined)}}",
+    "is_async": "{{parameters.is_async}}",
     "print_areas": "{{parameters.print_areas}}"
   },
   "response": {
