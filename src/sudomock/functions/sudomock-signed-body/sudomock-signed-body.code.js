@@ -1,6 +1,7 @@
-// Rebuilds the exact bytes SudoMock signs: sorted keys, no spaces, and
-// every character outside printable ASCII written as a lowercase \u escape.
 function sudomockSignedBody(value) {
+  // Rebuilds the exact bytes SudoMock signs: sorted keys, no spaces, and
+  // every character outside printable ASCII written as a lowercase \u escape.
+  // Make accepts only the function itself, so this note sits inside it.
   const short = { '"': '\\"', '\\': '\\\\', '\b': '\\b', '\f': '\\f', '\n': '\\n', '\r': '\\r', '\t': '\\t' };
   const text = (s) => {
     let out = '"';
