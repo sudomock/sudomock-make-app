@@ -21,7 +21,7 @@ Re-check the sources on the day the review is requested.
 - [ ] Every RPC has a limit and bounded pagination.
 - [ ] Every module exposes a complete, correctly typed output interface, including nested fields and parsed dates.
 - [ ] Download a Render never forwards SudoMock credentials to the asset host.
-- [ ] **Watch events** verifies the HMAC of the timestamp and body of every delivery and a 5-minute timestamp window, and rejects a failing delivery with HTTP 400 and no bundle. Rebuilding the exact signed body for payloads with non-ASCII text requires Make's custom IML functions; this item stays unchecked until that is in place.
+- [ ] **Watch events** verifies the HMAC of the timestamp and body of every delivery and a 5-minute timestamp window, and rejects a failing delivery with HTTP 400 and no bundle. The custom IML function `sudomockSignedBody` rebuilds the exact signed body, including payloads with non-ASCII text.
 
 Primary rules:
 
