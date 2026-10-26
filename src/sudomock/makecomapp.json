@@ -348,7 +348,13 @@
         }
       }
     },
-    "function": {},
+    "function": {
+      "sudomockSignedBody": {
+        "codeFiles": {
+          "code": "functions/sudomock-signed-body/sudomock-signed-body.code.js"
+        }
+      }
+    },
     "rpc": {
       "listMockups": {
         "label": "List mockups",
@@ -500,7 +506,12 @@
             "remote": "watchEvents"
           }
         ],
-        "function": [],
+        "function": [
+          {
+            "local": "sudomockSignedBody",
+            "remote": "sudomockSignedBody"
+          }
+        ],
         "rpc": [
           {
             "local": "listMockups",
