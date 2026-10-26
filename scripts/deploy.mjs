@@ -76,7 +76,7 @@ const env = { ...process.env, MAKE_API_KEY: apiKey, MAKE_ZONE: new URL(origin.ba
 
 function run(...command) {
   if (dryRun) {
-    console.log(command.filter((argument) => !/^--(?:body|common|data-base64|docs)=/.test(argument)).join(' '));
+    console.log(command.filter((argument) => !/^--(?:body|code|common|data-base64|docs)=/.test(argument)).join(' '));
     return '';
   }
   const result = spawnSync('npx', ['--yes', '@makehq/cli@1.4.0', '--output=json', ...command], {
@@ -137,6 +137,7 @@ function list(type) {
     module: ['sdk-modules', 'list', `--app-name=${origin.appId}`, `--app-version=${origin.appVersion}`],
     rpc: ['sdk-rpcs', 'list', `--app-name=${origin.appId}`, `--app-version=${origin.appVersion}`],
     webhook: ['sdk-webhooks', 'list', `--app-name=${origin.appId}`],
+    function: ['sdk-functions', 'list', `--app-name=${origin.appId}`, `--app-version=${origin.appVersion}`],
   }[type];
   return dryRun ? [] : JSON.parse(run(...command));
 }
@@ -186,6 +187,15 @@ for (const [local, connection] of Object.entries(manifest.components.connection)
     if (!path || !sectionNames[key]) continue;
     run('sdk-connections', 'set-section', `--connection-name=${remote}`, `--section=${sectionNames[key]}`, `--body=${body(path)}`);
   }
+}
+
+// The webhook calls the signature function, so functions are deployed before webhooks.
+const functions = new Set(list('function').map(({ name }) => name));
+for (const [local, component] of Object.entries(manifest.components.function)) {
+  const remote = remoteName('function', local);
+  if (!remote) continue;
+  if (!functions.has(remote)) run('sdk-functions', 'create', `--app-name=${origin.appId}`, `--app-version=${origin.appVersion}`, `--name=${remote}`);
+  run('sdk-functions', 'set-code', `--app-name=${origin.appId}`, `--app-version=${origin.appVersion}`, `--function-name=${remote}`, `--code=${body(component.codeFiles.code)}`);
 }
 
 // An instant trigger references its webhook, so webhooks are deployed before modules.

@@ -1,6 +1,6 @@
 {
   "temp": {
-    "valid": "{{now < addSeconds(parseDate(headers.`x-sudomock-timestamp`, 'X'), 300) && addSeconds(parseDate(headers.`x-sudomock-timestamp`, 'X'), -300) < now && headers.`x-sudomock-signature` == sha256(headers.`x-sudomock-timestamp` + '.' + createJSON(body), 'hex', data.secret)}}"
+    "valid": "{{now < addSeconds(parseDate(headers.`x-sudomock-timestamp`, 'X'), 300) && addSeconds(parseDate(headers.`x-sudomock-timestamp`, 'X'), -300) < now && headers.`x-sudomock-signature` == sha256(headers.`x-sudomock-timestamp` + '.' + sudomockSignedBody(body), 'hex', data.secret)}}"
   },
   "verification": {
     "condition": "{{!temp.valid}}",
