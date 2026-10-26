@@ -61,8 +61,9 @@ for (const file of files) {
   if (secret && content.includes(secret)) errors.push(`${name}: contains the Make API token`);
   if (credentialPattern.test(content)) errors.push(`${name}: contains a credential-like value`);
 
+  // The review QA account is an alias that delivers to hello@sudomock.com.
   for (const [email] of content.matchAll(/\b[\w.+-]+@[\w.-]+\.[a-z]{2,}\b/gi)) {
-    if (email.toLowerCase() !== 'hello@sudomock.com') errors.push(`${name}: contains a non-public email address`);
+    if (!['hello@sudomock.com', 'hello+make-review@sudomock.com'].includes(email.toLowerCase())) errors.push(`${name}: contains a non-public email address`);
   }
 }
 

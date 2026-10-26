@@ -271,8 +271,8 @@ const stopScenario = (id) => request('POST', `/scenarios/${id}/stop`, undefined,
 const connection = await request('GET', `/connections/${connectionId}?cols[]=metadata`);
 assert.equal(
   connection.connection?.metadata?.value,
-  'hello@sudomock.com',
-  'Review connection must use the SudoMock QA account.',
+  'hello+make-review@sudomock.com',
+  'Review connection must use the SudoMock review account, which holds only QA data.',
 );
 
 if (selected.some(({ name }) => name === testEventName)) {
