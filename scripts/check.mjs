@@ -117,7 +117,7 @@ const manifest = jsonFiles.get(manifestPath);
 const expectedInventory = {
   connection: ['sudomockApiKey'],
   module: `create2DMockup get2DMockup list2DMockups set2DPrintAreas render2DMockup delete2DMockup deleteMockup deleteFont getFont listFonts uploadFont getAccountInfo getMockup getMockupLayers listMockups getJob listJobs render removeBackground renderVideo updateMockup uploadPsd downloadRender makeApiCall watchEvents`.split(' '),
-  function: [],
+  function: ['sudomockSignedBody'],
   rpc: ['listMockups', 'listSmartObjects'],
   webhook: ['sudomockEvents'],
   endpoint: [],
