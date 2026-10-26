@@ -2,7 +2,8 @@
   "baseUrl": "https://api.sudomock.com/api/v1",
   "timeout": 300000,
   "headers": {
-    "X-API-KEY": "{{connection.apiKey}}"
+    "X-API-KEY": "{{connection.apiKey}}",
+    "X-SudoMock-Client": "make-app/1"
   },
   "response": {
     "error": {
