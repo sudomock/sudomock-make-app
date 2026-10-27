@@ -395,13 +395,13 @@
     {
       "label": "Development",
       "baseUrl": "https://eu1.make.com/api",
-      "appId": "sudomock-rhef0p",
+      "appId": "sudomock",
       "appVersion": 1,
       "idMapping": {
         "connection": [
           {
             "local": "sudomockApiKey",
-            "remote": "sudomock-rhef0p"
+            "remote": "sudomock"
           }
         ],
         "module": [
@@ -525,7 +525,7 @@
         "webhook": [
           {
             "local": "sudomockEvents",
-            "remote": "sudomock-rhef0p"
+            "remote": "sudomock"
           }
         ],
         "endpoint": []
