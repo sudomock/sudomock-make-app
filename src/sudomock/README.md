@@ -37,9 +37,9 @@ Make masks the API key and tests the connection against the authenticated SudoMo
 
 ## Background removal
 
-Add **Remove an image background**, choose URL or Base64 as the **Source type**, and provide the image. The module returns a transparent PNG cutout URL with its width, height, and charged credits. Each image costs 25 credits, and failed requests are refunded automatically.
+Add **Remove an image background**, choose URL or Base64 as the **Source type**, and provide the image. The module returns a transparent PNG cutout URL with its width, height, and charged credits. Each image costs 5 credits, and failed requests are refunded automatically.
 
-For inline cleanup during a render, enable **Remove background** on a PSD Smart Object asset or photo mockup print area. Inline cleanup adds 25 credits per unique artwork.
+For inline cleanup during a render, enable **Remove background** on a PSD Smart Object asset or photo mockup print area. Inline cleanup adds 5 credits per unique artwork.
 
 ## PSD template workflow
 
