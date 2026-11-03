@@ -5,6 +5,13 @@ All notable changes to the SudoMock app for Make are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2026-11-03]
+
+### Changed
+- **Remove an image background** costs 5 credits per image, and the
+  **Remove background** option of **Render a mockup** and **Render a photo
+  mockup** adds 5 credits per unique artwork.
+
 ## [2026-10-24]
 
 ### Added
