@@ -8,6 +8,7 @@ Official source for the SudoMock integration on Make. Turn product photos into r
 
 - Create and render reusable mockups from product photos.
 - Remove image backgrounds and receive transparent PNG cutouts.
+- Check a pattern tile for seams, and fix them.
 - Upload and render PSD templates with Smart Objects and editable text.
 - Repeat artwork as a pattern, with an adjustable gap between tiles.
 - Generate short product videos.
