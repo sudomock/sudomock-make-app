@@ -5,6 +5,22 @@ All notable changes to the SudoMock app for Make are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- **Check a pattern tile for seams** checks whether copies of a pattern tile
+  meet without a visible line when it repeats, and where a line appears. It
+  takes a URL or Base64 tile and an optional **Crop aspect**. Seam check:
+  free.
+- **Fix the seams of a pattern tile** takes the same fields and makes the
+  tile repeat without a visible line, keeping its size. It can wait for the
+  result and takes an **Idempotency key**. Seam fix: 60 credits, refunded if
+  the fix fails. Both modules sit in the Image preparation group.
+- **Get a job** and **Search jobs** return `alternative_url`,
+  `result_status`, `changes` and `stage` for a seam fix, **Search jobs**
+  filters by the `seam_fix` kind, and **Watch events** offers
+  `seam_fix.succeeded` and `seam_fix.failed`.
+
 ## [2026-11-03]
 
 ### Changed

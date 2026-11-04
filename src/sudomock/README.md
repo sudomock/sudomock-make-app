@@ -15,6 +15,7 @@ Make masks the API key and tests the connection against the authenticated SudoMo
 
 - Retrieve account, subscription, usage, credit, and prepaid balance information.
 - Remove an image background and receive a transparent PNG cutout URL.
+- Check a pattern tile for seams, and fix them.
 - Create, prepare, configure, render, list, and delete reusable photo mockups made from product photos.
 - Upload, list, retrieve, rename, and delete reusable PSD mockup templates, and list every layer of a template.
 - Render product mockups with artwork, Smart Objects, editable text, fonts, and export settings.
@@ -61,9 +62,15 @@ Set **Tile** to repeat the artwork as a pattern across the whole target, and **T
 - On **Render a mockup** and **Render a video**, **Tile** sits on a Smart Object's **Asset**. **Size** is one tile, **Fit** places the artwork inside each tile, and **Position** sets where the grid starts, so a tile needs a **Size**.
 - On **Render a photo mockup**, **Tile** sits in a render target's **Placement**. The size you set is one tile: **Fit**, or **Width** and **Height**, on a print area, and **Coverage**, or **Width** and **Height**, on a surface. **Position** with **Horizontal offset** and **Vertical offset** sets where the grid starts.
 
+## Check and fix a pattern tile
+
+Before you repeat a design with **Tile**, add **Check a pattern tile for seams** to see whether copies of the tile meet without a visible line. Choose URL or Base64 as the **Source type** and provide the tile. When the render places the artwork with **Fit** crop, set **Crop aspect** to the tile's width divided by its height, so the check sees exactly the tile the render shows. The module returns `status` (`seamless`, `faint_seam`, or `visible_seam`), the sides with a seam and where along them it shows, whether a fix can repair the tile, and your previous fix of the same tile. Seam check: free.
+
+**Fix the seams of a pattern tile** takes the same fields and makes the tile repeat without a visible line, keeping its width and height. Turn on **Wait for completion** to receive the finished job with `result_url`, `alternative_url` (a second fixed version, when one was delivered), `result_status`, and `changes`. Seam fix: 60 credits, refunded if the fix fails. A tile with transparent edges, or one larger than a fix takes, is refused and nothing is charged.
+
 ## Asynchronous jobs
 
-Long-running PSD uploads, renders, videos, and photo mockup operations return a job ID. When a module answers with a job, its output holds `job_id`, `kind`, `status`, and `status_url` in place of the result. Use the job modules to check status.
+Long-running PSD uploads, renders, videos, photo mockup operations, and seam fixes return a job ID. When a module answers with a job, its output holds `job_id`, `kind`, `status`, and `status_url` in place of the result. Use the job modules to check status.
 
 Terminal job statuses are `succeeded`, `failed`, and `cancelled`. Work in progress reports `queued`, `dispatched`, or `running`. Webhook deliveries are signed by SudoMock.
 
@@ -82,7 +89,7 @@ Each delivery is checked against SudoMock's signature. A delivery whose signatur
 - Download modules return a Make file with a file name and binary data.
 - Do not automatically retry credit-consuming render requests; check the returned job before starting another render.
 - A `429` response is returned as a Make rate-limit error.
-- Render and video operations can consume SudoMock credits. Review the module input before running a production scenario.
+- Render, video, and seam fix operations can consume SudoMock credits. Review the module input before running a production scenario.
 
 ## Frequently asked questions
 
