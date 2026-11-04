@@ -1,0 +1,47 @@
+[
+  {
+    "name": "source_type",
+    "label": "Source type",
+    "type": "select",
+    "options": {
+      "store": [
+        {
+          "label": "URL",
+          "value": "url",
+          "nested": [
+            {
+              "name": "url",
+              "label": "Tile URL",
+              "type": "url",
+              "required": true
+            }
+          ]
+        },
+        {
+          "label": "Base64",
+          "value": "base64",
+          "nested": [
+            {
+              "name": "base64",
+              "label": "Tile Base64",
+              "type": "text",
+              "required": true,
+              "multiline": true
+            }
+          ]
+        }
+      ]
+    },
+    "required": true,
+    "default": "url"
+  },
+  {
+    "name": "crop_aspect",
+    "label": "Crop aspect",
+    "type": "number",
+    "validate": {
+      "min": 0.01
+    },
+    "help": "Optional. Width divided by height of the tile when the render places the artwork with fit crop. The image is cut exactly as that render cuts it. Leave empty to use the whole image."
+  }
+]

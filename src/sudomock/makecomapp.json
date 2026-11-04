@@ -269,6 +269,32 @@
           "interface": "modules/remove-background/remove-background.interface.iml.json"
         }
       },
+      "checkSeams": {
+        "label": "Check a pattern tile for seams",
+        "description": "Checks whether copies of a pattern tile meet without a visible line when it repeats, and where a line appears. Seam check: free.",
+        "moduleType": "action",
+        "actionCrud": "read",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/check-seams/check-seams.communication.iml.json",
+          "mappableParams": "modules/check-seams/check-seams.mappable.iml.json",
+          "interface": "modules/check-seams/check-seams.interface.iml.json"
+        }
+      },
+      "fixSeams": {
+        "label": "Fix the seams of a pattern tile",
+        "description": "Makes a pattern tile repeat without a visible line, keeping its size, and can wait for the result. Seam fix: 60 credits, refunded if the fix fails; seam check: free.",
+        "moduleType": "action",
+        "actionCrud": "create",
+        "connection": "sudomockApiKey",
+        "altConnection": null,
+        "codeFiles": {
+          "communication": "modules/fix-seams/fix-seams.communication.iml.json",
+          "mappableParams": "modules/fix-seams/fix-seams.mappable.iml.json",
+          "interface": "modules/fix-seams/fix-seams.interface.iml.json"
+        }
+      },
       "renderVideo": {
         "label": "Render a video",
         "description": "Starts a video render and can wait for completion.",
@@ -480,6 +506,14 @@
           {
             "local": "removeBackground",
             "remote": "removeBackground"
+          },
+          {
+            "local": "checkSeams",
+            "remote": "checkSeams"
+          },
+          {
+            "local": "fixSeams",
+            "remote": "fixSeams"
           },
           {
             "local": "renderVideo",

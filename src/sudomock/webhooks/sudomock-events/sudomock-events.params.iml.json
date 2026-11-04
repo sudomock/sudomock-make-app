@@ -46,6 +46,14 @@
         "value": "photo_mockup_render.failed"
       },
       {
+        "label": "Seam fix succeeded",
+        "value": "seam_fix.succeeded"
+      },
+      {
+        "label": "Seam fix failed",
+        "value": "seam_fix.failed"
+      },
+      {
         "label": "Webhook test",
         "value": "webhook.test"
       }

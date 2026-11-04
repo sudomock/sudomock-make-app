@@ -13,7 +13,9 @@
   {
     "label": "Image preparation",
     "modules": [
-      "removeBackground"
+      "removeBackground",
+      "checkSeams",
+      "fixSeams"
     ]
   },
   {

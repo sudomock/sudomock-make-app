@@ -25,6 +25,26 @@
     "type": "url"
   },
   {
+    "name": "alternative_url",
+    "label": "Alternative URL",
+    "type": "url"
+  },
+  {
+    "name": "result_status",
+    "label": "Result status",
+    "type": "text"
+  },
+  {
+    "name": "changes",
+    "label": "Changes",
+    "type": "text"
+  },
+  {
+    "name": "stage",
+    "label": "Stage",
+    "type": "text"
+  },
+  {
     "name": "mockup_uuid",
     "label": "Mockup UUID",
     "type": "uuid"
