@@ -117,7 +117,7 @@ if (!existsSync(dependabotPath)) {
 const manifest = jsonFiles.get(manifestPath);
 const expectedInventory = {
   connection: ['sudomockApiKey'],
-  module: `create2DMockup get2DMockup list2DMockups set2DPrintAreas render2DMockup delete2DMockup deleteMockup deleteFont getFont listFonts uploadFont getAccountInfo getMockup getMockupLayers listMockups getJob listJobs render removeBackground renderVideo updateMockup uploadPsd downloadRender makeApiCall watchEvents`.split(' '),
+  module: `create2DMockup get2DMockup list2DMockups set2DPrintAreas render2DMockup delete2DMockup deleteMockup deleteFont getFont listFonts uploadFont getAccountInfo getMockup getMockupLayers listMockups getJob listJobs render removeBackground checkSeams fixSeams renderVideo updateMockup uploadPsd downloadRender makeApiCall watchEvents`.split(' '),
   function: ['sudomockSignedBody'],
   rpc: ['listMockups', 'listSmartObjects'],
   webhook: ['sudomockEvents'],
@@ -676,7 +676,7 @@ if (manifest) {
     errors.push('module.listJobs: filters.kind must default to all job kinds by remaining unset');
   }
   const jobKinds = jobKind?.options?.map((option) => option.value);
-  for (const kind of ['render', 'upload', 'video', 'photo_mockup_create', 'photo_mockup_render', '2d_create', '2d_render']) {
+  for (const kind of ['render', 'upload', 'video', 'photo_mockup_create', 'photo_mockup_render', 'seam_fix', '2d_create', '2d_render']) {
     if (!jobKinds?.includes(kind)) errors.push(`module.listJobs: filters.kind is missing ${kind}`);
   }
   const placementPositions = fieldAt(render2DParams, 'print_areas.placement.position')?.options?.map((option) => option.value);
@@ -699,6 +699,34 @@ if (manifest) {
     || removeBackgroundBody?.body?.url !== '{{parameters.url}}'
     || removeBackgroundBody?.body?.base64 !== '{{parameters.base64}}') {
     errors.push('module.removeBackground: must send exactly the selected URL or Base64 source to POST /remove-background');
+  }
+  // A seam check and a seam fix take the same tile: the selected URL or Base64
+  // source and an optional crop_aspect, which the API requires to be above 0.
+  // The fix is a job, so it sends a caller's Idempotency-Key like Render a video.
+  for (const [name, path] of [['checkSeams', '/check-seams'], ['fixSeams', '/fix-seams']]) {
+    const seamModule = manifest.components?.module?.[name];
+    const seamParams = code(seamModule ?? {}, 'mappableParams');
+    const seamCommunication = code(seamModule ?? {}, 'communication');
+    const seamRequest = (Array.isArray(seamCommunication) ? seamCommunication : [seamCommunication])
+      .find((request) => request?.url === path);
+    const seamSources = selectOptions(fieldAt(seamParams, 'source_type'));
+    const cropAspect = fieldAt(seamParams, 'crop_aspect');
+    if (seamRequest?.method !== 'POST'
+      || !['url', 'base64'].every((source) => seamSources.find((option) => option.value === source)
+        ?.nested?.some((field) => field.name === source))
+      || seamRequest?.body?.url !== '{{parameters.url}}'
+      || seamRequest?.body?.base64 !== '{{parameters.base64}}'
+      || seamRequest?.body?.crop_aspect !== '{{parameters.crop_aspect}}'
+      || cropAspect?.type !== 'number'
+      || cropAspect.required === true
+      || !(cropAspect.validate?.min > 0)) {
+      errors.push(`module.${name}: must send the selected URL or Base64 source and an optional crop_aspect above 0 to POST ${path}`);
+    }
+    if (name === 'fixSeams'
+      && (seamRequest?.headers?.['Idempotency-Key'] !== '{{if(parameters.idempotency_key, parameters.idempotency_key, undefined)}}'
+        || !fieldAt(seamParams, 'wait_for_completion'))) {
+      errors.push('module.fixSeams: must send the Idempotency-Key and offer Wait for completion');
+    }
   }
 
   for (const [name, rpc] of Object.entries(manifest.components?.rpc ?? {})) {

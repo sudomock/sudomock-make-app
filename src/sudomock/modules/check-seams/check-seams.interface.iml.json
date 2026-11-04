@@ -1,0 +1,77 @@
+[
+  {
+    "name": "status",
+    "label": "Status",
+    "type": "text"
+  },
+  {
+    "name": "seams",
+    "label": "Seams",
+    "type": "array",
+    "spec": [
+      {
+        "name": "side",
+        "label": "Side",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "label": "Status",
+        "type": "text"
+      },
+      {
+        "name": "ranges",
+        "label": "Ranges",
+        "type": "array",
+        "spec": {
+          "type": "array",
+          "spec": {
+            "type": "integer"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "width",
+    "label": "Width",
+    "type": "integer"
+  },
+  {
+    "name": "height",
+    "label": "Height",
+    "type": "integer"
+  },
+  {
+    "name": "fixable",
+    "label": "Fixable",
+    "type": "boolean"
+  },
+  {
+    "name": "unfixable_reason",
+    "label": "Unfixable reason",
+    "type": "text"
+  },
+  {
+    "name": "previous_fix",
+    "label": "Previous fix",
+    "type": "collection",
+    "spec": [
+      {
+        "name": "job_id",
+        "label": "Job ID",
+        "type": "uuid"
+      },
+      {
+        "name": "result_url",
+        "label": "Result URL",
+        "type": "url"
+      },
+      {
+        "name": "alternative_url",
+        "label": "Alternative URL",
+        "type": "url"
+      }
+    ]
+  }
+]

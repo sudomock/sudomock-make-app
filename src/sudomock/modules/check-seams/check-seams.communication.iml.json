@@ -1,0 +1,12 @@
+{
+  "url": "/check-seams",
+  "method": "POST",
+  "body": {
+    "url": "{{parameters.url}}",
+    "base64": "{{parameters.base64}}",
+    "crop_aspect": "{{parameters.crop_aspect}}"
+  },
+  "response": {
+    "output": "{{body.data}}"
+  }
+}

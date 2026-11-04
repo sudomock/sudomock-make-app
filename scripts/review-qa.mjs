@@ -63,6 +63,17 @@ const scenarios = [
   reviewScenario('SudoMock App Review 01b - Background removal', [
     step('removeBackground', { source_type: 'url', url: artworkUrl }),
   ]),
+  // The fixed key hands a rerun the same fix job, so QA pays for one fix.
+  reviewScenario('SudoMock App Review 01c - Seam check and fix', [
+    step('checkSeams', { source_type: 'url', url: artworkUrl }),
+    step('fixSeams', {
+      source_type: 'url',
+      url: artworkUrl,
+      wait_for_completion: true,
+      poll_timeout: 300,
+      idempotency_key: 'make-review-seam-fix-v1',
+    }),
+  ]),
   reviewScenario('SudoMock App Review 02 - PSD, still, cleanup', [
     step('uploadPsd', { psd_file_url: psdUrl, psd_name: 'Synthetic review QA', is_async: false }),
     step('getMockup', { mockup_uuid: '{{1.uuid}}' }),

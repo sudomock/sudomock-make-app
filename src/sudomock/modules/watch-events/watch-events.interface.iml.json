@@ -25,6 +25,11 @@
     "type": "text"
   },
   {
+    "name": "alternative_url",
+    "label": "Alternative URL",
+    "type": "text"
+  },
+  {
     "name": "mockup_id",
     "label": "Photo mockup ID",
     "type": "uuid"

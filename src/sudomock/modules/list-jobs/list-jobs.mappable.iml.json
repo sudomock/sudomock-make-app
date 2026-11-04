@@ -30,6 +30,10 @@
             "value": "photo_mockup_render"
           },
           {
+            "label": "Seam fix",
+            "value": "seam_fix"
+          },
+          {
             "label": "2D create (legacy)",
             "value": "2d_create"
           },
