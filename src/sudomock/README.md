@@ -62,11 +62,15 @@ Set **Tile** to repeat the artwork as a pattern across the whole target, and **T
 - On **Render a mockup** and **Render a video**, **Tile** sits on a Smart Object's **Asset**. **Size** is one tile, **Fit** places the artwork inside each tile, and **Position** sets where the grid starts, so a tile needs a **Size**.
 - On **Render a photo mockup**, **Tile** sits in a render target's **Placement**. The size you set is one tile: **Fit**, or **Width** and **Height**, on a print area, and **Coverage**, or **Width** and **Height**, on a surface. **Position** with **Horizontal offset** and **Vertical offset** sets where the grid starts.
 
+To see whether a tile repeats without a visible line before you render it, and to fix it when it does not, see **Check and fix a pattern tile**.
+
 ## Check and fix a pattern tile
 
 Before you repeat a design with **Tile**, add **Check a pattern tile for seams** to see whether copies of the tile meet without a visible line. Choose URL or Base64 as the **Source type** and provide the tile. When the render places the artwork with **Fit** crop, set **Crop aspect** to the tile's width divided by its height, so the check sees exactly the tile the render shows. The module returns `status` (`seamless`, `faint_seam`, or `visible_seam`), the sides with a seam and where along them it shows, whether a fix can repair the tile, and your previous fix of the same tile. Seam check: free.
 
-**Fix the seams of a pattern tile** takes the same fields and makes the tile repeat without a visible line, keeping its width and height. Turn on **Wait for completion** to receive the finished job with `result_url`, `alternative_url` (a second fixed version, when one was delivered), `result_status`, and `changes`. Seam fix: 60 credits, refunded if the fix fails. A tile with transparent edges, or one larger than a fix takes, is refused and nothing is charged.
+**Fix the seams of a pattern tile** takes the same fields and makes the tile repeat without a visible line, keeping its width and height. The fix runs as a job: turn on **Wait for completion** to receive the finished job with `result_url`, `alternative_url` (a second fixed version, when one was delivered), `result_status`, and `changes`, or start a scenario with **Watch events** on `seam_fix.succeeded`. Seam fix: 60 credits, refunded if the fix fails. A tile with transparent edges, or one larger than a fix takes, is refused and nothing is charged. Set **Idempotency key** so that a rerun with the same key returns the same job and is not charged again.
+
+A fix that cannot repair the tile ends as `failed` with the error code `TILE_NOT_FIXABLE`, and `error.details.reason` says why: `not_a_pattern_tile` when the image is not a repeating pattern tile, `no_clean_result` when no fixed version of the tile repeated cleanly. The 60 credits are refunded.
 
 ## Asynchronous jobs
 
@@ -76,11 +80,11 @@ Terminal job statuses are `succeeded`, `failed`, and `cancelled`. Work in progre
 
 ## Watch events
 
-**Watch events** starts a scenario when a SudoMock job finishes, so the scenario can continue with the render, video, upload, or photo mockup result without checking the job.
+**Watch events** starts a scenario when a SudoMock job finishes, so the scenario can continue with the render, video, upload, photo mockup, or seam fix result without checking the job.
 
 1. Add **Watch events** as the first module of a scenario and create a webhook with your SudoMock connection.
 2. Choose the **Event types** to receive, or leave the field empty to receive every event.
-3. Turn the scenario on. Each event you receive starts it with the event name, the job ID and status, and the result URL or error.
+3. Turn the scenario on. Each event you receive starts it with the event name, the job ID and status, and the result URL or error. A `seam_fix.succeeded` event also carries the alternative URL, a second fixed version of the tile or empty.
 
 Each delivery is checked against SudoMock's signature. A delivery whose signature does not match, or that is older than 5 minutes, is rejected and starts no scenario.
 

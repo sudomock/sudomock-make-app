@@ -19,7 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Get a job** and **Search jobs** return `alternative_url`,
   `result_status`, `changes` and `stage` for a seam fix, **Search jobs**
   filters by the `seam_fix` kind, and **Watch events** offers
-  `seam_fix.succeeded` and `seam_fix.failed`.
+  `seam_fix.succeeded` and `seam_fix.failed` and returns `alternative_url`.
+- The in-app guide points from **Repeat a design as a pattern** to the seam
+  check, and says why a fix that cannot repair a tile failed.
 
 ## [2026-11-03]
 
