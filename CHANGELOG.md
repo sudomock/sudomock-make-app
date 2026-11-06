@@ -5,7 +5,7 @@ All notable changes to the SudoMock app for Make are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2026-11-05]
+## [2026-11-06]
 
 ### Added
 - **Check a pattern tile for seams** checks whether copies of a pattern tile
