@@ -567,20 +567,20 @@ if (manifest) {
       'updated_at', 'version',
     ],
   };
+  const exactQuadFields = ['name', 'points', 'print_area_id', 'sort_order'];
   for (const [name, expectedFields] of Object.entries(exact2DDetailFields)) {
     const output = code(manifest.components?.module?.[name] ?? {}, 'interface');
-    const quadMaskUuid = fieldAt(output, 'quads.x_field_a');
+    const quads = fieldAt(output, 'quads');
     const surfaces = fieldAt(output, 'surfaces');
     const outputFields = Array.isArray(output) ? output.map((field) => field.name).sort() : [];
-    const surfaceFields = Array.isArray(surfaces?.spec)
-      ? surfaces.spec.map((field) => field.name).sort()
-      : [];
-    if (quadMaskUuid !== undefined
-      || JSON.stringify(outputFields) !== JSON.stringify(expectedFields)
+    const nested = (field) => (Array.isArray(field?.spec) ? field.spec.map((inner) => inner.name).sort() : []);
+    if (JSON.stringify(outputFields) !== JSON.stringify(expectedFields)
+      || quads?.type !== 'array'
+      || JSON.stringify(nested(quads)) !== JSON.stringify(exactQuadFields)
       || surfaces?.type !== 'array'
-      || JSON.stringify(surfaceFields) !== JSON.stringify(['label', 'surface_uuid'])
+      || JSON.stringify(nested(surfaces)) !== JSON.stringify(['label', 'surface_uuid'])
       || fieldAt(output, 'surfaces.surface_uuid')?.type !== 'uuid') {
-      errors.push(`module.${name}: output must match the canonical public detail and surface_uuid shape`);
+      errors.push(`module.${name}: output must match the canonical public detail, quad and surface_uuid shape`);
     }
   }
 
@@ -613,11 +613,28 @@ if (manifest) {
         ];
       }),
   ].join('\n');
-  if (/\/setup\b|\b2D setup\b|x-step-a|x-step-b|mask\/commit/i.test(public2DContractCopy)) {
-    errors.push('public photo mockup UI/docs: retired setup or mask-workflow aliases are not allowed');
-  }
-  if (/\b(?:x_field_a|x_field_e|x_field_d|x_field_f|x_field_g|x_field_h|x_field_i)\b/i.test(public2DContractCopy)) {
-    errors.push('public photo mockup UI/docs: internal mask, depth, grid, warp, edge, and texture fields are not allowed');
+  // Every snake_case identifier the public photo mockup copy may mention. An
+  // identifier outside this set is either a typo or a field that is not part
+  // of the public contract, and both are a failure: naming the forbidden ones
+  // instead would publish them in this very file.
+  const publicPhotoMockupIdentifiers = new Set([
+    'artwork_url', 'base64', 'blend_mode', 'brightness', 'content_type', 'created_at',
+    'crop_aspect', 'customizable', 'customizable_only', 'edit_url', 'export_format',
+    'export_options', 'export_path', 'flip_horizontal', 'flip_vertical', 'folder_uuid',
+    'image_format', 'image_size', 'is_async', 'job_id', 'mockup_id', 'offset_x',
+    'offset_y', 'photo_mockup', 'photo_mockup_create', 'photo_mockup_render',
+    'print_area_id', 'print_areas', 'remove_background', 'render_uuid', 'result_url',
+    'sort_order', 'source_base64', 'source_height', 'source_url', 'source_width',
+    'status_url', 'surface_uuid', 'thumbnail_url', 'tile_spacing', 'print_files',
+    'alternative_url', 'duration_ms', 'mockup_uuid', 'result_status', 'source_type',
+    'updated_at', 'seam_fix', 'faint_seam', 'visible_seam', 'no_clean_result',
+    'not_a_pattern_tile', 'top_left', 'top_center', 'top_right', 'center_left',
+    'center_right', 'bottom_left', 'bottom_center', 'bottom_right',
+  ]);
+  const copyIdentifiers = new Set(public2DContractCopy.match(/\b[a-z][a-z0-9]*(?:_[a-z0-9]+)+\b/g) ?? []);
+  const unexpectedIdentifiers = [...copyIdentifiers].filter((name) => !publicPhotoMockupIdentifiers.has(name)).sort();
+  if (unexpectedIdentifiers.length) {
+    errors.push(`public photo mockup UI/docs: identifier(s) outside the public contract: ${unexpectedIdentifiers.join(', ')}`);
   }
 
   const renderVideo = manifest.components?.module?.renderVideo;
