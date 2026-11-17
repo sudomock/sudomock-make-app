@@ -29,6 +29,41 @@ const piiPath = join(root, '.secrets/pii-denylist');
 const reservedCopyPattern = new RegExp(`\\b${String.fromCharCode(65, 73)}\\b`);
 const obsoleteDocsPath = `/${['docs', 'api'].join('/')}`;
 const credentialPattern = /-----BEGIN [A-Z ]*PRIVATE KEY-----|\b(?:gh[pousr]|sk_(?:live|test))_[A-Za-z0-9_-]{20,}\b|\bBearer\s+[A-Za-z0-9._~-]{20,}/;
+const publicEmails = new Set(['hello@sudomock.com', 'hello+make-review@sudomock.com']);
+// A retina asset such as logo@2x.png has an email's shape. An image extension
+// is not a mailbox domain, so it is never accepted as the TLD. A real address
+// beside that asset, including one written immediately before the extension, still matches.
+const emailPattern = /\b[\w.+-]+@[\w.-]+\.(?!(?:png|jpe?g|gif|svg|webp)\b)[a-z]{2,}\b/gi;
+
+function nonPublicEmails(content) {
+  const found = [];
+  for (const [email] of content.matchAll(emailPattern)) {
+    if (!publicEmails.has(email.toLowerCase())) found.push(email);
+  }
+  return found;
+}
+
+// The disallowed sample is assembled here so this file does not itself contain
+// a non-public address for the scan below to reject.
+function verifyEmailCheck() {
+  const disallowed = ['private', 'example.com'].join('@');
+  const cases = [
+    ['logo-horizontal-light-icon-light-text@2x.png', []],
+    ['logo-horizontal@2x.png', []],
+    ['mark@2x.jpg mark@2x.jpeg mark@2x.gif mark@2x.svg mark@2x.webp mark@2x.PNG', []],
+    ['hello@sudomock.com hello+make-review@sudomock.com HELLO@SudoMock.com', []],
+    [`Write to ${disallowed} and keep logo-horizontal@2x.png.`, [disallowed]],
+    [`${disallowed}.png`, [disallowed]],
+  ];
+  for (const [index, [content, expected]] of cases.entries()) {
+    const actual = nonPublicEmails(content);
+    if (actual.length !== expected.length || actual.some((email, emailIndex) => email !== expected[emailIndex])) {
+      errors.push(`email check: self-test case ${index + 1} failed`);
+    }
+  }
+}
+
+verifyEmailCheck();
 const personalTerms = [
   process.env.USER,
   process.env.LOGNAME,
@@ -62,9 +97,7 @@ for (const file of files) {
   if (credentialPattern.test(content)) errors.push(`${name}: contains a credential-like value`);
 
   // The review QA account is an alias that delivers to hello@sudomock.com.
-  for (const [email] of content.matchAll(/\b[\w.+-]+@[\w.-]+\.[a-z]{2,}\b/gi)) {
-    if (!['hello@sudomock.com', 'hello+make-review@sudomock.com'].includes(email.toLowerCase())) errors.push(`${name}: contains a non-public email address`);
-  }
+  if (nonPublicEmails(content).length) errors.push(`${name}: contains a non-public email address`);
 }
 
 if (!existsSync(join(root, 'docs/app-review-gate.md'))) errors.push('docs/app-review-gate.md: required review gate is missing');
