@@ -12,7 +12,7 @@ Re-check the sources on the day the review is requested.
 
 ## Code and security
 
-- [ ] The app contains exactly one connection, one webhook, one universal module, the reviewed public modules, and no test-only components.
+- [ ] The app contains exactly one connection, one webhook, one universal module, and the reviewed public modules. A component present at publish time can never be removed, so nothing is added for testing alone; see [Irreversible release gate](#irreversible-release-gate).
 - [ ] `X-API-KEY`, `Authorization`, and webhook signing secrets are sanitized from logs.
 - [ ] Invalid credentials fail through `GET /api/v1/me` with a useful Make error.
 - [ ] API errors and HTTP 429 responses become useful Make errors.
@@ -68,10 +68,10 @@ Primary rule: [App review prerequisites](https://developers.make.com/custom-apps
 
 - [ ] The development deploy matches the reviewed Git revision and passes the local checks.
 - [ ] SudoMock has approved the final module inventory, public copy, logo, theme, support identity, and test evidence.
-- [ ] The app contains nothing that may need deletion later.
+- [ ] Every component in the app is one SudoMock means to keep, because a component that is no longer wanted can only be hidden, never deleted.
 - [ ] Explicit approval to click **Publish** has been given.
 - [ ] Explicit approval to submit **Request review** has been given.
 
-Publishing cannot be undone and public components cannot be deleted. See [Request app review](https://developers.make.com/custom-apps-documentation/app-review/request-app-review).
+Publishing cannot be undone, and after it no module or component can be deleted, hidden ones included: "Once the app is published, it is not possible to delete any module or component" ([App visibility](https://developers.make.com/custom-apps-documentation/app-visibility)). A delete request answers HTTP 400 with `{"message":"Can't delete module from public app.","code":"IM005"}` (measured 2026-11-17 on `DELETE /api/v2/sdk/apps/{app}/{version}/modules/{module}`). The documented way to retire a module is the one that page gives: change its label so it reads as unusable, then hide it by setting the module's `public` to `false`. The module stays in the app and every scenario already using it keeps working. See also [Request app review](https://developers.make.com/custom-apps-documentation/app-review/request-app-review).
 
 After approval, changes are tested in the private development version and submitted to Make for approval before reaching the public version. See [Approved apps](https://developers.make.com/custom-apps-documentation/app-maintenance/updating-your-app/approved-apps).
