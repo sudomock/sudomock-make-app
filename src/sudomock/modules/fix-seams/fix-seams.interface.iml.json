@@ -45,6 +45,16 @@
     "type": "text"
   },
   {
+    "name": "fine_detail",
+    "label": "Fine detail",
+    "type": "text"
+  },
+  {
+    "name": "changed_area",
+    "label": "Changed area",
+    "type": "text"
+  },
+  {
     "name": "error",
     "label": "Error",
     "type": "any"
