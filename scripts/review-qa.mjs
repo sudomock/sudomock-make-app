@@ -74,6 +74,19 @@ const scenarios = [
       idempotency_key: 'make-review-seam-fix-v1',
     }),
   ]),
+  reviewScenario('SudoMock App Review 01d - Seam check', [
+    step('checkSeams', { source_type: 'url', url: artworkUrl }),
+  ]),
+  // Waits for the result, so the date fields come back parsed. The fixed key keeps a rerun at one paid fix.
+  reviewScenario('SudoMock App Review 01e - Seam fix, wait for completion', [
+    step('fixSeams', {
+      source_type: 'url',
+      url: artworkUrl,
+      wait_for_completion: true,
+      poll_timeout: 300,
+      idempotency_key: 'make-review-seam-fix-v2',
+    }),
+  ]),
   reviewScenario('SudoMock App Review 02 - PSD, still, cleanup', [
     step('uploadPsd', { psd_file_url: psdUrl, psd_name: 'Synthetic review QA', is_async: false }),
     step('getMockup', { mockup_uuid: '{{1.uuid}}' }),
